@@ -1,8 +1,9 @@
 // ==UserScript==
 // @name         斗鱼去火箭横幅
 // @namespace    https://github.com/wah0713
-// @version      0.5
+// @version      0.51
 // @description  去除 火力全开（输入框上方）、播发器内关注按钮、右侧浮动广告、底部广告、抽奖中间部提示框、竞猜、火箭横幅、亲密互动(播放器左下角)、抽奖(播放器左下角)
+// @supportURL   https://github.com/wah0713/myTampermonkey/issues
 // @author       wah0713
 // @compatible   chrome
 // @license      MIT
@@ -35,8 +36,8 @@
         // 亲密互动(播放器左下角)、
         '.closeBg-998534',
         // 抽奖(播放器左下角)、
-        '.UPlayerLotteryEnter'
-        // 贵族入场提醒（输入框上方）
+        // '.UPlayerLotteryEnter'
+        // // 贵族入场提醒（输入框上方）
     ]
     let tempArr = []
     const target = $('body')[0]
@@ -73,9 +74,9 @@
 
         // 支持url带 /topic
         if (window.location.pathname.indexOf('topic') > -1) {
-            $('.layout-Main').offset({
-                'top': 80
-            })
+            $('.layout-Main')[0].setAttribute('style',
+                'margin-top: 80px;'
+            )
         }
         // 播发器大小及位置
         $('.Background-holder').css('padding-top', 10)
