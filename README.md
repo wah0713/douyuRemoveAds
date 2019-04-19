@@ -2,7 +2,7 @@
 
 ## 效果图：
 
-![效果图](https://wah0713.github.io/myTampermonkey/image/douyu.png)
+![效果图](image/douyu.png)
 
 ### bug和建议：
 
