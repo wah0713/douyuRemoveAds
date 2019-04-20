@@ -37,6 +37,8 @@
         // 抽奖(播放器左下角)、
         '.UPlayerLotteryEnter',
         // 贵族入场提醒（输入框上方）、
+        '.EnterEffect',
+        // 贵族入场提醒（输入框上方）、
         '.ToolbarActivityArea',
         // 页游签到奖励（播放器左下角）、
         '.Title-roomOtherBottom',
