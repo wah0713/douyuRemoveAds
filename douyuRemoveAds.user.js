@@ -1,8 +1,8 @@
 // ==UserScript==
 // @name         斗鱼去火箭横幅
 // @namespace    https://github.com/wah0713
-// @version      1.0
-// @description  去除 火力全开（输入框上方）、播发器内关注按钮、右侧浮动广告、底部广告、抽奖中间部提示框、竞猜、火箭横幅、亲密互动(播放器左下角)、抽奖(播放器左下角)、贵族入场提醒（输入框上方）、页游签到奖励（播放器左下角）、分享 客户端 手游中心（播放器右上角）、首充奖励
+// @version      1.1
+// @description  去除 火力全开（输入框上方）、播发器内关注按钮、右侧浮动广告、底部广告、抽奖中间部提示框、竞猜、火箭横幅、亲密互动(播放器左下角)、抽奖(播放器左下角)、贵族入场提醒（输入框上方）、页游签到奖励（播放器左下角）、分享 客户端 手游中心（播放器右上角）、导航栏客户端按钮
 // @supportURL   https://github.com/wah0713/myTampermonkey/issues
 // @author       wah0713
 // @compatible   chrome
@@ -12,7 +12,6 @@
 // @match        http*://www.douyu.com/*
 // @grant        none
 // ==/UserScript==
-
 
 (function () {
     if (!/^\/\d+$/.test(window.location.pathname) && window.location.pathname.indexOf('topic') === -1) return false
@@ -42,8 +41,8 @@
         // 页游签到奖励（播放器左下角）、
         '.Title-roomOtherBottom',
         // 分享 客户端 手游中心（播放器右上角）、
-        '.FirstRecharge'
-        // 首充奖励
+        '.Header-download-wrap'
+        // 导航栏客户端按钮
     ]
     let tempArr = []
 
@@ -94,7 +93,7 @@
             })
         }
 
-        // 去掉除播放器以外的多余元素
+        // 去掉除播放器以外的多余bc-wrapper元素
         $('.bc-wrapper').each((index, element) => {
             $(element).children().each((ind, ele) => {
                 if ($(ele).hasClass('layout-Main')) {
@@ -108,6 +107,9 @@
             'background-color': 'transparent',
             'background-image': 'none'
         })
+
+        // 去掉播放器下方活动列表
+        $('.ToolbarGiftArea').length === 1 && $('.ToolbarGiftArea').children().not('.GiftInfoPanel').not('.ToolbarGiftArea-GiftBox').not('.ToolbarGiftArea-giftExpandBox').not($('.ToolbarGiftArea').children().eq(-1)).hide()
 
     });
     const config = {
