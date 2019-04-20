@@ -1,6 +1,6 @@
 # [斗鱼去火箭横幅](https://greasyfork.org/zh-CN/scripts/381934-%E6%96%97%E9%B1%BC%E5%8E%BB%E7%81%AB%E7%AE%AD%E6%A8%AA%E5%B9%85)
 
-## 效果图：
+### 效果图：
 
 ![效果图](image/douyu.png)
 
