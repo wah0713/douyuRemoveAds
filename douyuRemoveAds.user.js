@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         斗鱼去火箭横幅
 // @namespace    https://github.com/wah0713
-// @version      0.6
+// @version      1.0
 // @description  去除 火力全开（输入框上方）、播发器内关注按钮、右侧浮动广告、底部广告、抽奖中间部提示框、竞猜、火箭横幅、亲密互动(播放器左下角)、抽奖(播放器左下角)、贵族入场提醒（输入框上方）、页游签到奖励（播放器左下角）、分享 客户端 手游中心（播放器右上角）、首充奖励
 // @supportURL   https://github.com/wah0713/myTampermonkey/issues
 // @author       wah0713
