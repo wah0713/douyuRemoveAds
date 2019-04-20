@@ -1,8 +1,8 @@
 // ==UserScript==
 // @name         斗鱼去火箭横幅
 // @namespace    https://github.com/wah0713
-// @version      0.51
-// @description  去除 火力全开（输入框上方）、播发器内关注按钮、右侧浮动广告、底部广告、抽奖中间部提示框、竞猜、火箭横幅、亲密互动(播放器左下角)、抽奖(播放器左下角)
+// @version      0.6
+// @description  去除 火力全开（输入框上方）、播发器内关注按钮、右侧浮动广告、底部广告、抽奖中间部提示框、竞猜、火箭横幅、亲密互动(播放器左下角)、抽奖(播放器左下角)、贵族入场提醒（输入框上方）、页游签到奖励（播放器左下角）、分享 客户端 手游中心（播放器右上角）、首充奖励
 // @supportURL   https://github.com/wah0713/myTampermonkey/issues
 // @author       wah0713
 // @compatible   chrome
@@ -36,31 +36,22 @@
         // 亲密互动(播放器左下角)、
         '.closeBg-998534',
         // 抽奖(播放器左下角)、
-        // '.UPlayerLotteryEnter'
-        // // 贵族入场提醒（输入框上方）
+        '.UPlayerLotteryEnter',
+        // 贵族入场提醒（输入框上方）、
+        '.ToolbarActivityArea',
+        // 页游签到奖励（播放器左下角）、
+        '.Title-roomOtherBottom',
+        // 分享 客户端 手游中心（播放器右上角）、
+        '.FirstRecharge'
+        // 首充奖励
     ]
     let tempArr = []
-    const target = $('body')[0]
-    const observer = new MutationObserver(function (mutations) {
 
-        function layoutMainReSize() {
-            if ($(window).width() < 1366) {
-                $('.layout-Main')[0].setAttribute('style', `
-                position: fixed;
-                left: 50%;
-                transform: translateX(-50%);
-                width:966px!important;
-                max-width:966px!important`)
-            } else {
-                console.log($('.layout-Main')[0]);
-                $('.layout-Main')[0].setAttribute('style', `
-                position: fixed;
-                left: 50%;
-                transform: translateX(-50%);
-                width: 1400px!important;
-                max-width: 1400px!important;`)
-            }
-        }
+    let notProcessedLayoutMain = true
+    let notProcessedBackground = true
+
+    const target = $('body')[0]
+    const observer = new MutationObserver(function () {
         // remove模块
         tempArr = removeDomList.slice(0)
         let i = 0
@@ -73,20 +64,35 @@
         removeDomList = tempArr.slice(0)
 
         // 支持url带 /topic
-        if (window.location.pathname.indexOf('topic') > -1) {
-            $('.layout-Main')[0].setAttribute('style',
-                'margin-top: 80px;'
-            )
+        if (notProcessedLayoutMain) {
+            if (window.location.pathname.indexOf('topic') > -1) {
+                $('.layout-Main')[0].setAttribute('style',
+                    'margin-top: 80px;'
+                )
+            }
+            notProcessedLayoutMain = false
         }
-        // 播发器大小及位置
-        $('.Background-holder').css('padding-top', 10)
-        // $(window).on("resize", function () {
-        //     layoutMainReSize()
-        // })
-        // layoutMainReSize()
 
-        // 背景色
-        $('body').css('background-color', '#abc')
+        // 播发器大小及位置
+        if (notProcessedBackground) {
+            $('.Background-holder').css('padding-top', 10)
+            notProcessedBackground = false
+        }
+
+        // 背景图
+        if ($('.layout-Main').offset().top < $(window).height() * 1 / 2) {
+            $('body').css({
+                'background-image': "none",
+                'background-color': '#abc',
+            })
+        } else {
+            $('body').css({
+                'background-image': "url('https://wah0713.github.io/myTampermonkey/image/down.jpg')",
+                'background-color': '#f6f6f6',
+                'background-position': 'center 68px',
+                'background-repeat': 'repeat-y'
+            })
+        }
 
         // 去掉除播放器以外的多余元素
         $('.bc-wrapper').each((index, element) => {
@@ -98,21 +104,11 @@
             })
         })
         $('.bc-wrapper').not($('.bc-wrapper')[sign]).remove()
-
-        $($('.bc-wrapper')[sign]).css({
+        $('.bc-wrapper').css({
             'background-color': 'transparent',
             'background-image': 'none'
         })
-        //
-        // console.log("$('.wfs-2a8e83')", $('.wfs-2a8e83'));
-        // $('.wfs-2a8e83').on('click',function(){
-        //     setTimeout(function(){
-        //         console.log('$( is-fullScreenPage)',$('.is-fullScreenPage'));
-        //         if($('.is-fullScreenPage').length != 0){
 
-        //         }
-        //     },200)
-        // })
     });
     const config = {
         subtree: true,
