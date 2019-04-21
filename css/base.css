@@ -24,3 +24,12 @@ html ::-webkit-scrollbar-thumb {
 html ::-webkit-scrollbar-track {
   background-color: rgba(255, 255, 255, 0);
 }
+html .Barrage-listItem .Barrage-nickName {
+  color: #2b94ff !important;
+}
+html .Barrage-listItem .Barrage-nickName.is-self {
+  color: #ff5d23 !important;
+}
+html .Barrage-listItem .Barrage-content {
+  color: #333 !important;
+}
