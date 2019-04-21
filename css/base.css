@@ -30,6 +30,15 @@ html .Barrage-listItem .Barrage-nickName {
 html .Barrage-listItem .Barrage-nickName.is-self {
   color: #ff5d23 !important;
 }
-html .Barrage-listItem .Barrage-content {
-  color: #333 !important;
+html .bc-wrapper {
+  background-color: transparent !important;
+  background-image: none !important;
+}
+html .noble-bf13ad {
+  background-color: transparent !important;
+  opacity: 0.75 !important;
+}
+html .Barrage-notice--noble {
+  background-color: transparent !important;
+  border: none !important;
 }

@@ -1,8 +1,8 @@
 // ==UserScript==
 // @name         斗鱼去火箭横幅
 // @namespace    https://github.com/wah0713/myTampermonkey
-// @version      1.1
-// @description  去除 火力全开（输入框上方）、播发器内关注按钮、右侧浮动广告、底部广告、抽奖中间部提示框、竞猜、火箭横幅、亲密互动(播放器左下角)、抽奖(播放器左下角)、贵族入场提醒（输入框上方）、页游签到奖励（播放器左下角）、分享 客户端 手游中心（播放器右上角）、导航栏客户端按钮
+// @version      1.2
+// @description  去除 播放器和聊天框贵族标识、火力全开（输入框上方）、播放器内关注按钮、右侧浮动广告、底部广告、抽奖中间部提示框、竞猜、火箭横幅、亲密互动(播放器左下角)、抽奖(播放器左下角)、贵族入场提醒（输入框上方）、页游签到奖励（播放器左下角）、分享 客户端 手游中心（播放器右上角）、导航栏客户端按钮、播放器内主播推荐关注弹幕、播放器内房间号日期（播放器内左下角）、播放器左侧亲密互动、播放器左下角下载客户端QR
 // @supportURL   https://github.com/wah0713/myTampermonkey/issues
 // @author       wah0713
 // @compatible   chrome
@@ -20,7 +20,7 @@
     let removeDomList = [
         // 火力全开（输入框上方）、
         '.FirePower',
-        // 播发器内关注按钮、
+        // 播放器内关注按钮、
         '.focus_box_con-7adc83',
         // 右侧浮动广告、
         ' #js-room-activity',
@@ -43,8 +43,18 @@
         // 页游签到奖励（播放器左下角）、
         '.Title-roomOtherBottom',
         // 分享 客户端 手游中心（播放器右上角）、
-        '.Header-download-wrap'
-        // 导航栏客户端按钮
+        '.Header-download-wrap',
+        // 导航栏客户端按钮、
+        '.noSubFloat-3e7a50',
+        // 播放器内主播推荐关注弹幕
+        '.watermark-442a18',
+        // 播放器内房间号日期（播放器内左下角）、
+        '.code_box-5cdf5a',
+        '.code-box-15b952',
+        // 播放器左下角下载客户端QR、
+        '.normalBg-a5403d'
+        // 播放器左侧亲密互动
+
     ]
     let tempArr = []
 
@@ -81,7 +91,7 @@
             notProcessedLayoutMain = false
         }
 
-        // 播发器位置
+        // 播放器位置
         if (notProcessedBackground) {
             $('.Background-holder').css('padding-top', 10)
             notProcessedBackground = false
@@ -119,14 +129,37 @@
             })
         })
         $('.bc-wrapper').not($('.bc-wrapper')[sign]).remove()
-        $('.bc-wrapper').css({
-            'background-color': 'transparent',
-            'background-image': 'none'
-        })
 
         // 去掉播放器下方活动列表
         $('.ToolbarGiftArea').length === 1 && $('.ToolbarGiftArea').children().not('.GiftInfoPanel').not('.ToolbarGiftArea-GiftBox').not('.ToolbarGiftArea-giftExpandBox').not($('.ToolbarGiftArea').children().eq(-1)).hide()
 
+        // 播放器内贵族样式弹幕（降级为普通弹幕）
+        $('.user-icon-8af1e3').remove()
+        $('.noble-icon-c10b6a').remove()
+
+        // 播放器内分区弹幕
+        $(".bc-f66a59").remove()
+
+        // 播放器内火力全开获奖
+        $('.FirePowerRewardModal').remove()
+
+        // // 输入框上方送礼400毫米淡出
+        $("#js-player-barrage .BarrageBanner").children().delay(1000 * 3).fadeOut("slow")
+
+        // 聊天框用户进入欢迎语
+        $('.Barrage-list .Barrage-userEnter').parent('.Barrage-listItem').hide()
+
+        // 聊天框用户送礼
+        $('.Barrage-list .Barrage-message').parent('.Barrage-listItem').hide()
+
+        // 聊天框用户竞猜获奖
+        $('.Barrage-list .Barrage-guess').parent('.Barrage-listItem').hide()
+
+        // 聊天框用户粉丝牌升级
+        $('.Barrage-list .Barrage-icon--sys').parent('.Barrage-listItem').hide()
+
+        // 聊天框用户铭牌
+        $('.Barrage-list .Barrage-nickName').prevAll().hide()
     })
     const config = {
         subtree: true,
