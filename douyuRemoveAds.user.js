@@ -81,7 +81,7 @@
             notProcessedLayoutMain = false
         }
 
-        // 播发器大小及位置
+        // 播发器位置
         if (notProcessedBackground) {
             $('.Background-holder').css('padding-top', 10)
             notProcessedBackground = false
@@ -94,7 +94,6 @@
                 'background-color': '#abc'
             })
         } else {
-            // https://wah0713.github.io/myTampermonkey/css/base.css
             $('body').css({
                 'background-image': "url('https://wah0713.github.io/myTampermonkey/image/down.jpg')",
                 'background-color': '#f6f6f6',
