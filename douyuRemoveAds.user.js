@@ -1,6 +1,6 @@
 // ==UserScript==
 // @name         斗鱼去火箭横幅
-// @namespace    https://github.com/wah0713
+// @namespace    https://github.com/wah0713/myTampermonkey
 // @version      1.1
 // @description  去除 火力全开（输入框上方）、播发器内关注按钮、右侧浮动广告、底部广告、抽奖中间部提示框、竞猜、火箭横幅、亲密互动(播放器左下角)、抽奖(播放器左下角)、贵族入场提醒（输入框上方）、页游签到奖励（播放器左下角）、分享 客户端 手游中心（播放器右上角）、导航栏客户端按钮
 // @supportURL   https://github.com/wah0713/myTampermonkey/issues
@@ -38,7 +38,7 @@
         '.UPlayerLotteryEnter',
         // 贵族入场提醒（输入框上方）、
         '.EnterEffect',
-        // 贵族入场提醒（输入框上方）、
+        // 补充 贵族入场提醒（输入框上方）、
         '.ToolbarActivityArea',
         // 页游签到奖励（播放器左下角）、
         '.Title-roomOtherBottom',
@@ -48,8 +48,10 @@
     ]
     let tempArr = []
 
+    // 只执行一次
     let notProcessedLayoutMain = true
     let notProcessedBackground = true
+    let notProcessedLayoutContainer = true
 
     const target = $('body')[0]
     const observer = new MutationObserver(function () {
@@ -84,7 +86,7 @@
         if ($('.layout-Main').offset().top < $(window).height() * 1 / 2) {
             $('body').css({
                 'background-image': "none",
-                'background-color': '#abc',
+                'background-color': '#abc'
             })
         } else {
             $('body').css({
@@ -93,6 +95,13 @@
                 'background-position': 'center 68px',
                 'background-repeat': 'repeat-y'
             })
+        }
+        if (notProcessedLayoutContainer) {
+            $('.layout-Container').css({
+                'background-image': "none",
+                'background-color': '#abc'
+            })
+            notProcessedLayoutContainer = false
         }
 
         // 去掉除播放器以外的多余bc-wrapper元素
@@ -113,10 +122,10 @@
         // 去掉播放器下方活动列表
         $('.ToolbarGiftArea').length === 1 && $('.ToolbarGiftArea').children().not('.GiftInfoPanel').not('.ToolbarGiftArea-GiftBox').not('.ToolbarGiftArea-giftExpandBox').not($('.ToolbarGiftArea').children().eq(-1)).hide()
 
-    });
+    })
     const config = {
         subtree: true,
         childList: true,
     }
-    observer.observe(target, config);
+    observer.observe(target, config)
 })()
