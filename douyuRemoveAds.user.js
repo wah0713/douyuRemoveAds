@@ -54,6 +54,11 @@
     let notProcessedLayoutContainer = true
 
     const target = $('body')[0]
+
+    // 引入定制的样式
+    var myCss = $(`<link rel="stylesheet" href="https://wah0713.github.io/myTampermonkey/css/base.css">`)
+    $('head').append(myCss)
+
     const observer = new MutationObserver(function () {
         // remove模块
         tempArr = removeDomList.slice(0)
@@ -89,6 +94,7 @@
                 'background-color': '#abc'
             })
         } else {
+            // https://wah0713.github.io/myTampermonkey/css/base.css
             $('body').css({
                 'background-image': "url('https://wah0713.github.io/myTampermonkey/image/down.jpg')",
                 'background-color': '#f6f6f6',
