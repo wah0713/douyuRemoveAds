@@ -56,11 +56,7 @@
     const target = $('body')[0]
 
     // 引入定制的样式
-<<<<<<< HEAD
     const myCss = $(`<link rel="stylesheet" href="https://wah0713.github.io/myTampermonkey/css/base.css">`)
-=======
-    var myCss = $(`<link rel="stylesheet" href="https://wah0713.github.io/myTampermonkey/css/base.css">`)
->>>>>>> 3354607ef48b77b213469aecaec5e4eaac26b62f
     $('head').append(myCss)
 
     const observer = new MutationObserver(function () {
