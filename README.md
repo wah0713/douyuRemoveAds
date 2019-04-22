@@ -1,11 +1,13 @@
-# [斗鱼去火箭横幅](https://greasyfork.org/zh-CN/scripts/381934-%E6%96%97%E9%B1%BC%E5%8E%BB%E7%81%AB%E7%AE%AD%E6%A8%AA%E5%B9%85)
+# [斗鱼去火箭横幅(贵族弹幕样式&&聊天区域铭牌)](https://greasyfork.org/zh-CN/scripts/381934-%E6%96%97%E9%B1%BC%E5%8E%BB%E7%81%AB%E7%AE%AD%E6%A8%AA%E5%B9%85)
+
+### 当前版本1.2效果图：
+
+![当前版本1.2](image/douyu2.png)
 
 ### 上个版本1.1效果图：
 
 ![上个版本1.1](image/douyu1.png)
 
-### 当前版本1.2效果图：
-![当前版本1.2](image/douyu2.png)
 
 ### bug和建议：
 
