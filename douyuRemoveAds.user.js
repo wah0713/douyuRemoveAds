@@ -82,8 +82,36 @@
         <button>弹幕悬停</button>
     </div>`)
 
-    console.log(GM_getValue("text", false));
-    GM_setValue('text', true)
+    function adjustClarity_fun() {
+        if (!GM_getValue('adjustClarity', false)) {
+            $('#wah0713 >button:nth-child(1)').addClass('close')
+        } else {
+            $('#wah0713 >button:nth-child(1)').removeClass('close')
+        }
+    }
+    adjustClarity_fun()
+    $('#wah0713 >button:nth-child(1)').click(() => {
+        GM_setValue('adjustClarity', !GM_getValue('adjustClarity', false))
+        adjustClarity_fun()
+    })
+
+    function danmuMove_fun() {
+        if (!GM_getValue('danmuMove', false)) {
+            $('#wah0713 >button:nth-child(2)').addClass('close')
+        } else {
+            $('#wah0713 >button:nth-child(2)').removeClass('close')
+        }
+    }
+    danmuMove_fun()
+    $('#wah0713 >button:nth-child(2)').click(() => {
+        GM_setValue('danmuMove', !GM_getValue('danmuMove', false))
+        danmuMove_fun()
+    })
+
+    $(window).dblclick(() => {
+        console.log(`GM_getValue('adjustClarity', false)`, GM_getValue('adjustClarity', false));
+        console.log(`GM_getValue('danmuMove', false)`, GM_getValue('danmuMove', false));
+    })
 
     const observer = new MutationObserver(function () {
         // remove模块
@@ -108,17 +136,21 @@
         }
 
         // 登录开启最高画质
-        if (notProcessedAdjustClarity && $('.tip-e3420a ul') && $('.tip-e3420a ul').children().length && !$('.tip-e3420a ul li:first-child').hasClass('selected-3a8039')) {
-            $('.tip-e3420a ul li:first-child').click()
-            notProcessedAdjustClarity = false
+        if (GM_getValue('adjustClarity', false)) {
+            if (notProcessedAdjustClarity && $('.tip-e3420a ul') && $('.tip-e3420a ul').children().length && !$('.tip-e3420a ul li:first-child').hasClass('selected-3a8039')) {
+                $('.tip-e3420a ul li:first-child').click()
+                notProcessedAdjustClarity = false
+            }
         }
 
         // 弹幕悬停关闭
-        $('.danmuItem-31f924').each((index, dom) => {
-            if ($(dom).children().length <= 1) {
-                $(dom).append('<div style="height: 100%;width: 100%;position: absolute;top: 0;left: 0;z-index: 999; cursor:default;"></div>')
-            }
-        })
+        if (GM_getValue('danmuMove', false)) {
+            $('.danmuItem-31f924').each((index, dom) => {
+                if ($(dom).children().length <= 1) {
+                    $(dom).append('<div style="height: 100%;width: 100%;position: absolute;top: 0;left: 0;z-index: 999; cursor:default;"></div>')
+                }
+            })
+        }
 
         // 播放器位置
         if (notProcessedBackground) {
