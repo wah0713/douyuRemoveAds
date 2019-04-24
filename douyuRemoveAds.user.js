@@ -2,7 +2,7 @@
 // @name         斗鱼去火箭横幅(贵族弹幕样式&&聊天区域铭牌)
 // @namespace    https://github.com/wah0713/myTampermonkey
 // @version      1.3
-// @description  去除 贵族弹幕样式&&聊天区域铭牌、火力全开（输入框上方）、播放器内关注按钮、右侧浮动广告、底部广告、抽奖中间部提示框、竞猜、火箭横幅、亲密互动(播放器左下角)、抽奖(播放器左下角)、贵族入场提醒（输入框上方）、页游签到奖励（播放器左下角）、分享 客户端 手游中心（播放器右上角）、导航栏客户端按钮、播放器内主播推荐关注弹幕、播放器内房间号日期（播放器内左下角）、播放器左侧亲密互动、播放器左下角下载客户端QR、未登录提示、登录开启最高画质、分区推荐弹幕、弹幕悬停关闭
+// @description  增加 弹幕悬停关闭、登录开启最高画质 （功能按钮）去除 贵族弹幕样式&&聊天区域铭牌、火力全开（输入框上方）、播放器内关注按钮、右侧浮动广告、底部广告、抽奖中间部提示框、竞猜、火箭横幅、亲密互动(播放器左下角)、抽奖(播放器左下角)、贵族入场提醒（输入框上方）、页游签到奖励（播放器左下角）、分享 客户端 手游中心（播放器右上角）、导航栏客户端按钮、播放器内主播推荐关注弹幕、播放器内房间号日期（播放器内左下角）、播放器左侧亲密互动、播放器左下角下载客户端QR、未登录提示、分区推荐弹幕
 // @supportURL   https://github.com/wah0713/myTampermonkey/issues
 // @author       wah0713
 // @compatible   chrome
@@ -78,15 +78,16 @@
     // 开关功能列表
     $('body').append(`
     <div id="wah0713">
-        <button>登陆最高画质</button>
-        <button>弹幕悬停</button>
+        <button>登陆最高画质(close)</button>
+        <button>弹幕关闭悬停(close)</button>
     </div>`)
 
+    // 是否开启登陆高清画质
     function adjustClarity_fun() {
         if (!GM_getValue('adjustClarity', false)) {
-            $('#wah0713 >button:nth-child(1)').addClass('close')
+            $('#wah0713 >button:nth-child(1)').addClass('close').text('登陆最高画质(close)')
         } else {
-            $('#wah0713 >button:nth-child(1)').removeClass('close')
+            $('#wah0713 >button:nth-child(1)').removeClass('close').text('登陆最高画质(open)')
         }
     }
     adjustClarity_fun()
@@ -95,11 +96,12 @@
         adjustClarity_fun()
     })
 
+    // 是否开启弹幕禁止悬停
     function danmuMove_fun() {
         if (!GM_getValue('danmuMove', false)) {
-            $('#wah0713 >button:nth-child(2)').addClass('close')
+            $('#wah0713 >button:nth-child(2)').addClass('close').text('弹幕关闭悬停(close)')
         } else {
-            $('#wah0713 >button:nth-child(2)').removeClass('close')
+            $('#wah0713 >button:nth-child(2)').removeClass('close').text('弹幕关闭悬停(open)')
         }
     }
     danmuMove_fun()
@@ -108,10 +110,11 @@
         danmuMove_fun()
     })
 
-    $(window).dblclick(() => {
-        console.log(`GM_getValue('adjustClarity', false)`, GM_getValue('adjustClarity', false));
-        console.log(`GM_getValue('danmuMove', false)`, GM_getValue('danmuMove', false));
-    })
+    // 调试
+    // $(window).dblclick(() => {
+    //     console.log(`GM_getValue('adjustClarity', false)`, GM_getValue('adjustClarity', false));
+    //     console.log(`GM_getValue('danmuMove', false)`, GM_getValue('danmuMove', false));
+    // })
 
     const observer = new MutationObserver(function () {
         // remove模块
