@@ -51,3 +51,46 @@ html .danmuItem-31f924 > div:nth-child(2) {
   z-index: 999;
   cursor: default;
 }
+html #wah0713 {
+  width: 115px;
+  height: 80px;
+  background-color: #e8e8e8;
+  position: fixed;
+  top: 50%;
+  transform: translateY(-50%);
+  right: -180px;
+  border-radius: 6px;
+  right: 0;
+  z-index: 1;
+  padding: 10px 0;
+}
+html #wah0713:hover {
+  right: 3px;
+}
+html #wah0713 > button {
+  margin: 0 auto;
+  display: block;
+  line-height: 1;
+  white-space: nowrap;
+  cursor: pointer;
+  background: #5daf34;
+  border: 1px solid #5daf34;
+  color: #606266;
+  -webkit-appearance: none;
+  text-align: center;
+  box-sizing: border-box;
+  outline: none;
+  margin: 0;
+  transition: .1s;
+  font-weight: 500;
+  -moz-user-select: none;
+  -webkit-user-select: none;
+  -ms-user-select: none;
+  padding: 6px 10px;
+  font-size: 14px;
+  border-radius: 4px;
+}
+html #wah0713 > button.close {
+  background: #82848a;
+  border-color: #82848a;
+}
