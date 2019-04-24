@@ -42,3 +42,12 @@ html .Barrage-notice--noble {
   background-color: transparent !important;
   border: none !important;
 }
+html .danmuItem-31f924 > div:nth-child(2) {
+  height: 100%;
+  width: 100%;
+  position: absolute;
+  top: 0;
+  left: 0;
+  z-index: 999;
+  cursor: default;
+}

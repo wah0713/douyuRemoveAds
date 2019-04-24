@@ -1,8 +1,8 @@
 // ==UserScript==
 // @name         斗鱼去火箭横幅(贵族弹幕样式&&聊天区域铭牌)
 // @namespace    https://github.com/wah0713/myTampermonkey
-// @version      1.2
-// @description  去除 贵族弹幕样式&&聊天区域铭牌、火力全开（输入框上方）、播放器内关注按钮、右侧浮动广告、底部广告、抽奖中间部提示框、竞猜、火箭横幅、亲密互动(播放器左下角)、抽奖(播放器左下角)、贵族入场提醒（输入框上方）、页游签到奖励（播放器左下角）、分享 客户端 手游中心（播放器右上角）、导航栏客户端按钮、播放器内主播推荐关注弹幕、播放器内房间号日期（播放器内左下角）、播放器左侧亲密互动、播放器左下角下载客户端QR
+// @version      1.3
+// @description  去除 贵族弹幕样式&&聊天区域铭牌、火力全开（输入框上方）、播放器内关注按钮、右侧浮动广告、底部广告、抽奖中间部提示框、竞猜、火箭横幅、亲密互动(播放器左下角)、抽奖(播放器左下角)、贵族入场提醒（输入框上方）、页游签到奖励（播放器左下角）、分享 客户端 手游中心（播放器右上角）、导航栏客户端按钮、播放器内主播推荐关注弹幕、播放器内房间号日期（播放器内左下角）、播放器左侧亲密互动、播放器左下角下载客户端QR、未登录提示、未登录直接开启最高画质、分区推荐弹幕、弹幕悬停关闭
 // @supportURL   https://github.com/wah0713/myTampermonkey/issues
 // @author       wah0713
 // @compatible   chrome
@@ -15,6 +15,7 @@
 
 (function () {
     if (!/^\/\d+$/.test(window.location.pathname) && window.location.pathname.indexOf('topic') === -1) return false
+
     const MutationObserver = window.MutationObserver || window.WebKitMutationObserver || window.MozMutationObserver
     let sign = 0
     let removeDomList = [
@@ -52,9 +53,12 @@
         '.code_box-5cdf5a',
         '.code-box-15b952',
         // 播放器左下角下载客户端QR、
-        '.normalBg-a5403d'
-        // 播放器左侧亲密互动
-
+        '.normalBg-a5403d',
+        // 播放器左侧亲密互动、
+        '.multiBitRate-da4b60',
+        // 未登录提示、
+        '.ordinaryBcBox-8220a7'
+        // 分区推荐弹幕
     ]
     let tempArr = []
 
@@ -62,6 +66,7 @@
     let notProcessedLayoutMain = true
     let notProcessedBackground = true
     let notProcessedLayoutContainer = true
+    let notProcessedAdjustClarity = true
 
     const target = $('body')[0]
 
@@ -90,6 +95,19 @@
             }
             notProcessedLayoutMain = false
         }
+
+        // 未登录开启最高画质
+        if (notProcessedAdjustClarity && $('.tip-e3420a ul') && $('.tip-e3420a ul').children().length && !$('.tip-e3420a ul li:first-child').hasClass('selected-3a8039')) {
+            $('.tip-e3420a ul li:first-child').click()
+            notProcessedAdjustClarity = false
+        }
+
+        // 弹幕悬停关闭
+        $('.danmuItem-31f924').each((index, dom) => {
+            if ($(dom).children().length <= 1) {
+                $(dom).append('<div style="height: 100%;width: 100%;position: absolute;top: 0;left: 0;z-index: 999; cursor:default;"></div>')
+            }
+        })
 
         // 播放器位置
         if (notProcessedBackground) {
