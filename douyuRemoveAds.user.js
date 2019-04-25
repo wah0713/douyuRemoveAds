@@ -72,12 +72,12 @@
     const target = $('body')[0]
 
     // 引入定制的样式
-    const myCss = $(`<link rel="stylesheet" href="https://wah0713.github.io/myTampermonkey/css/base.css">`)
+    const myCss = $(`<link rel='stylesheet' href='https://wah0713.github.io/myTampermonkey/css/base.css'>`)
     $('head').append(myCss)
 
     // 开关功能列表
     $('body').append(`
-    <div id="wah0713">
+    <div id='wah0713'>
         <button>登陆最高画质(close)</button>
         <button>弹幕关闭悬停(close)</button>
     </div>`)
@@ -164,7 +164,7 @@
         // 背景图
         if ($('.layout-Main').offset().top < $(window).height() * 1 / 2) {
             $('body').css({
-                'background-image': "none",
+                'background-image': 'none',
                 'background-color': '#abc'
             })
         } else {
@@ -177,7 +177,7 @@
         }
         if (notProcessedLayoutContainer) {
             $('.layout-Container').css({
-                'background-image': "none",
+                'background-image': 'none',
                 'background-color': '#abc'
             })
             notProcessedLayoutContainer = false
@@ -202,13 +202,13 @@
         $('.noble-icon-c10b6a').remove()
 
         // 播放器内分区弹幕
-        $(".bc-f66a59").remove()
+        $('.bc-f66a59').remove()
 
         // 播放器内火力全开获奖
         $('.FirePowerRewardModal').remove()
 
-        // // 输入框上方送礼400毫米淡出
-        $("#js-player-barrage .BarrageBanner").children().delay(1000 * 3).fadeOut("slow")
+        // 输入框上方送礼400毫米淡出
+        $('#js-player-barrage .BarrageBanner').children().delay(1000 * 3).fadeOut('slow')
 
         // 聊天框用户进入欢迎语
         $('.Barrage-list .Barrage-userEnter').parent('.Barrage-listItem').hide()
