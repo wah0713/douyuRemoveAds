@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         斗鱼去火箭横幅(贵族弹幕样式&&聊天区域铭牌)
 // @namespace    https://github.com/wah0713/myTampermonkey
-// @version      1.3
+// @version      1.4
 // @description  增加 弹幕悬停关闭、登录开启最高画质 （功能按钮）去除 贵族弹幕样式&&聊天区域铭牌、火力全开（输入框上方）、播放器内关注按钮、右侧浮动广告、底部广告、抽奖中间部提示框、竞猜、火箭横幅、亲密互动(播放器左下角)、抽奖(播放器左下角)、贵族入场提醒（输入框上方）、页游签到奖励（播放器左下角）、分享 客户端 手游中心（播放器右上角）、导航栏客户端按钮、播放器内主播推荐关注弹幕、播放器内房间号日期（播放器内左下角）、播放器左侧亲密互动、播放器左下角下载客户端QR、未登录提示、分区推荐弹幕
 // @supportURL   https://github.com/wah0713/myTampermonkey/issues
 // @author       wah0713
@@ -58,8 +58,10 @@
         // 播放器左侧亲密互动、
         '.multiBitRate-da4b60',
         // 未登录提示、
-        '.ordinaryBcBox-8220a7'
-        // 分区推荐弹幕
+        '.ordinaryBcBox-8220a7',
+        // 分区推荐弹幕、
+        '.PaladinWeek-toast'
+        // 游侠活动
     ]
     let tempArr = []
 
@@ -193,6 +195,12 @@
             })
         })
         $('.bc-wrapper').not($('.bc-wrapper')[sign]).remove()
+
+        // 火力全开弹幕
+        $('.afterpic-8a2e13').remove()
+
+        // 火力全开聊天区域
+        $('.FirePowerIcon').remove()
 
         // 去掉播放器下方活动列表
         $('.ToolbarGiftArea').length === 1 && $('.ToolbarGiftArea').children().not('.GiftInfoPanel').not('.ToolbarGiftArea-GiftBox').not('.ToolbarGiftArea-giftExpandBox').not($('.ToolbarGiftArea').children().eq(-1)).hide()
