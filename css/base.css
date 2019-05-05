@@ -61,6 +61,7 @@ html #wah0713 {
   z-index: 1;
   padding: 10px 5px;
   opacity: 0.75;
+  transition: all 0.5s;
 }
 html #wah0713:hover {
   right: 0;

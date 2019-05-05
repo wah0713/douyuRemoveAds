@@ -1,8 +1,8 @@
 // ==UserScript==
 // @name         斗鱼去火箭横幅(贵族弹幕样式&&聊天区域铭牌)
 // @namespace    https://github.com/wah0713/myTampermonkey
-// @version      1.4
-// @description  增加 弹幕悬停关闭、登录开启最高画质 （功能按钮）去除 贵族弹幕样式&&聊天区域铭牌、火力全开（输入框上方）、播放器内关注按钮、右侧浮动广告、底部广告、抽奖中间部提示框、竞猜、火箭横幅、亲密互动(播放器左下角)、抽奖(播放器左下角)、贵族入场提醒（输入框上方）、页游签到奖励（播放器左下角）、分享 客户端 手游中心（播放器右上角）、导航栏客户端按钮、播放器内主播推荐关注弹幕、播放器内房间号日期（播放器内左下角）、播放器左侧亲密互动、播放器左下角下载客户端QR、未登录提示、分区推荐弹幕
+// @version      1.5
+// @description  增加 竞猜是否显示、弹幕悬停关闭、登录开启最高画质 （功能按钮）。去除 贵族弹幕样式&&聊天区域铭牌、火力全开（输入框上方）、播放器内关注按钮、右侧浮动广告、底部广告、抽奖中间部提示框、火箭横幅、亲密互动(播放器左下角)、抽奖(播放器左下角)、贵族入场提醒（输入框上方）、页游签到奖励（播放器左下角）、分享 客户端 手游中心（播放器右上角）、导航栏客户端按钮、播放器内主播推荐关注弹幕、播放器内房间号日期（播放器内左下角）、播放器左侧亲密互动、播放器左下角下载客户端QR、未登录提示、分区推荐弹幕
 // @supportURL   https://github.com/wah0713/myTampermonkey/issues
 // @author       wah0713
 // @compatible   chrome
@@ -30,8 +30,6 @@
         ' #js-bottom',
         // 抽奖中间部提示框、
         '.LotteryContainer',
-        // 竞猜、
-        '.guessGameContainer',
         // 火箭横幅、
         '.broadcastDiv-af5699',
         // 亲密互动(播放器左下角)、
@@ -82,6 +80,7 @@
     <div id='wah0713'>
         <button>登陆最高画质(close)</button>
         <button>弹幕关闭悬停(close)</button>
+        <button>竞猜是否开启(open)</button>
     </div>`)
 
     // 是否开启登陆高清画质
@@ -112,11 +111,24 @@
         danmuMove_fun()
     })
 
-    // 调试
-    // $(window).dblclick(() => {
-    //     console.log(`GM_getValue('adjustClarity', false)`, GM_getValue('adjustClarity', false));
-    //     console.log(`GM_getValue('danmuMove', false)`, GM_getValue('danmuMove', false));
-    // })
+    // 是否开启竞猜关闭
+    function guessIsShow() {
+        if (!GM_getValue('guessIsShow', true)) {
+            $('#wah0713 >button:nth-child(3)').addClass('close').text('竞猜是否开启(close)')
+        } else {
+            $('#wah0713 >button:nth-child(3)').removeClass('close').text('竞猜是否开启(open)')
+        }
+    }
+    guessIsShow()
+    $('#wah0713 >button:nth-child(3)').click(() => {
+        GM_setValue('guessIsShow', !GM_getValue('guessIsShow', true))
+        guessIsShow()
+    })
+
+    // 左侧展开默认收起
+    if($(".Aside-main--shrink").width()>100){
+        $(".Aside-toggle").click()
+    }
 
     const observer = new MutationObserver(function () {
         // remove模块
@@ -155,6 +167,13 @@
                     $(dom).append('<div style="height: 100%;width: 100%;position: absolute;top: 0;left: 0;z-index: 999; cursor:default;"></div>')
                 }
             })
+        }
+
+        // 是否开启竞猜关闭
+        if (GM_getValue('guessIsShow', true)) {
+            $('.guessGameContainer').show()
+        } else {
+            $('.guessGameContainer').hide()
         }
 
         // 播放器位置
