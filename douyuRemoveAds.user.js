@@ -107,6 +107,12 @@
         $(".Aside-toggle").click()
     }
 
+    // setTimeout(() => {
+    //     console.log('$(".layout-Main").offset().top', $(".layout-Main").offset().top);
+    //     document.documentElement && document.documentElement.scrollTo(0, $(".layout-Main").offset().top - 78)
+    //     console.log('document.documentElement&&document.documentElement.scrollTop', document.documentElement && document.documentElement.scrollTop);
+    // }, 1000)
+
     const observer = new MutationObserver(function () {
         // remove模块
         tempArr = removeDomList.slice(0)
