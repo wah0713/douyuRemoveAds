@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         斗鱼去火箭横幅(贵族弹幕样式&&聊天区域铭牌)
 // @namespace    https://github.com/wah0713/myTampermonkey
-// @version      1.6
+// @version      1.7
 // @description  增加 背景图是否显示、竞猜是否显示、弹幕悬停关闭、登录开启最高画质 （功能按钮）。去除 贵族弹幕样式&&聊天区域铭牌、火力全开（输入框上方）、播放器内关注按钮、右侧浮动广告、底部广告、抽奖中间部提示框、火箭横幅、亲密互动(播放器左下角)、抽奖(播放器左下角)、贵族入场提醒（输入框上方）、页游签到奖励（播放器左下角）、分享 客户端 手游中心（播放器右上角）、导航栏客户端按钮、播放器内主播推荐关注弹幕、播放器内房间号日期（播放器内左下角）、播放器左侧亲密互动、播放器左下角下载客户端QR、未登录提示、分区推荐弹幕
 // @supportURL   https://github.com/wah0713/myTampermonkey/issues
 // @author       wah0713
@@ -16,6 +16,15 @@
 
 (function () {
     if (!/^\/\d+$/.test(window.location.pathname) && window.location.pathname.indexOf('topic') === -1) return false
+
+    // // styleTest
+    // const node = document.createTextNode(`
+    // .damuItem-31f924 .text2-4ec68c {
+    //     position: absolute !important;
+    //     background: red !important;
+    //   }
+    // `)
+    // $('head').append($(`<style type="text/css"></style>`).append(node))
 
     const MutationObserver = window.MutationObserver || window.WebKitMutationObserver || window.MozMutationObserver
     let sign = 0
@@ -64,6 +73,7 @@
     // 只执行一次
     let notProcessedBackground = true
     let notProcessedAdjustClarity = true
+    let playerCentered = true
 
     const target = $('body')[0]
 
@@ -107,12 +117,6 @@
         $(".Aside-toggle").click()
     }
 
-    // setTimeout(() => {
-    //     console.log('$(".layout-Main").offset().top', $(".layout-Main").offset().top);
-    //     document.documentElement && document.documentElement.scrollTo(0, $(".layout-Main").offset().top - 78)
-    //     console.log('document.documentElement&&document.documentElement.scrollTop', document.documentElement && document.documentElement.scrollTop);
-    // }, 1000)
-
     const observer = new MutationObserver(function () {
         // remove模块
         tempArr = removeDomList.slice(0)
@@ -124,6 +128,16 @@
             }
         })
         removeDomList = tempArr.slice(0)
+
+        // 播放器居中
+        if (playerCentered && $('.layout-Main').offset().top > $(window).height() * 1 / 2) {
+            if (document.documentElement) {
+                document.documentElement.scrollTo(0, $(".layout-Main").offset().top - 88)
+            } else if (document.body) {
+                document.body.scrollTo(0, $(".layout-Main").offset().top - 88)
+            }
+            playerCentered = false
+        }
 
         // 登录开启最高画质
         if (GM_getValue('adjustClarity', false)) {
@@ -137,7 +151,7 @@
         if (GM_getValue('danmuMove', false)) {
             $('.danmuItem-31f924').each((index, dom) => {
                 if ($(dom).children().length <= 1) {
-                    $(dom).append('<div style="height: 100%;width: 100%;position: absolute;top: 0;left: 0;z-index: 999; cursor:default;"></div>')
+                    $(dom).append('<div class="mask" style="height: 100%;width: 100%;position: absolute;top: 0;left: 0;z-index: 999; cursor:default;"></div>')
                 }
             })
         }

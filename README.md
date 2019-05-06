@@ -3,13 +3,13 @@
 ### 当前版本1.6效果图：
 
 1、背景不显示（默认开启）（右侧）
-![当前版本1.6](image/douyu1.6.png)
+![当前版本1.6](https://wah0713.github.io/myTampermonkey/image/douyu1.6.png)
 
 ### 上个版本1.5效果图：
 
 1、是否显示竞猜按钮（默认开启）（右侧）
 2、左侧导航栏默认收起
-![当前版本1.5](image/douyu1.5.png)
+![当前版本1.5](https://wah0713.github.io/myTampermonkey/image/douyu1.5.png)
 
 ### bug和建议：
 

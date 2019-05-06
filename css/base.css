@@ -30,6 +30,13 @@ html .Barrage-listItem .Barrage-nickName {
 html .Barrage-listItem .Barrage-nickName.is-self {
   color: #ff5d23 !important;
 }
+html .noble-bf13ad {
+  background: none !important;
+}
+html .Barrage-notice--noble {
+  background: none !important;
+  border: none !important;
+}
 html.no-background .bc-wrapper {
   background-color: transparent !important;
   background-image: none !important;
@@ -41,15 +48,6 @@ html.no-background .noble-bf13ad {
 html.no-background .Barrage-notice--noble {
   background-color: transparent !important;
   border: none !important;
-}
-html .danmuItem-31f924 > div:nth-child(2) {
-  height: 100%;
-  width: 100%;
-  position: absolute;
-  top: 0;
-  left: 0;
-  z-index: 999;
-  cursor: default;
 }
 html #wah0713 {
   background-color: #fedf6b;
