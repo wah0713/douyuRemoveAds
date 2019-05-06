@@ -1,8 +1,8 @@
 // ==UserScript==
 // @name         斗鱼去火箭横幅(贵族弹幕样式&&聊天区域铭牌)
 // @namespace    https://github.com/wah0713/myTampermonkey
-// @version      1.5
-// @description  增加 竞猜是否显示、弹幕悬停关闭、登录开启最高画质 （功能按钮）。去除 贵族弹幕样式&&聊天区域铭牌、火力全开（输入框上方）、播放器内关注按钮、右侧浮动广告、底部广告、抽奖中间部提示框、火箭横幅、亲密互动(播放器左下角)、抽奖(播放器左下角)、贵族入场提醒（输入框上方）、页游签到奖励（播放器左下角）、分享 客户端 手游中心（播放器右上角）、导航栏客户端按钮、播放器内主播推荐关注弹幕、播放器内房间号日期（播放器内左下角）、播放器左侧亲密互动、播放器左下角下载客户端QR、未登录提示、分区推荐弹幕
+// @version      1.6
+// @description  增加 背景图是否显示、竞猜是否显示、弹幕悬停关闭、登录开启最高画质 （功能按钮）。去除 贵族弹幕样式&&聊天区域铭牌、火力全开（输入框上方）、播放器内关注按钮、右侧浮动广告、底部广告、抽奖中间部提示框、火箭横幅、亲密互动(播放器左下角)、抽奖(播放器左下角)、贵族入场提醒（输入框上方）、页游签到奖励（播放器左下角）、分享 客户端 手游中心（播放器右上角）、导航栏客户端按钮、播放器内主播推荐关注弹幕、播放器内房间号日期（播放器内左下角）、播放器左侧亲密互动、播放器左下角下载客户端QR、未登录提示、分区推荐弹幕
 // @supportURL   https://github.com/wah0713/myTampermonkey/issues
 // @author       wah0713
 // @compatible   chrome
@@ -26,8 +26,6 @@
         '.focus_box_con-7adc83',
         // 右侧浮动广告、
         ' #js-room-activity',
-        // 底部广告、
-        ' #js-bottom',
         // 抽奖中间部提示框、
         '.LotteryContainer',
         // 火箭横幅、
@@ -64,9 +62,7 @@
     let tempArr = []
 
     // 只执行一次
-    let notProcessedLayoutMain = true
     let notProcessedBackground = true
-    let notProcessedLayoutContainer = true
     let notProcessedAdjustClarity = true
 
     const target = $('body')[0]
@@ -75,58 +71,39 @@
     const myCss = $(`<link rel='stylesheet' href='https://wah0713.github.io/myTampermonkey/css/base.css'>`)
     $('head').append(myCss)
 
-    // 开关功能列表
-    $('body').append(`
-    <div id='wah0713'>
-        <button>登陆最高画质(close)</button>
-        <button>弹幕关闭悬停(close)</button>
-        <button>竞猜是否开启(open)</button>
-    </div>`)
+    // 右侧自定义按钮模块
+    $('body').append('<div id="wah0713"></div>')
+    /**
+     *  封装按钮显示事件
+     * @param {string} localStorageName 按钮本地存储名
+     * @param {string} displayName 按钮显示名
+     * @param {number} index 按钮排序位置
+     * @param {boolean} defaultState 默认状态
+     */
+    function btnListFun(localStorageName, displayName, index, defaultState) {
+        defaultState = defaultState || false
+        $("#wah0713").append(`<button>${displayName}(close)</button>`)
 
-    // 是否开启登陆高清画质
-    function adjustClarity_fun() {
-        if (!GM_getValue('adjustClarity', false)) {
-            $('#wah0713 >button:nth-child(1)').addClass('close').text('登陆最高画质(close)')
-        } else {
-            $('#wah0713 >button:nth-child(1)').removeClass('close').text('登陆最高画质(open)')
+        function btnShow() {
+            if (!GM_getValue(localStorageName, defaultState)) {
+                $(`#wah0713 >button:nth-child(${index})`).addClass('close').text(`${displayName}(close)`)
+            } else {
+                $(`#wah0713 >button:nth-child(${index})`).removeClass('close').text(`${displayName}(open)`)
+            }
         }
+        btnShow()
+        $(`#wah0713 >button:nth-child(${index})`).click(() => {
+            GM_setValue(localStorageName, !GM_getValue(localStorageName, defaultState))
+            btnShow()
+        })
     }
-    adjustClarity_fun()
-    $('#wah0713 >button:nth-child(1)').click(() => {
-        GM_setValue('adjustClarity', !GM_getValue('adjustClarity', false))
-        adjustClarity_fun()
-    })
-
-    // 是否开启弹幕禁止悬停
-    function danmuMove_fun() {
-        if (!GM_getValue('danmuMove', false)) {
-            $('#wah0713 >button:nth-child(2)').addClass('close').text('弹幕关闭悬停(close)')
-        } else {
-            $('#wah0713 >button:nth-child(2)').removeClass('close').text('弹幕关闭悬停(open)')
-        }
-    }
-    danmuMove_fun()
-    $('#wah0713 >button:nth-child(2)').click(() => {
-        GM_setValue('danmuMove', !GM_getValue('danmuMove', false))
-        danmuMove_fun()
-    })
-
-    // 是否开启竞猜关闭
-    function guessIsShow() {
-        if (!GM_getValue('guessIsShow', true)) {
-            $('#wah0713 >button:nth-child(3)').addClass('close').text('竞猜是否开启(close)')
-        } else {
-            $('#wah0713 >button:nth-child(3)').removeClass('close').text('竞猜是否开启(open)')
-        }
-    }
-    guessIsShow()
-    $('#wah0713 >button:nth-child(3)').click(() => {
-        GM_setValue('guessIsShow', !GM_getValue('guessIsShow', true))
-        guessIsShow()
-    })
+    btnListFun('adjustClarity', '登陆最高画质', 1)
+    btnListFun('danmuMove', '弹幕不悬停', 2)
+    btnListFun('guessIsShow', '竞猜不开启', 3, true)
+    btnListFun('backgroundIsShow', '背景不显示', 4, true)
 
     // 左侧展开默认收起
-    if($(".Aside-main--shrink").width()>100){
+    if ($(".Aside-main--shrink").width() > 100) {
         $(".Aside-toggle").click()
     }
 
@@ -141,16 +118,6 @@
             }
         })
         removeDomList = tempArr.slice(0)
-
-        // 支持url带 /topic
-        if (notProcessedLayoutMain) {
-            if (window.location.pathname.indexOf('topic') > -1) {
-                $('.layout-Main')[0].setAttribute('style',
-                    'margin-top: 80px;'
-                )
-            }
-            notProcessedLayoutMain = false
-        }
 
         // 登录开启最高画质
         if (GM_getValue('adjustClarity', false)) {
@@ -183,37 +150,58 @@
         }
 
         // 背景图
-        if ($('.layout-Main').offset().top < $(window).height() * 1 / 2) {
-            $('body').css({
+        if (GM_getValue('backgroundIsShow', true)) {
+            // 底部广告、
+            $('#js-bottom').hide()
+            $('html').addClass('no-background')
+            if ($('.layout-Main').offset().top < $(window).height() * 1 / 2) {
+                $('body').css({
+                    'background-image': 'none',
+                    'background-color': '#abc'
+                })
+            } else {
+                $('body').css({
+                    'background-image': "url('https://wah0713.github.io/myTampermonkey/image/down.jpg')",
+                    'background-color': '#f6f6f6',
+                    'background-position': 'center 68px',
+                    'background-repeat': 'repeat-y'
+                })
+            }
+            $('.layout-Container') && $('.layout-Container').css({
                 'background-image': 'none',
                 'background-color': '#abc'
             })
-        } else {
-            $('body').css({
-                'background-image': "url('https://wah0713.github.io/myTampermonkey/image/down.jpg')",
-                'background-color': '#f6f6f6',
-                'background-position': 'center 68px',
-                'background-repeat': 'repeat-y'
-            })
-        }
-        if (notProcessedLayoutContainer) {
-            $('.layout-Container').css({
-                'background-image': 'none',
-                'background-color': '#abc'
-            })
-            notProcessedLayoutContainer = false
-        }
 
-        // 去掉除播放器以外的多余bc-wrapper元素
-        $('.bc-wrapper').each((index, element) => {
-            $(element).children().each((ind, ele) => {
-                if ($(ele).hasClass('layout-Main')) {
-                    sign = index
-                    return false
-                }
+            // 支持url带 /topic
+            if (window.location.pathname.indexOf('topic') > -1) {
+                $('.layout-Main')[0].setAttribute('style',
+                    'margin-top: 80px;'
+                )
+            }
+
+            // 去掉除播放器以外的多余bc-wrapper元素
+            $('.bc-wrapper').each((index, element) => {
+                $(element).children().each((idx, ele) => {
+                    if ($(ele).hasClass('layout-Main')) {
+                        sign = index
+                        return false
+                    }
+                })
             })
-        })
-        $('.bc-wrapper').not($('.bc-wrapper')[sign]).remove()
+            $('.bc-wrapper').not($('.bc-wrapper')[sign]).hide()
+        } else {
+            $('html').removeClass('no-background')
+            $('#js-bottom').show()
+            $('body')[0].style = ""
+            if ($('.layout-Container')[0]) {
+                $('.layout-Container')[0].style = ""
+            }
+            // 支持url带 /topic
+            if (window.location.pathname.indexOf('topic') > -1) {
+                $('.layout-Main')[0].removeAttribute('style')
+            }
+            $('.bc-wrapper').show()
+        }
 
         // 火力全开弹幕
         $('.afterpic-8a2e13').remove()
