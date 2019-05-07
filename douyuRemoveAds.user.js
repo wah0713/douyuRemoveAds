@@ -150,7 +150,8 @@
         // 弹幕悬停关闭
         if (GM_getValue('danmuMove', false)) {
             $('.danmuItem-31f924').each((index, dom) => {
-                if ($(dom).children().length <= 1) {
+                if (!$(dom)[0].handle) {
+                    $(dom)[0].handle = true
                     $(dom).append('<div class="mask" style="height: 100%;width: 100%;position: absolute;top: 0;left: 0;z-index: 999; cursor:default;"></div>')
                 }
             })
@@ -254,9 +255,20 @@
         // 聊天框用户竞猜获奖
         $('.Barrage-list .Barrage-guess').parent('.Barrage-listItem').hide()
 
-        // 聊天框用户粉丝牌升级
-        $('.Barrage-list .Barrage-icon--sys').parent('.Barrage-listItem').hide()
-
+        // 聊天框用户相关消息广播
+        // $('.Barrage-list .Barrage-icon--sys').parent('.Barrage-listItem').hide()
+        // 系统提示（例如禁言）
+        // .Barrage-notice--red
+        $('.Barrage-list .Barrage-icon--sys').each((idx, dom) => {
+            const domParent = $(dom).parent('.Barrage-listItem')
+            console.log(`domParent.find('.Barrage-text').text()`, domParent.find('.Barrage-text').text())
+            if (domParent.find('.Barrage-text').text().indexOf("禁言") === -1) {
+                domParent.hide()
+            }
+            // else {
+            //     debugger
+            // }
+        })
         // 聊天框用户铭牌
         $('.Barrage-list .Barrage-nickName').prevAll().hide()
     })
