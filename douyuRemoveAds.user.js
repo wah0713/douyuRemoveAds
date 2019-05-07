@@ -2,7 +2,7 @@
 // @name         斗鱼去火箭横幅(贵族弹幕样式&&聊天区域铭牌)
 // @namespace    https://github.com/wah0713/myTampermonkey
 // @version      1.7
-// @description  增加 背景图是否显示、竞猜是否显示、弹幕悬停关闭、登录开启最高画质 （功能按钮）。去除 贵族弹幕样式&&聊天区域铭牌、火力全开（输入框上方）、播放器内关注按钮、右侧浮动广告、底部广告、抽奖中间部提示框、火箭横幅、亲密互动(播放器左下角)、抽奖(播放器左下角)、贵族入场提醒（输入框上方）、页游签到奖励（播放器左下角）、分享 客户端 手游中心（播放器右上角）、导航栏客户端按钮、播放器内主播推荐关注弹幕、播放器内房间号日期（播放器内左下角）、播放器左侧亲密互动、播放器左下角下载客户端QR、未登录提示、分区推荐弹幕
+// @description  增加 聊天框简化、背景图是否显示、竞猜是否显示、弹幕悬停关闭、登录开启最高画质 （功能按钮）。去除 贵族弹幕样式&&聊天区域铭牌、火力全开（输入框上方）、播放器内关注按钮、右侧浮动广告、底部广告、抽奖中间部提示框、火箭横幅、亲密互动(播放器左下角)、抽奖(播放器左下角)、贵族入场提醒（输入框上方）、页游签到奖励（播放器左下角）、分享 客户端 手游中心（播放器右上角）、导航栏客户端按钮、播放器内主播推荐关注弹幕、播放器内房间号日期（播放器内左下角）、播放器左侧亲密互动、播放器左下角下载客户端QR、未登录提示、分区推荐弹幕
 // @supportURL   https://github.com/wah0713/myTampermonkey/issues
 // @author       wah0713
 // @compatible   chrome
@@ -111,6 +111,8 @@
     btnListFun('danmuMove', '弹幕不悬停', 2)
     btnListFun('guessIsShow', '竞猜不开启', 3, true)
     btnListFun('backgroundIsShow', '背景不显示', 4, true)
+    btnListFun('chatBoxCleaning', '聊天框简化', 5, true)
+    btnListFun('forbiddenMessage', '禁言消息显示', 6)
 
     // 左侧展开默认收起
     if ($(".Aside-main--shrink").width() > 100) {
@@ -128,6 +130,13 @@
             }
         })
         removeDomList = tempArr.slice(0)
+
+        // 主播公告、贡献周榜、贵宾和粉丝团
+        if (GM_getValue('chatBoxCleaning', true)) {
+            $(".layout-Player-asideMainTop").addClass("hide")
+        } else {
+            $(".layout-Player-asideMainTop").removeClass("hide")
+        }
 
         // 播放器居中
         if (playerCentered && $('.layout-Main').offset().top > $(window).height() * 1 / 2) {
@@ -261,13 +270,13 @@
         // .Barrage-notice--red
         $('.Barrage-list .Barrage-icon--sys').each((idx, dom) => {
             const domParent = $(dom).parent('.Barrage-listItem')
-            console.log(`domParent.find('.Barrage-text').text()`, domParent.find('.Barrage-text').text())
-            if (domParent.find('.Barrage-text').text().indexOf("禁言") === -1) {
+            if (GM_getValue('forbiddenMessage', false)) {
+                if (domParent.find('.Barrage-text').text().indexOf("禁言") === -1) {
+                    domParent.hide()
+                }
+            } else {
                 domParent.hide()
             }
-            // else {
-            //     debugger
-            // }
         })
         // 聊天框用户铭牌
         $('.Barrage-list .Barrage-nickName').prevAll().hide()

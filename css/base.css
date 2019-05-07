@@ -30,6 +30,9 @@ html .Barrage-listItem .Barrage-nickName {
 html .Barrage-listItem .Barrage-nickName.is-self {
   color: #ff5d23 !important;
 }
+html .layout-Player-asideMainTop.hide .layout-Player-announce {
+  display: none;
+}
 html .layout-Player-asideMainTop.hide .layout-Player-barrage {
   top: 0;
 }
@@ -65,7 +68,7 @@ html #wah0713 {
   transform: translateY(-50%);
   border-radius: 6px;
   right: -130px;
-  z-index: 999;
+  z-index: 20;
   padding: 10px 5px;
   opacity: 0.75;
   transition: all 0.5s;
