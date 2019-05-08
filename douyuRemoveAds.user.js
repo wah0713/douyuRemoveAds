@@ -19,6 +19,8 @@
 
     const MutationObserver = window.MutationObserver || window.WebKitMutationObserver || window.MozMutationObserver
     let sign = 0
+    // Background-holder的原始paddingTop值
+    let OriginalbackgroundGolderPaddingTop = $('.Background-holder').css('padding-top') || 0
     let removeDomList = [
         // 火力全开（输入框上方）、
         '.FirePower',
@@ -60,7 +62,6 @@
     let tempArr = []
 
     // 只执行一次
-    let notProcessedBackground = true
     let notProcessedAdjustClarity = true
     let playerCentered = true
 
@@ -143,7 +144,7 @@
         }
 
         // 播放器居中
-        if (playerCentered && $('.layout-Main').offset().top > $(window).height() * 1 / 2) {
+        if (playerCentered && $('.layout-Main').offset().top > $(window).height() * 1 / 4) {
             if (document.documentElement) {
                 document.documentElement.scrollTo(0, $(".layout-Main").offset().top - 88)
             } else if (document.body) {
@@ -187,15 +188,12 @@
             $(".ActivityItem").hide()
         }
 
-        // 播放器位置
-        if (notProcessedBackground) {
-            $('.Background-holder').css('padding-top', 10)
-            notProcessedBackground = false
-        }
-
         // 背景图
         if (config.backgroundIsShow) {
+            // 播放器位置
+            $('.Background-holder').css('padding-top', OriginalbackgroundGolderPaddingTop)
             $('html').removeClass('no-background')
+            // 底部广告
             $('#js-bottom').show()
             $('body')[0].style = ""
             if ($('.layout-Container')[0]) {
@@ -207,6 +205,8 @@
             }
             $('.bc-wrapper').show()
         } else {
+            // 播放器位置
+            $('.Background-holder').css('padding-top', 10)
             // 底部广告
             $('#js-bottom').hide()
             $('html').addClass('no-background')
