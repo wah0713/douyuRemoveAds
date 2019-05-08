@@ -70,15 +70,21 @@ html #wah0713 {
   top: 50%;
   transform: translateY(-50%);
   border-radius: 6px;
-  right: -130px;
+  right: -166px;
   z-index: 20;
   padding: 10px 5px;
   opacity: 0.75;
-  transition: all 0.5s;
 }
 html #wah0713:hover {
   right: 0;
   opacity: 1;
+}
+html #wah0713 > img {
+  width: 32px;
+  position: absolute;
+  top: 50%;
+  left: -37px;
+  transform: translateY(-50%);
 }
 html #wah0713 > button {
   margin: 0 auto 5px;
