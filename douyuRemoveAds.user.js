@@ -62,8 +62,11 @@
     let tempArr = []
 
     // 只执行一次
-    let notProcessedAdjustClarity = true
-    let playerCentered = true
+    let once = {
+        notProcessedAdjustClarity: true,
+        playerCentered: true,
+        backgroundIsShow: true,
+    }
 
     const target = $('body')[0]
 
@@ -84,6 +87,11 @@
         forbiddenMessage: false, // 禁言消息显示
     }
     let config = GM_getValue('Config', defaultConfig)
+    for (let key in defaultConfig) {
+        if (typeof (config[key]) === 'undefined') {
+            config[key] = defaultConfig[key]
+        }
+    }
 
     window.onbeforeunload = () => {
         GM_setValue('Config', config)
@@ -108,6 +116,9 @@
         $(`#wah0713 .${localStorageName}`).click(() => {
             config[localStorageName] = !config[localStorageName]
             btnInit()
+            if (typeof (once[localStorageName]) !== 'undefined') {
+                once[localStorageName] = true
+            }
         })
     }
 
@@ -144,20 +155,20 @@
         }
 
         // 播放器居中
-        if (playerCentered && $('.layout-Main').offset().top > $(window).height() * 1 / 4) {
+        if (once.playerCentered) {
             if (document.documentElement) {
-                document.documentElement.scrollTo(0, $(".layout-Main").offset().top - 88)
+                document.documentElement.scrollTo(0, $(".layout-Player").offset().top - 88)
             } else if (document.body) {
-                document.body.scrollTo(0, $(".layout-Main").offset().top - 88)
+                document.body.scrollTo(0, $(".layout-Player").offset().top - 88)
             }
-            playerCentered = false
+            once.playerCentered = false
         }
 
         // 登录开启最高画质
         if (config.adjustClarity) {
-            if (notProcessedAdjustClarity && $('.tip-e3420a ul') && $('.tip-e3420a ul').children().length && !$('.tip-e3420a ul li:first-child').hasClass('selected-3a8039')) {
+            if (once.notProcessedAdjustClarity && $('.tip-e3420a ul') && $('.tip-e3420a ul').children().length && !$('.tip-e3420a ul li:first-child').hasClass('selected-3a8039')) {
                 $('.tip-e3420a ul li:first-child').click()
-                notProcessedAdjustClarity = false
+                once.notProcessedAdjustClarity = false
             }
         }
 
@@ -189,62 +200,65 @@
         }
 
         // 背景图
-        if (config.backgroundIsShow) {
-            // 播放器位置
-            $('.Background-holder').css('padding-top', OriginalbackgroundGolderPaddingTop)
-            $('html').removeClass('no-background')
-            // 底部广告
-            $('#js-bottom').show()
-            $('body')[0].style = ""
-            if ($('.layout-Container')[0]) {
-                $('.layout-Container')[0].style = ""
-            }
-            // 支持url带 /topic
-            if (window.location.pathname.indexOf('topic') > -1) {
-                $('.layout-Main')[0].removeAttribute('style')
-            }
-            $('.bc-wrapper').show()
-        } else {
-            // 播放器位置
-            $('.Background-holder').css('padding-top', 10)
-            // 底部广告
-            $('#js-bottom').hide()
-            $('html').addClass('no-background')
-            if ($('.layout-Main').offset().top < $(window).height() * 1 / 2) {
-                $('body').css({
+        if (once.backgroundIsShow) {
+            if (config.backgroundIsShow) {
+                // 播放器位置
+                $('.Background-holder').css('padding-top', OriginalbackgroundGolderPaddingTop)
+                $('html').removeClass('no-background')
+                // 底部广告
+                $('#js-bottom').show()
+                $('body')[0].style = ""
+                if ($('.layout-Container')[0]) {
+                    $('.layout-Container')[0].style = ""
+                }
+                // 支持url带 /topic
+                if (window.location.pathname.indexOf('topic') > -1) {
+                    $('.layout-Main')[0].removeAttribute('style')
+                }
+                $('.bc-wrapper').show()
+            } else {
+                // 播放器位置
+                $('.Background-holder').css('padding-top', 10)
+                // 底部广告
+                $('#js-bottom').hide()
+                $('html').addClass('no-background')
+                if ($('.layout-Main').offset().top < $(window).height() * 1 / 2) {
+                    $('body').css({
+                        'background-image': 'none',
+                        'background-color': '#ffe'
+                    })
+                } else {
+                    $('body').css({
+                        'background-image': "url('https://wah0713.github.io/myTampermonkey/image/down.jpg')",
+                        'background-color': '#ffe',
+                        'background-position': 'center 68px',
+                        'background-repeat': 'repeat-y'
+                    })
+                }
+                $('.layout-Container') && $('.layout-Container').css({
                     'background-image': 'none',
                     'background-color': '#ffe'
                 })
-            } else {
-                $('body').css({
-                    'background-image': "url('https://wah0713.github.io/myTampermonkey/image/down.jpg')",
-                    'background-color': '#ffe',
-                    'background-position': 'center 68px',
-                    'background-repeat': 'repeat-y'
-                })
-            }
-            $('.layout-Container') && $('.layout-Container').css({
-                'background-image': 'none',
-                'background-color': '#ffe'
-            })
 
-            // 支持url带 /topic
-            if (window.location.pathname.indexOf('topic') > -1) {
-                $('.layout-Main')[0].setAttribute('style',
-                    'margin-top: 80px;'
-                )
-            }
+                // 支持url带 /topic
+                if (window.location.pathname.indexOf('topic') > -1) {
+                    $('.layout-Main')[0].setAttribute('style',
+                        'margin-top: 80px;'
+                    )
+                }
 
-            // 去掉除播放器以外的多余bc-wrapper元素
-            $('.bc-wrapper').each((index, element) => {
-                $(element).children().each((idx, ele) => {
-                    if ($(ele).hasClass('layout-Main')) {
-                        sign = index
-                        return false
-                    }
+                // 去掉除播放器以外的多余bc-wrapper元素
+                $('.bc-wrapper').each((index, element) => {
+                    $(element).children().each((idx, ele) => {
+                        if ($(ele).hasClass('layout-Main')) {
+                            sign = index
+                            return false
+                        }
+                    })
                 })
-            })
-            $('.bc-wrapper').not($('.bc-wrapper')[sign]).hide()
+                $('.bc-wrapper').not($('.bc-wrapper')[sign]).hide()
+            }
+            once.backgroundIsShow = false
         }
 
         // 火力全开弹幕
