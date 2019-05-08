@@ -37,8 +37,6 @@
         // 贵族入场提醒（输入框上方）、
         '.EnterEffect',
         // 补充 贵族入场提醒（输入框上方）、
-        '.ToolbarActivityArea',
-        // 页游签到奖励（播放器左下角）、
         '.Title-roomOtherBottom',
         // 分享 客户端 手游中心（播放器右上角）、
         '.Header-download-wrap',
@@ -177,8 +175,16 @@
         // 是否开启竞猜关闭
         if (config.guessIsShow) {
             $('.guessGameContainer').show()
+            $(".ActivityItem").each((idx, dom) => {
+                if ($(dom).find(".GuessIcon").length === 0) {
+                    $(dom).hide()
+                } else {
+                    $(dom).show()
+                }
+            })
         } else {
             $('.guessGameContainer').hide()
+            $(".ActivityItem").hide()
         }
 
         // 播放器位置
