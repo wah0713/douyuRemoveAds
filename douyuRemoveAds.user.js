@@ -73,7 +73,7 @@
     // 右侧自定义按钮模块
     $('body').append('<div id="wah0713"><img src="https://wah0713.github.io/myTampermonkey/image/config.jpg"></div>')
     $('#wah0713').mouseenter(() => {
-        $('#wah0713').css('transition', 'all 0.5s')
+        $('#wah0713').css('transition', 'all 1s ease-in')
         $('#wah0713 >img').fadeOut("slow")
     }).mouseleave(() => {
         $('#wah0713 >img').fadeIn("slow")
@@ -331,29 +331,7 @@
 
     // // styleTest
     // const node = document.createTextNode(`
-    // html #wah0713 {
-    //     background-color: #fedf6b;
-    //     position: fixed;
-    //     top: 50%;
-    //     transform: translateY(-50%);
-    //     border-radius: 6px;
-    //     right: -166px;
-    //     z-index: 20;
-    //     padding: 10px 5px;
-    //     opacity: 0.75;
-    //     transition: none !important;
-    //   }
-    //   html #wah0713:hover {
-    //     right: 0;
-    //     opacity: 1;
-    //   }
-    //   html #wah0713 > img {
-    //     width: 32px;
-    //     position: absolute;
-    //     top: 50%;
-    //     left: -37px;
-    //     transform: translateY(-50%);
-    //   }
+
     // `)
     // $('head').append($(`<style type="text/css"></style>`).append(node))
 
