@@ -126,16 +126,16 @@
     }
 
     const observer = new MutationObserver(function () {
-        // // remove模块
-        // tempArr = removeDomList.slice(0)
-        // let i = 0
-        // removeDomList.length && removeDomList.forEach((domName, index) => {
-        //     if ($(domName).remove().length != 0) {
-        //         tempArr.splice(index + i, 1)
-        //         i--
-        //     }
-        // })
-        // removeDomList = tempArr.slice(0)
+        // remove模块
+        tempArr = removeDomList.slice(0)
+        let i = 0
+        removeDomList.length && removeDomList.forEach((domName, index) => {
+            if ($(domName).remove().length != 0) {
+                tempArr.splice(index + i, 1)
+                i--
+            }
+        })
+        removeDomList = tempArr.slice(0)
 
         // 主播公告、贡献周榜、贵宾和粉丝团
         if (config.chatBoxCleaning) {
