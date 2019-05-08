@@ -1,8 +1,8 @@
 // ==UserScript==
 // @name         斗鱼去火箭横幅(贵族弹幕样式&&聊天区域铭牌)
 // @namespace    https://github.com/wah0713/myTampermonkey
-// @version      1.71
-// @description  一个兴趣使然的脚本，本来只是屏蔽火箭横幅的脚本，到后来。。。
+// @version      1.72
+// @description  一个兴趣使然的脚本，本来只是屏蔽火箭横幅的脚本，到后来。。。未待续
 // @supportURL   https://github.com/wah0713/myTampermonkey/issues
 // @author       wah0713
 // @compatible   chrome
@@ -28,14 +28,10 @@
         '.focus_box_con-7adc83',
         // 右侧浮动广告、
         ' #js-room-activity',
-        // 抽奖中间部提示框、
-        '.LotteryContainer',
         // 火箭横幅、
         '.broadcastDiv-af5699',
         // 亲密互动(播放器左下角)、
         '.closeBg-998534',
-        // 抽奖(播放器左下角)、
-        '.UPlayerLotteryEnter',
         // 贵族入场提醒（输入框上方）、
         '.EnterEffect',
         // 补充 贵族入场提醒（输入框上方）、
@@ -75,13 +71,14 @@
     $('head').append(myCss)
 
     // 右侧自定义按钮模块
-    $('body').append('<div id="wah0713"></div>')
+    $('body').append('<div id="wah0713"><img src="https://wah0713.github.io/myTampermonkey/image/config.jpg"></div>')
 
     // 用户默认配置
     let defaultConfig = {
         adjustClarity: false, // 登陆最高画质
         danmuMove: false, // 弹幕悬停
         guessIsShow: false, // 竞猜显示
+        lotteryIsShow: false, // 抽奖显示
         backgroundIsShow: false, // 背景显示
         chatBoxCleaning: true, // 聊天框简化
         forbiddenMessage: false, // 禁言消息显示
@@ -92,7 +89,6 @@
             config[key] = defaultConfig[key]
         }
     }
-
     window.onbeforeunload = () => {
         GM_setValue('Config', config)
     }
@@ -126,6 +122,7 @@
     btnListFun('adjustClarity', '登陆最高画质')
     btnListFun('danmuMove', '弹幕悬停')
     btnListFun('guessIsShow', '竞猜显示')
+    btnListFun('lotteryIsShow', '抽奖显示')
     btnListFun('backgroundIsShow', '背景显示')
     btnListFun('chatBoxCleaning', '聊天框简化')
     btnListFun('forbiddenMessage', '禁言消息显示')
@@ -146,6 +143,19 @@
             }
         })
         removeDomList = tempArr.slice(0)
+
+        // 抽奖显示
+        if (config.lotteryIsShow) {
+            // 抽奖中间部提示框、
+            $(".LotteryContainer").show()
+            // 抽奖(播放器左下角)、
+            $(".UPlayerLotteryEnter").show()
+        } else {
+            // 抽奖中间部提示框、
+            $(".LotteryContainer").hide()
+            // 抽奖(播放器左下角)、
+            $(".UPlayerLotteryEnter").hide()
+        }
 
         // 主播公告、贡献周榜、贵宾和粉丝团
         if (config.chatBoxCleaning) {
@@ -184,7 +194,7 @@
             })
         }
 
-        // 是否开启竞猜关闭
+        // 竞猜显示
         if (config.guessIsShow) {
             $('.guessGameContainer').show()
             $(".ActivityItem").each((idx, dom) => {
