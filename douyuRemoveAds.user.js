@@ -1,8 +1,8 @@
 // ==UserScript==
 // @name         斗鱼去火箭横幅(贵族弹幕样式&&聊天区域铭牌)
 // @namespace    https://github.com/wah0713/myTampermonkey
-// @version      1.73
-// @description  一个兴趣使然的脚本，本来只是屏蔽火箭横幅的脚本，到后来。。。 【功能按钮】 登陆最高画质、弹幕悬停、竞猜显示、抽奖显示、背景显示、聊天框简化、禁言消息显示。 【屏蔽】火力全开（输入框上方）、播放器内关注按钮、右侧浮动广告、火箭横幅、亲密互动(播放器左下角)、贵族入场提醒（输入框上方）、贵族入场提醒（输入框上方）、分享 客户端 手游中心（播放器右上角）、导航栏客户端按钮、播放器内主播推荐关注弹幕、播放器内房间号日期（播放器内左下角）、播放器左下角下载客户端QR、播放器左侧亲密互动、未登录提示、分区推荐弹幕、游侠活动。【默认设置】左侧展开默认收起、弹幕简化、聊天框消息简化
+// @version      1.74
+// @description  一个兴趣使然的脚本，本来只是屏蔽火箭横幅的脚本，到后来。。。 【功能按钮】 登陆最高画质、弹幕悬停、竞猜显示、抽奖显示、背景显示、聊天框简化、禁言消息显示、完成日常奖励。 【默认设置】左侧展开默认收起、弹幕简化（贵族弹幕）、聊天框消息简化（聊天区域铭牌、大部分系统消息）【屏蔽】火力全开（输入框上方）、播放器内关注按钮、右侧浮动广告、火箭横幅、亲密互动(播放器左下角)、贵族入场提醒（输入框上方）、贵族入场提醒（输入框上方）、分享 客户端 手游中心（播放器右上角）、导航栏客户端按钮、播放器内主播推荐关注弹幕、播放器内房间号日期（播放器内左下角）、播放器左下角下载客户端QR、播放器左侧亲密互动、未登录提示、分区推荐弹幕、游侠活动。
 // @supportURL   https://github.com/wah0713/myTampermonkey/issues
 // @author       wah0713
 // @compatible   chrome
@@ -19,6 +19,8 @@
 
     const MutationObserver = window.MutationObserver || window.WebKitMutationObserver || window.MozMutationObserver
     let sign = 0
+    // 日常奖励文本
+    let RewardText = ""
     // Background-holder的原始paddingTop值
     let OriginalbackgroundGolderPaddingTop = $('.Background-holder').css('padding-top') || 0
     let removeDomList = [
@@ -87,6 +89,7 @@
         backgroundIsShow: false, // 背景显示
         chatBoxCleaning: true, // 聊天框简化
         forbiddenMessage: false, // 禁言消息显示
+        autoReward: false, // 完成日常奖励
     }
     let config = GM_getValue('Config', defaultConfig)
     for (let key in defaultConfig) {
@@ -103,8 +106,8 @@
      * @param {string} localStorageName 按钮本地存储名
      * @param {string} displayName 按钮显示名
      */
-    function btnListFun(localStorageName, displayName) {
-        $("#wah0713").append(`<button class='${localStorageName}'>${displayName}(close)</button>`)
+    function btnListFun(localStorageName, displayName, description) {
+        $("#wah0713").append(`<button class='${localStorageName}' title='${description}'>${displayName}(close)</button>`)
 
         function btnInit() {
             if (!config[localStorageName]) {
@@ -124,18 +127,44 @@
     }
 
     // 按钮事件
-    btnListFun('adjustClarity', '登陆最高画质')
-    btnListFun('danmuMove', '弹幕悬停')
-    btnListFun('guessIsShow', '竞猜显示')
-    btnListFun('lotteryIsShow', '抽奖显示')
-    btnListFun('backgroundIsShow', '背景显示')
-    btnListFun('chatBoxCleaning', '聊天框简化')
-    btnListFun('forbiddenMessage', '禁言消息显示')
+    btnListFun('adjustClarity', '登陆最高画质', '登陆后开启当前房间最高画质，可能会闪一次屏__本功能由noob-one提出')
+    btnListFun('danmuMove', '弹幕悬停', '播放器内弹幕被选中时悬停__本功能由noob-one提出')
+    btnListFun('guessIsShow', '竞猜显示', '竞猜是否显示__本功能由noob-one提出')
+    btnListFun('lotteryIsShow', '抽奖显示', '抽奖是否显示__本功能由lv88ff提出')
+    btnListFun('backgroundIsShow', '背景显示', '背景是否显示__本功能由dongliang zhang提出')
+    btnListFun('chatBoxCleaning', '聊天框简化', '聊天框头部去除主播公告、贡献周榜、贵宾、粉丝团和主播通知__本功能由dongliang zhang提出')
+    btnListFun('forbiddenMessage', '禁言消息显示', '聊天框内用户被禁言消息是否显示__本功能由lv88ff提出')
+    // btnListFun('autoReward', '完成日常奖励', '播放器左下角每天日常礼物自动获取')
 
     // 左侧展开默认收起
     if ($(".Aside-main--shrink").width() > 100) {
         $(".Aside-toggle").click()
     }
+
+    setInterval(() => {
+        // 自动获取日常奖励
+        if (config.autoReward) {
+            RewardText = $('.RewardModule-notify').text()
+            if (RewardText && !isNaN(RewardText) && RewardText > 0) {
+                // 自动发送弹幕
+                let raddom = Math.ceil(10 * Math.random())
+                let AutoDanmu = ''
+                for (let i = 1; i <= raddom; i++) {
+                    AutoDanmu += '6'
+                }
+                $('.ChatSend-txt').val(AutoDanmu)
+                $('.ChatSend-button').click()
+
+                $('.RewardModule-toggle').click()
+                $('.RewardModal').css('opacity', 0)
+                $('.RewardM-text.enable').each((idx, dom) => {
+                    $(dom).click()
+                })
+                $('.RewardModal').css('opacity', 1)
+                $('.RewardModule-toggle').click()
+            }
+        }
+    }, 5 * 1000);
 
     const observer = new MutationObserver(function () {
         // remove模块
@@ -191,7 +220,7 @@
         if (config.danmuMove) {
             $(".danmuItem-31f924 .mask").remove()
         } else {
-            $('.danmuItem-31f924').each((index, dom) => {
+            $('.danmuItem-31f924').each((idx, dom) => {
                 if (!$(dom)[0].handle) {
                     $(dom)[0].handle = true
                     $(dom).append('<div class="mask" style="height: 100%;width: 100%;position: absolute;top: 0;left: 0;z-index: 999; cursor:default;"></div>')
@@ -325,9 +354,15 @@
     }
     observer.observe(target, observerConfig)
 
-    // // styleTest
-    // const node = document.createTextNode(`
+    // // debugJS
+    // setTimeout(() => {
 
+    // }, 5 * 1000);
+
+    // // debugStyle
+    // const node = document.createTextNode(`
+    // html #wah0713 {
+    // }
     // `)
     // $('head').append($(`<style type="text/css"></style>`).append(node))
 
