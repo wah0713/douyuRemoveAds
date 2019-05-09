@@ -1,10 +1,10 @@
 # [斗鱼去火箭横幅(贵族弹幕样式&&聊天区域铭牌)](https://greasyfork.org/zh-CN/scripts/381934-%E6%96%97%E9%B1%BC%E5%8E%BB%E7%81%AB%E7%AE%AD%E6%A8%AA%E5%B9%85)
 
-### 当前版本1.8效果图：
+### 当前版本1.73效果图：
 
 1、UI做了一些调整
 2、新增抽奖按钮（默认关闭）--由lv88ff提出
-![当前版本1.8](https://wah0713.github.io/myTampermonkey/image/douyu1.8.png)
+![当前版本1.73](https://wah0713.github.io/myTampermonkey/image/douyu1.73.png)
 
 ### 上个版本1.7效果图：
 
