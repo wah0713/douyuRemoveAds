@@ -1,8 +1,8 @@
 // ==UserScript==
 // @name         斗鱼去火箭横幅(贵族弹幕样式&&聊天区域铭牌)
 // @namespace    https://github.com/wah0713/myTampermonkey
-// @version      1.72
-// @description  一个兴趣使然的脚本，本来只是屏蔽火箭横幅的脚本，到后来。。。未待续
+// @version      1.73
+// @description  一个兴趣使然的脚本，本来只是屏蔽火箭横幅的脚本，到后来。。。 【功能按钮】 登陆最高画质、弹幕悬停、竞猜显示、抽奖显示、背景显示、聊天框简化、禁言消息显示。 【屏蔽】火力全开（输入框上方）、播放器内关注按钮、右侧浮动广告、火箭横幅、亲密互动(播放器左下角)、贵族入场提醒（输入框上方）、贵族入场提醒（输入框上方）、分享 客户端 手游中心（播放器右上角）、导航栏客户端按钮、播放器内主播推荐关注弹幕、播放器内房间号日期（播放器内左下角）、播放器左下角下载客户端QR、播放器左侧亲密互动、未登录提示、分区推荐弹幕、游侠活动。【默认设置】左侧展开默认收起、弹幕简化、聊天框消息简化
 // @supportURL   https://github.com/wah0713/myTampermonkey/issues
 // @author       wah0713
 // @compatible   chrome
@@ -34,13 +34,13 @@
         '.closeBg-998534',
         // 贵族入场提醒（输入框上方）、
         '.EnterEffect',
-        // 补充 贵族入场提醒（输入框上方）、
+        // 贵族入场提醒（输入框上方）、
         '.Title-roomOtherBottom',
         // 分享 客户端 手游中心（播放器右上角）、
         '.Header-download-wrap',
         // 导航栏客户端按钮、
         '.noSubFloat-3e7a50',
-        // 播放器内主播推荐关注弹幕
+        // 播放器内主播推荐关注弹幕、
         '.watermark-442a18',
         // 播放器内房间号日期（播放器内左下角）、
         '.code_box-5cdf5a',
@@ -61,7 +61,6 @@
     let once = {
         notProcessedAdjustClarity: true,
         playerCentered: true,
-        backgroundIsShow: true,
     }
 
     const target = $('body')[0]
@@ -73,7 +72,7 @@
     // 右侧自定义按钮模块
     $('body').append('<div id="wah0713"><img src="https://wah0713.github.io/myTampermonkey/image/config.jpg"></div>')
     $('#wah0713').mouseenter(() => {
-        $('#wah0713').css('transition', 'all 1s ease-in')
+        $('#wah0713').css('transition', 'all 0.5s ease-in')
         $('#wah0713 >img').fadeOut("slow")
     }).mouseleave(() => {
         $('#wah0713 >img').fadeIn("slow")
@@ -216,65 +215,62 @@
         }
 
         // 背景图
-        if (once.backgroundIsShow) {
-            if (config.backgroundIsShow) {
-                // 播放器位置
-                $('.Background-holder').css('padding-top', OriginalbackgroundGolderPaddingTop)
-                $('html').removeClass('no-background')
-                // 底部广告
-                $('#js-bottom').show()
-                $('body')[0].style = ""
-                if ($('.layout-Container')[0]) {
-                    $('.layout-Container')[0].style = ""
-                }
-                // 支持url带 /topic
-                if (window.location.pathname.indexOf('topic') > -1) {
-                    $('.layout-Main')[0].removeAttribute('style')
-                }
-                $('.bc-wrapper').show()
-            } else {
-                // 播放器位置
-                $('.Background-holder').css('padding-top', 10)
-                // 底部广告
-                $('#js-bottom').hide()
-                $('html').addClass('no-background')
-                if ($('.layout-Main').offset().top < $(window).height() * 1 / 2) {
-                    $('body').css({
-                        'background-image': 'none',
-                        'background-color': '#ffe'
-                    })
-                } else {
-                    $('body').css({
-                        'background-image': "url('https://wah0713.github.io/myTampermonkey/image/down.jpg')",
-                        'background-color': '#ffe',
-                        'background-position': 'center 68px',
-                        'background-repeat': 'repeat-y'
-                    })
-                }
-                $('.layout-Container') && $('.layout-Container').css({
+        if (config.backgroundIsShow) {
+            // 播放器位置
+            $('.Background-holder').css('padding-top', OriginalbackgroundGolderPaddingTop)
+            $('html').removeClass('no-background')
+            // 底部广告
+            $('#js-bottom').show()
+            $('body')[0].style = ""
+            if ($('.layout-Container')[0]) {
+                $('.layout-Container')[0].style = ""
+            }
+            // 支持url带 /topic
+            if (window.location.pathname.indexOf('topic') > -1) {
+                $('.layout-Main')[0].removeAttribute('style')
+            }
+            $('.bc-wrapper').show()
+        } else {
+            // 播放器位置
+            $('.Background-holder').css('padding-top', 10)
+            // 底部广告
+            $('#js-bottom').hide()
+            $('html').addClass('no-background')
+            if ($('.layout-Main').offset().top < $(window).height() * 1 / 2) {
+                $('body').css({
                     'background-image': 'none',
                     'background-color': '#ffe'
                 })
-
-                // 支持url带 /topic
-                if (window.location.pathname.indexOf('topic') > -1) {
-                    $('.layout-Main')[0].setAttribute('style',
-                        'margin-top: 80px;'
-                    )
-                }
-
-                // 去掉除播放器以外的多余bc-wrapper元素
-                $('.bc-wrapper').each((index, element) => {
-                    $(element).children().each((idx, ele) => {
-                        if ($(ele).hasClass('layout-Main')) {
-                            sign = index
-                            return false
-                        }
-                    })
+            } else {
+                $('body').css({
+                    'background-image': "url('https://wah0713.github.io/myTampermonkey/image/down.jpg')",
+                    'background-color': '#f6f6f6',
+                    'background-position': 'center 68px',
+                    'background-repeat': 'repeat-y'
                 })
-                $('.bc-wrapper').not($('.bc-wrapper')[sign]).hide()
             }
-            once.backgroundIsShow = false
+            $('.layout-Container') && $('.layout-Container').css({
+                'background-image': 'none',
+                'background-color': '#ffe'
+            })
+
+            // 支持url带 /topic
+            if (window.location.pathname.indexOf('topic') > -1) {
+                $('.layout-Main')[0].setAttribute('style',
+                    'margin-top: 80px;'
+                )
+            }
+
+            // 去掉除播放器以外的多余bc-wrapper元素
+            $('.bc-wrapper').each((index, element) => {
+                $(element).children().each((idx, ele) => {
+                    if ($(ele).hasClass('layout-Main')) {
+                        sign = index
+                        return false
+                    }
+                })
+            })
+            $('.bc-wrapper').not($('.bc-wrapper')[sign]).hide()
         }
 
         // 火力全开弹幕
