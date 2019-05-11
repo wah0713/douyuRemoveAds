@@ -2,8 +2,7 @@
 // @name         斗鱼去火箭横幅(贵族弹幕样式&&聊天区域铭牌)
 // @namespace    https://github.com/wah0713/myTampermonkey
 // @version      1.74
-// @description  一个兴趣使然的脚本，本来只是屏蔽火箭横幅的脚本，到后来。。。 【功能按钮】 登陆最高画质、弹幕悬停、竞猜显示、抽奖显示、背景显示、聊天框简化、禁言消息显示、完成日常奖励。 【默认设置】左侧展开默认收起、弹幕简化（贵族弹幕）、聊天框消息简化（聊天区域铭牌、大部分系统消息）【屏蔽】火力全开（输入框上方）、播放器内关注按钮、右侧浮动广告、火箭横幅、亲密互动(播放器左下角)、贵族入场提醒（输入框上方）、贵族入场提醒（输入框上方）、分享 客户端 手游中心（播放器右上角）、导航栏客户端按钮、播放器内主播推荐关注弹幕、播放器内房间号日期（播放器内左下角）、播放器左下角下载客户端QR、播放器左侧亲密互动、未登录提示、分区推荐弹幕、游侠活动、聊天框上方贵族发言。
-// 。
+// @description  一个兴趣使然的脚本，本来只是屏蔽火箭横幅的脚本，到后来。。。 【★功能按钮】 登陆最高画质、弹幕悬停、竞猜显示、抽奖显示、背景显示、聊天框简化、禁言消息显示。 【★默认设置】左侧展开默认收起、弹幕简化（贵族弹幕）、聊天框消息简化（聊天区域铭牌、大部分系统消息）【★屏蔽】火力全开（输入框上方）、播放器内关注按钮、右侧浮动广告、火箭横幅、亲密互动(播放器左下角)、贵族入场提醒（输入框上方）、贵族入场提醒（输入框上方）、分享 客户端 手游中心（播放器右上角）、导航栏客户端按钮、播放器内主播推荐关注弹幕、播放器内房间号日期（播放器内左下角）、播放器左下角下载客户端QR、播放器左侧亲密互动、未登录提示、分区推荐弹幕、游侠活动、聊天框上方贵族发言。
 // @supportURL   https://github.com/wah0713/myTampermonkey/issues
 // @author       wah0713
 // @compatible   chrome
@@ -85,7 +84,7 @@
         // 只执行一次
         let once = {
             notProcessedAdjustClarity: true,
-            playerCentered: true,
+            backgroundIsShow: true,
         }
 
         const target = $('body')[0]
@@ -160,30 +159,16 @@
             $(".Aside-toggle").click()
         }
 
-        // setInterval(() => {
-        //     // 自动获取日常奖励
-        //     if (config.autoReward) {
-        //         RewardText = $('.RewardModule-notify').text()
-        //         if (RewardText && !isNaN(RewardText) && RewardText > 0) {
-        //             // 自动发送弹幕
-        //             let raddom = Math.ceil(10 * Math.random())
-        //             let AutoDanmu = ''
-        //             for (let i = 1; i <= raddom; i++) {
-        //                 AutoDanmu += '6'
-        //             }
-        //             $('.ChatSend-txt').val(AutoDanmu)
-        //             $('.ChatSend-button').click()
+        // 播放器居中
+        function playerCenter() {
+            if (document.documentElement) {
+                document.documentElement.scrollTo(0, $(".layout-Player").offset().top - 80)
+            } else if (document.body) {
+                document.body.scrollTo(0, $(".layout-Player").offset().top - 80)
+            }
+            once.backgroundIsShow = false
+        }
 
-        //             $('.RewardModule-toggle').click()
-        //             $('.RewardModal').css('opacity', 0)
-        //             $('.RewardM-text.enable').each((idx, dom) => {
-        //                 $(dom).click()
-        //             })
-        //             $('.RewardModal').css('opacity', 1)
-        //             $('.RewardModule-toggle').click()
-        //         }
-        //     }
-        // }, 5 * 1000);
 
         const observer = new MutationObserver(function () {
             // onceRemoveDomList模块
@@ -222,16 +207,29 @@
                 $(".layout-Player-asideMainTop").removeClass("hide")
             }
 
-            // 播放器居中
-            if (once.playerCentered) {
-                if (document.documentElement) {
-                    document.documentElement.scrollTo(0, $(".layout-Player").offset().top - 88)
-                } else if (document.body) {
-                    document.body.scrollTo(0, $(".layout-Player").offset().top - 88)
-                }
-                once.playerCentered = false
-            }
+            // // 自动获取日常奖励
+            // if (config.autoReward) {
+            //     RewardText = $('.RewardModule-notify').text()
+            //     if (RewardText && !isNaN(RewardText) && RewardText > 0) {
+            //         $('.RewardModule-toggle').click()
+            //         $('.RewardModal').css('opacity', 0)
 
+            //         // 自动发送弹幕
+            //         if ($('.RewardM-text.count').length) {
+            //             let raddom = 2 + Math.ceil(8 * Math.random())
+            //             let AutoDanmu = ''
+            //             for (let i = 1; i <= raddom; i++) {
+            //                 AutoDanmu += '6'
+            //             }
+            //             $('.ChatSend-txt').val(AutoDanmu)
+            //             $('.ChatSend-button').click()
+            //         }
+
+            //         $('.RewardM-text.enable').click()
+            //         $('.RewardModal').css('opacity', 1)
+            //         $('.RewardModule-toggle').click()
+            //     }
+            // }
             // 登录开启最高画质
             if (config.adjustClarity) {
                 if (once.notProcessedAdjustClarity && $('.tip-e3420a ul') && $('.tip-e3420a ul').children().length && !$('.tip-e3420a ul li:first-child').hasClass('selected-3a8039')) {
@@ -283,6 +281,10 @@
                     $('.layout-Main')[0].removeAttribute('style')
                 }
                 $('.bc-wrapper').show()
+                // 播发器调整定位
+                if (once.backgroundIsShow) {
+                    playerCenter()
+                }
             } else {
                 // 播放器位置
                 $('.Background-holder').css('padding-top', 10)
@@ -306,14 +308,12 @@
                     'background-image': 'none',
                     'background-color': '#ffe'
                 })
-
                 // 支持url带 /topic
                 if (window.location.pathname.indexOf('topic') > -1) {
                     $('.layout-Main')[0].setAttribute('style',
                         'margin-top: 80px;'
                     )
                 }
-
                 // 去掉除播放器以外的多余bc-wrapper元素
                 $('.bc-wrapper').each((index, element) => {
                     $(element).children().each((idx, ele) => {
@@ -324,6 +324,12 @@
                     })
                 })
                 $('.bc-wrapper').not($('.bc-wrapper')[sign]).hide()
+                // 播发器调整定位
+                if (once.backgroundIsShow) {
+                    if ($(".layout-Player").offset().top <= 80) {
+                        playerCenter()
+                    }
+                }
             }
 
             // 去掉播放器下方活动列表
@@ -370,7 +376,6 @@
 
         // // debugStyle
         // const node = document.createTextNode(`
-
         // `)
         // $('head').append($(`<style type="text/css"></style>`).append(node))
 
