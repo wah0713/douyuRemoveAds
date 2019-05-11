@@ -2,7 +2,7 @@
 // @name         斗鱼去火箭横幅(贵族弹幕样式&&聊天区域铭牌)
 // @namespace    https://github.com/wah0713/myTampermonkey
 // @version      1.75
-// @description  一个兴趣使然的脚本，本来只是屏蔽火箭横幅的脚本，到后来。。。 【★功能按钮】 登陆最高画质、弹幕悬停、竞猜显示、抽奖显示、背景显示、聊天框简化、禁言消息显示。 【★默认设置】左侧展开默认收起、弹幕简化（贵族弹幕）、聊天框消息简化（聊天区域铭牌、大部分系统消息）【★屏蔽】火力全开（输入框上方）、播放器内关注按钮、右侧浮动广告、火箭横幅、亲密互动(播放器左下角)、贵族入场提醒（输入框上方）、贵族入场提醒（输入框上方）、分享 客户端 手游中心（播放器右上角）、导航栏客户端按钮、播放器内主播推荐关注弹幕、播放器内房间号日期（播放器内左下角）、播放器左下角下载客户端QR、播放器左侧亲密互动、未登录提示、分区推荐弹幕、游侠活动、聊天框上方贵族发言。
+// @description  一个兴趣使然的脚本，本来只是屏蔽火箭横幅的脚本，到后来。。。 【★功能按钮】 选择最高画质、弹幕悬停、竞猜显示、抽奖显示、背景显示、聊天框简化、禁言消息显示。 【★默认设置】左侧展开默认收起、弹幕简化（贵族弹幕）、聊天框消息简化（聊天区域铭牌、大部分系统消息）【★屏蔽】火力全开（输入框上方）、播放器内关注按钮、右侧浮动广告、火箭横幅、亲密互动(播放器左下角)、贵族入场提醒（输入框上方）、贵族入场提醒（输入框上方）、分享 客户端 手游中心（播放器右上角）、导航栏客户端按钮、播放器内主播推荐关注弹幕、播放器内房间号日期（播放器内左下角）、播放器左下角下载客户端QR、播放器左侧亲密互动、未登录提示、分区推荐弹幕、游侠活动、聊天框上方贵族发言。
 // @supportURL   https://github.com/wah0713/myTampermonkey/issues
 // @author       wah0713
 // @compatible   chrome
@@ -145,30 +145,45 @@
         }
 
         // 按钮事件
-        btnListFun('adjustClarity', '登陆最高画质', '登陆后开启当前房间最高画质，可能会闪一次屏__本功能由noob-one提出')
+        btnListFun('adjustClarity', '选择最高画质', '开启当前房间最高画质，可能会闪一次屏__本功能由noob-one提出')
         btnListFun('danmuMove', '弹幕悬停', '播放器内弹幕被选中时悬停__本功能由noob-one提出')
         btnListFun('guessIsShow', '竞猜显示', '竞猜是否显示__本功能由noob-one提出')
         btnListFun('lotteryIsShow', '抽奖显示', '抽奖是否显示__本功能由lv88ff提出')
         btnListFun('backgroundIsShow', '背景显示', '背景是否显示__本功能由dongliang zhang提出')
         btnListFun('chatBoxCleaning', '聊天框简化', '聊天框头部去除主播公告、贡献周榜、贵宾、粉丝团和主播通知__本功能由dongliang zhang提出')
         btnListFun('forbiddenMessage', '禁言消息显示', '聊天框内用户被禁言消息是否显示__本功能由lv88ff提出')
-        // btnListFun('autoReward', '完成日常奖励', '播放器左下角每天日常礼物自动获取')
+        btnListFun('autoReward', '完成日常奖励', '播放器左下角每天日常礼物自动获取')
 
         // 左侧展开默认收起
         if ($(".Aside-main--shrink").width() > 100) {
             $(".Aside-toggle").click()
         }
 
-        // 播放器居中
-        function playerCenter() {
-            if (document.documentElement) {
-                document.documentElement.scrollTo(0, $(".layout-Player").offset().top - 80)
-            } else if (document.body) {
-                document.body.scrollTo(0, $(".layout-Player").offset().top - 80)
-            }
-            once.backgroundIsShow = false
-        }
+        setInterval(() => {
+            // 自动获取日常奖励
+            if (config.autoReward) {
+                RewardText = $('.RewardModule-notify').text()
+                if (RewardText && !isNaN(RewardText) && RewardText > 0) {
+                    $('.RewardModule-toggle').click()
+                    $('.RewardModal').css('opacity', 0)
 
+                    // 自动发送弹幕
+                    if ($('.RewardM-text.count').length) {
+                        let raddom = 2 + Math.ceil(8 * Math.random())
+                        let AutoDanmu = ''
+                        for (let i = 1; i <= raddom; i++) {
+                            AutoDanmu += '6'
+                        }
+                        $('.ChatSend-txt').val(AutoDanmu)
+                        $('.ChatSend-button').click()
+                    }
+
+                    $('.RewardM-text.enable').click()
+                    $('.RewardModal').css('opacity', 1)
+                    $('.RewardModule-toggle').click()
+                }
+            }
+        }, 5 * 1000)
 
         const observer = new MutationObserver(function () {
             // onceRemoveDomList模块
@@ -186,6 +201,20 @@
             removeDomList.forEach((dom, idx) => {
                 $(dom).remove()
             })
+
+            // 自定义按钮显示条件
+            if ($('.UnLogin').length && $('.RewardModule-countdown').text().indexOf('领') > -1 || $('.RewardModule-iconnew.done').length)
+                $('.autoReward').hide()
+            else
+                $('.autoReward').show()
+
+            if ($('.UnLogin').length) {
+                $('.adjustClarity').hide()
+                $('.danmuMove').hide()
+            } else {
+                $('.adjustClarity').show()
+                $('.danmuMove').show()
+            }
 
             // 抽奖显示
             if (config.lotteryIsShow) {
@@ -207,29 +236,6 @@
                 $(".layout-Player-asideMainTop").removeClass("hide")
             }
 
-            // // 自动获取日常奖励
-            // if (config.autoReward) {
-            //     RewardText = $('.RewardModule-notify').text()
-            //     if (RewardText && !isNaN(RewardText) && RewardText > 0) {
-            //         $('.RewardModule-toggle').click()
-            //         $('.RewardModal').css('opacity', 0)
-
-            //         // 自动发送弹幕
-            //         if ($('.RewardM-text.count').length) {
-            //             let raddom = 2 + Math.ceil(8 * Math.random())
-            //             let AutoDanmu = ''
-            //             for (let i = 1; i <= raddom; i++) {
-            //                 AutoDanmu += '6'
-            //             }
-            //             $('.ChatSend-txt').val(AutoDanmu)
-            //             $('.ChatSend-button').click()
-            //         }
-
-            //         $('.RewardM-text.enable').click()
-            //         $('.RewardModal').css('opacity', 1)
-            //         $('.RewardModule-toggle').click()
-            //     }
-            // }
             // 登录开启最高画质
             if (config.adjustClarity) {
                 if (once.notProcessedAdjustClarity && $('.tip-e3420a ul') && $('.tip-e3420a ul').children().length && !$('.tip-e3420a ul li:first-child').hasClass('selected-3a8039')) {
@@ -281,10 +287,6 @@
                     $('.layout-Main')[0].removeAttribute('style')
                 }
                 $('.bc-wrapper').show()
-                // 播发器调整定位
-                if (once.backgroundIsShow) {
-                    playerCenter()
-                }
             } else {
                 // 播放器位置
                 $('.Background-holder').css('padding-top', 10)
@@ -324,12 +326,16 @@
                     })
                 })
                 $('.bc-wrapper').not($('.bc-wrapper')[sign]).hide()
-                // 播发器调整定位
-                if (once.backgroundIsShow) {
-                    if ($(".layout-Player").offset().top <= 80) {
-                        playerCenter()
-                    }
+            }
+
+            // 播发器调整定位
+            if (once.backgroundIsShow) {
+                if (document.documentElement) {
+                    document.documentElement.scrollTo(0, $(".layout-Player").offset().top - 80)
+                } else if (document.body) {
+                    document.body.scrollTo(0, $(".layout-Player").offset().top - 80)
                 }
+                once.backgroundIsShow = false
             }
 
             // 去掉播放器下方活动列表
