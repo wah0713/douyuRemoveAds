@@ -24,6 +24,27 @@ html ::-webkit-scrollbar-thumb {
 html ::-webkit-scrollbar-track {
   background-color: rgba(255, 255, 255, 0);
 }
+html body #js-header {
+  transition: 0.5s opacity;
+  opacity: 1;
+}
+html body .layout-Main {
+  transition: 0.5s margin-top;
+  margin-top: 0;
+}
+html body #js-aside {
+  transition: 0.5s margin-top;
+  margin-top: 0;
+}
+html body.head-hide #js-header {
+  opacity: 0.1;
+}
+html body.head-hide .layout-Main {
+  margin-top: -50px;
+}
+html body.head-hide #js-aside {
+  margin-top: -68px;
+}
 html .Barrage-listItem .Barrage-nickName {
   color: #2b94ff !important;
 }
