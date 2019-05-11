@@ -20,7 +20,7 @@
     // 引入定制的样式
     const myCss = $(`<link class='my-css' rel='stylesheet' href='https://wah0713.github.io/myTampermonkey/css/base.css'>`)
     $('head').append(myCss)
-    $('.my-css')[0].onerror=()=>{
+    $('.my-css')[0].onerror = () => {
         alert('网络问题，脚本执行出错！')
     }
     $('.my-css')[0].onload = () => {
@@ -29,6 +29,8 @@
         // 日常奖励文本
         let RewardText = ""
         // Background-holder的原始paddingTop值
+        let InitiaGuessGameHeight = 0
+        // 初始竞猜高度
         let OriginalbackgroundGolderPaddingTop = $('.Background-holder').css('padding-top') || 0
         // 只需要一次删除
 
@@ -94,7 +96,8 @@
         let once = {
             notProcessedAdjustClarity: true,
             backgroundIsShow: true,
-            removeBottomAd: true
+            removeBottomAd: true,
+            InitiaGuessGameHeight: true
         }
 
         const target = $('body')[0]
@@ -211,6 +214,12 @@
         })
 
         const observer = new MutationObserver(function () {
+
+            // 获取初始竞猜高度
+            if (once.InitiaGuessGameHeight && $('.Bottom-guessGame-placeholder').length) {
+                InitiaGuessGameHeight = $('.Bottom-guessGame-placeholder').height()
+                once.InitiaGuessGameHeight = false
+            }
             // onceRemoveDomList模块
             onceTempArr = onceRemoveDomList.slice(0)
             let i = 0
@@ -297,9 +306,11 @@
                         $(dom).show()
                     }
                 })
+                $('.Bottom-guessGame-placeholder').height(InitiaGuessGameHeight)
             } else {
                 $('.guessGameContainer').hide()
                 $(".ActivityItem").hide()
+                $('.Bottom-guessGame-placeholder').height(0)
             }
 
             // 背景图
