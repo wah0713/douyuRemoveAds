@@ -279,11 +279,15 @@
                 $(".LotteryContainer").show()
                 // 抽奖(播放器左下角)、
                 $(".UPlayerLotteryEnter").show()
+                // 中奖播放器中显示
+                $(".LotteryContainer-svgaWrap").show()
             } else {
                 // 抽奖中间部提示框、
                 $(".LotteryContainer").hide()
                 // 抽奖(播放器左下角)、
                 $(".UPlayerLotteryEnter").hide()
+                // 中奖播放器中显示
+                $(".LotteryContainer-svgaWrap").hide()
             }
 
             // 主播公告、贡献周榜、贵宾和粉丝团

@@ -54,6 +54,9 @@ html .Barrage-listItem .Barrage-nickName.is-self {
 html .layout-Player-asideMainTop.hide .layout-Player-announce {
   display: none;
 }
+html .layout-Player-asideMainTop.hide .layout-Player-rank {
+  display: none;
+}
 html .layout-Player-asideMainTop.hide .layout-Player-barrage {
   top: 0;
 }

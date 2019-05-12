@@ -2,7 +2,7 @@
 
 ### 当前版本1.76效果图：
 
-1、隐藏头部导航烂
+1、隐藏头部导航栏
 2、增加屏蔽 播放器左下方广告、聊天框内广告、底部广告 --由dongliang zhang提出
 
 ![当前版本1.76](https://wah0713.github.io/myTampermonkey/image/douyu1.76.png)
