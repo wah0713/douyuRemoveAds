@@ -45,6 +45,9 @@ html body.head-hide .layout-Main {
 html body.head-hide #js-aside {
   margin-top: -68px;
 }
+html .Barrage-listItem > div {
+  padding: 0 10px !important;
+}
 html .Barrage-listItem .Barrage-nickName {
   color: #2b94ff !important;
 }
@@ -70,7 +73,6 @@ html .noble-bf13ad {
 html .Barrage-notice--noble {
   background: none !important;
   border: none !important;
-  padding: 0 10px !important;
 }
 html.no-background .bc-wrapper {
   background-color: transparent !important;
