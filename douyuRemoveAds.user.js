@@ -164,7 +164,7 @@
         btnListFun('lotteryIsShow', '抽奖显示', '抽奖是否显示__本功能由lv88ff提出')
         btnListFun('backgroundIsShow', '背景显示', '背景是否显示__本功能由dongliang zhang提出')
         btnListFun('chatBoxCleaning', '聊天框简化', '聊天框头部去除主播公告、贡献周榜、贵宾、粉丝团和主播通知__本功能由dongliang zhang提出')
-        btnListFun('autoReward', '完成日常奖励', '播放器左下角每天日常礼物自动获取')
+        // btnListFun('autoReward', '完成日常奖励', '播放器左下角每天日常礼物自动获取')
         btnListFun('forbiddenMessage', '禁言消息显示', '聊天框内用户被禁言消息是否显示__本功能由lv88ff提出')
 
         // 左侧展开默认收起
@@ -172,45 +172,62 @@
             $(".Aside-toggle").click()
         }
 
-        setInterval(() => {
-            // 自动获取日常奖励
-            if (config.autoReward) {
-                RewardText = $('.RewardModule-notify').text()
-                if (RewardText && !isNaN(RewardText) && RewardText > 0) {
-                    $('.RewardModule-toggle').click()
-                    $('.RewardModal').css('opacity', 0)
+        // setInterval(() => {
+        //     // 自动获取日常奖励
+        //     if (config.autoReward) {
+        //         RewardText = $('.RewardModule-notify').text()
+        //         if (RewardText && !isNaN(RewardText) && RewardText > 0) {
+        //             $('.RewardModule-toggle').click()
+        //             $('.RewardModal').css('opacity', 0)
 
-                    // 自动发送弹幕
-                    if ($('.RewardM-text.count').length) {
-                        let raddom = 2 + Math.ceil(8 * Math.random())
-                        let AutoDanmu = ''
-                        for (let i = 1; i <= raddom; i++) {
-                            AutoDanmu += '6'
-                        }
-                        $('.ChatSend-txt').val(AutoDanmu)
-                        $('.ChatSend-button').click()
-                    }
-
-                    $('.RewardM-text.enable').click()
-                    $('.RewardModal').css('opacity', 1)
-                    $('.RewardModule-toggle').click()
-                }
-            }
-        }, 5 * 1000)
+        //             // 自动发送弹幕
+        //             if ($('.RewardM-text.count').length && $('.RewardM-text.count').text().indexOf('0') > -1) {
+        //                 let raddom = 2 + Math.ceil(8 * Math.random())
+        //                 let AutoDanmu = ''
+        //                 for (let i = 1; i <= raddom; i++) {
+        //                     AutoDanmu += '6'
+        //                 }
+        //                 $('.ChatSend-txt').val(AutoDanmu)
+        //                 $('.ChatSend-button').click()
+        //                 $('.RewardModal').css('opacity', 1)
+        //                 $('.RewardModule-toggle').click()
+        //             }else{
+        //                 $('.RewardM-text.enable').click()
+        //                 $('.RewardModal').css('opacity', 1)
+        //                 $('.RewardModule-toggle').click()
+        //             }
+        //         }
+        //     }
+        // }, 5 * 1000)
 
         // 头部隐藏
+        let headIshideTimer = null
         $('body').addClass('head-hide')
         $('#js-header').mouseenter(() => {
+            clearTimeout(headIshideTimer)
             $('body').removeClass('head-hide')
+            $('.public-DropMenu-drop').each((idx, dom) => {
+                dom.style = ""
+            })
         })
         $('#js-header').mouseleave(() => {
-            $('body').addClass('head-hide')
+            headIshideTimer = setTimeout(() => {
+                $('body').addClass('head-hide')
+                $('.public-DropMenu-drop').hide()
+                $('.Search-text').blur()
+            }, 5 * 1000)
         })
         $('#js-aside').mouseenter(() => {
+            clearTimeout(headIshideTimer)
             $('body').removeClass('head-hide')
+            $('.public-DropMenu-drop').each((idx, dom) => {
+                dom.style = ""
+            })
         })
         $('#js-aside').mouseleave(() => {
             $('body').addClass('head-hide')
+            $('.public-DropMenu-drop').hide()
+            $('.Search-text').blur()
         })
 
         const observer = new MutationObserver(function () {
@@ -298,6 +315,8 @@
 
             // 竞猜显示
             if (config.guessIsShow) {
+                // 聊天框用户竞猜获奖
+                $('.Barrage-list .Barrage-guess').parent('.Barrage-listItem').show()
                 $('.guessGameContainer').show()
                 $(".ActivityItem").each((idx, dom) => {
                     if ($(dom).find(".GuessIcon").length === 0) {
@@ -308,6 +327,8 @@
                 })
                 $('.Bottom-guessGame-placeholder').height(InitiaGuessGameHeight)
             } else {
+                // 聊天框用户竞猜获奖
+                $('.Barrage-list .Barrage-guess').parent('.Barrage-listItem').hide()
                 $('.guessGameContainer').hide()
                 $(".ActivityItem").hide()
                 $('.Bottom-guessGame-placeholder').height(0)
@@ -391,9 +412,6 @@
 
             // 聊天框用户送礼
             $('.Barrage-list .Barrage-message').parent('.Barrage-listItem').hide()
-
-            // 聊天框用户竞猜获奖
-            $('.Barrage-list .Barrage-guess').parent('.Barrage-listItem').hide()
 
             // 聊天框用户相关消息广播
             // 系统提示（例如禁言）Barrage-notice--red
