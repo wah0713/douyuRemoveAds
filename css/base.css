@@ -54,14 +54,12 @@ html .Barrage-listItem .Barrage-nickName.is-self {
 html .layout-Player-asideMainTop.hide .layout-Player-announce {
   display: none;
 }
-html .layout-Player-asideMainTop.hide .layout-Player-rank {
-  display: none;
-}
 html .layout-Player-asideMainTop.hide .layout-Player-barrage {
   top: 0;
 }
 html .layout-Player-asideMainTop.hide .layout-Player-rank {
   border: none;
+  display: none;
 }
 html .layout-Player-asideMainTop.hide .ChatRank-rankWraper {
   display: none;
@@ -72,18 +70,11 @@ html .noble-bf13ad {
 html .Barrage-notice--noble {
   background: none !important;
   border: none !important;
+  padding: 0 10px !important;
 }
 html.no-background .bc-wrapper {
   background-color: transparent !important;
   background-image: none !important;
-}
-html.no-background .noble-bf13ad {
-  background-color: transparent !important;
-  opacity: 0.75 !important;
-}
-html.no-background .Barrage-notice--noble {
-  background-color: transparent !important;
-  border: none !important;
 }
 html .is-fullScreenPage #wah0713 {
   display: none;

@@ -417,6 +417,9 @@
             // 聊天框用户送礼
             $('.Barrage-list .Barrage-message').parent('.Barrage-listItem').hide()
 
+            // 聊天框内贵族高度
+            $('.js-fansfloating-barragecont').addClass('Barrage-notice--normalBarrage').removeClass('Barrage-notice--noble')
+
             // 聊天框用户相关消息广播
             // 系统提示（例如禁言）Barrage-notice--red
             $('.Barrage-list .Barrage-icon--sys').each((idx, dom) => {
