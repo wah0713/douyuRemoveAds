@@ -33,7 +33,6 @@ html body .layout-Main {
   margin-top: 0;
 }
 html body #js-aside {
-  transition: 0.5s margin-top;
   margin-top: -68px;
   z-index: 401;
 }

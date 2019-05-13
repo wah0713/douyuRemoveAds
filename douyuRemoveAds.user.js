@@ -10,6 +10,7 @@
 // @icon         https://www.douyu.com/favicon.ico
 // @require      https://cdn.bootcss.com/jquery/3.4.0/jquery.min.js
 // @match        http*://www.douyu.com/*
+// @run-at       document-idle
 // @grant        GM_setValue
 // @grant        GM_getValue
 // ==/UserScript==
