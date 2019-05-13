@@ -34,7 +34,8 @@ html body .layout-Main {
 }
 html body #js-aside {
   transition: 0.5s margin-top;
-  margin-top: 0;
+  margin-top: -68px;
+  z-index: 401;
 }
 html body.head-hide #js-header {
   opacity: 0.1;
@@ -42,8 +43,8 @@ html body.head-hide #js-header {
 html body.head-hide .layout-Main {
   margin-top: -30px;
 }
-html body.head-hide #js-aside {
-  margin-top: -68px;
+html .Barrage {
+  border-top: none;
 }
 html .Barrage-listItem > div {
   padding: 0 10px !important;
@@ -89,7 +90,7 @@ html #wah0713 {
   right: -173px;
   z-index: 20;
   padding: 10px 5px;
-  background: #fedf6b url(http://img6.3lian.com/c23/desk4/04/48/d/05.jpg) no-repeat center / 100%;
+  background: #fedf6b url(https://wah0713.github.io/myTampermonkey/image/minion.jpg) no-repeat center / 100%;
 }
 html #wah0713:hover {
   right: 0;

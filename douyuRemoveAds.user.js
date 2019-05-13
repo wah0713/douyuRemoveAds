@@ -75,6 +75,8 @@
             '.Barrage-chat-ad',
             '.SysSign-Ad',
             // 聊天框内广告
+            '.PcDiversion'
+            // 画面卡顿提示框
         ]
         let onceTempArr = []
         // 需要重复删除
@@ -164,7 +166,7 @@
         btnListFun('lotteryIsShow', '抽奖显示', '抽奖是否显示__本功能由lv88ff提出')
         btnListFun('backgroundIsShow', '背景显示', '背景是否显示__本功能由dongliang zhang提出')
         btnListFun('chatBoxCleaning', '聊天框简化', '聊天框头部去除主播公告、贡献周榜、贵宾、粉丝团和主播通知__本功能由dongliang zhang提出')
-        // btnListFun('autoReward', '完成日常奖励', '播放器左下角每天日常礼物自动获取')
+        btnListFun('autoReward', '完成日常奖励', '播放器左下角每天日常礼物自动获取')
         btnListFun('forbiddenMessage', '禁言消息显示', '聊天框内用户被禁言消息是否显示__本功能由lv88ff提出')
 
         // 左侧展开默认收起
@@ -172,62 +174,70 @@
             $(".Aside-toggle").click()
         }
 
-        // setInterval(() => {
-        //     // 自动获取日常奖励
-        //     if (config.autoReward) {
-        //         RewardText = $('.RewardModule-notify').text()
-        //         if (RewardText && !isNaN(RewardText) && RewardText > 0) {
-        //             $('.RewardModule-toggle').click()
-        //             $('.RewardModal').css('opacity', 0)
+        setInterval(() => {
+            // 自动获取日常奖励
+            if ($('.autoReward')[0].style.display !== 'none' && config.autoReward) {
+                RewardText = $('.RewardModule-notify').text()
+                if (RewardText && !isNaN(RewardText) && RewardText > 0) {
+                    if ($('.RewardModal').length === -1) {
+                        $('.RewardModule-toggle').click()
+                        $('.RewardModal').css('opacity', 0)
+                        // 自动发送弹幕
+                        if ($('.RewardM-text.count').length && $('.RewardM-text.count').text().indexOf('0') > -1) {
+                            let raddom = 2 + Math.ceil(8 * Math.random())
+                            let AutoDanmu = ''
+                            for (let i = 1; i <= raddom; i++) {
+                                AutoDanmu += '6'
+                            }
+                            $('.ChatSend-txt').val(AutoDanmu)
+                            $('.ChatSend-button').click()
+                            setTimeout(() => {
+                                $('.RewardModule-toggle').click()
+                                $('.RewardModal').css('opacity', 1)
+                            }, 4000)
+                        } else {
+                            $('.RewardM-text.enable').click()
+                            $('.RewardModule-toggle').click()
+                            $('.RewardModal').css('opacity', 1)
+                        }
+                    } else {
+                        if ($('.RewardM-text.count').length && $('.RewardM-text.count').text().indexOf('0') > -1) {
+                            let raddom = 2 + Math.ceil(8 * Math.random())
+                            let AutoDanmu = ''
+                            for (let i = 1; i <= raddom; i++) {
+                                AutoDanmu += '6'
+                            }
+                            $('.ChatSend-txt').val(AutoDanmu)
+                            $('.ChatSend-button').click()
+                        } else {
+                            $('.RewardM-text.enable').click()
+                        }
+                    }
 
-        //             // 自动发送弹幕
-        //             if ($('.RewardM-text.count').length && $('.RewardM-text.count').text().indexOf('0') > -1) {
-        //                 let raddom = 2 + Math.ceil(8 * Math.random())
-        //                 let AutoDanmu = ''
-        //                 for (let i = 1; i <= raddom; i++) {
-        //                     AutoDanmu += '6'
-        //                 }
-        //                 $('.ChatSend-txt').val(AutoDanmu)
-        //                 $('.ChatSend-button').click()
-        //                 $('.RewardModal').css('opacity', 1)
-        //                 $('.RewardModule-toggle').click()
-        //             }else{
-        //                 $('.RewardM-text.enable').click()
-        //                 $('.RewardModal').css('opacity', 1)
-        //                 $('.RewardModule-toggle').click()
-        //             }
-        //         }
-        //     }
-        // }, 5 * 1000)
+                }
+            }
+        }, 5 * 1000)
 
         // 头部隐藏
-        let headIshideTimer = null
+        let headIsHideTimer = null
+        let headIsShowTimer = null
         $('body').addClass('head-hide')
         $('#js-header').mouseenter(() => {
-            clearTimeout(headIshideTimer)
-            $('body').removeClass('head-hide')
-            $('.public-DropMenu-drop').each((idx, dom) => {
-                dom.style = ""
-            })
+            clearTimeout(headIsHideTimer)
+            headIsShowTimer = setTimeout(() => {
+                $('body').removeClass('head-hide')
+                $('.public-DropMenu-drop').each((idx, dom) => {
+                    dom.style = ""
+                })
+            }, 500)
         })
         $('#js-header').mouseleave(() => {
-            headIshideTimer = setTimeout(() => {
+            clearTimeout(headIsShowTimer)
+            headIsHideTimer = setTimeout(() => {
                 $('body').addClass('head-hide')
                 $('.public-DropMenu-drop').hide()
                 $('.Search-text').blur()
             }, 5 * 1000)
-        })
-        $('#js-aside').mouseenter(() => {
-            clearTimeout(headIshideTimer)
-            $('body').removeClass('head-hide')
-            $('.public-DropMenu-drop').each((idx, dom) => {
-                dom.style = ""
-            })
-        })
-        $('#js-aside').mouseleave(() => {
-            $('body').addClass('head-hide')
-            $('.public-DropMenu-drop').hide()
-            $('.Search-text').blur()
         })
 
         const observer = new MutationObserver(function () {
@@ -298,7 +308,7 @@
             }
 
             // 登录开启最高画质
-            if (config.adjustClarity) {
+            if ($('.adjustClarity')[0].style.display !== 'none' && config.adjustClarity) {
                 if (once.notProcessedAdjustClarity && $('.tip-e3420a ul') && $('.tip-e3420a ul').children().length && !$('.tip-e3420a ul li:first-child').hasClass('selected-3a8039')) {
                     $('.tip-e3420a ul li:first-child').click()
                     once.notProcessedAdjustClarity = false
@@ -306,7 +316,7 @@
             }
 
             // 弹幕悬停关闭
-            if (config.danmuMove) {
+            if ($('.danmuMove')[0].style.display !== 'none' && config.danmuMove) {
                 $(".danmuItem-31f924 .mask").remove()
             } else {
                 $('.danmuItem-31f924').each((idx, dom) => {
