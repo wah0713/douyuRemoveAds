@@ -105,10 +105,6 @@
 
         const target = $('body')[0]
 
-        if ($('#room-flash-player').length) {
-            console.log(`flash`, )
-        }
-
         // 右侧自定义按钮模块
         $('body').append('<div id="wah0713"><img src="https://wah0713.github.io/myTampermonkey/image/config.jpg"></div>')
         $('#wah0713').mouseenter(() => {
@@ -197,12 +193,17 @@
                             $('.ChatSend-txt').val(AutoDanmu)
                             $('.ChatSend-button').click()
                             setTimeout(() => {
-                                $('.RewardModule-toggle').click()
+                                if ($('.RewardModal').length) {
+                                    $('.RewardModal-close').click()
+                                }
                                 $('.RewardModal').css('opacity', 1)
                             }, 4000)
-                        } else {
+                        } else if ($('.RewardM-text.count').length && $('.RewardM-text.count').text().indexOf('弹幕:1/1') > -1) {
                             $('.RewardM-text.enable').click()
-                            $('.RewardModule-toggle').click()
+                            $('.RewardModal-close').click()
+                            $('.RewardModal').css('opacity', 1)
+                        } else {
+                            $('.RewardModal-close').click()
                             $('.RewardModal').css('opacity', 1)
                         }
                     } else {
@@ -214,7 +215,7 @@
                             }
                             $('.ChatSend-txt').val(AutoDanmu)
                             $('.ChatSend-button').click()
-                        } else {
+                        } else if ($('.RewardM-text.count').length && $('.RewardM-text.count').text().indexOf('弹幕:1/1') > -1) {
                             $('.RewardM-text.enable').click()
                         }
                     }
