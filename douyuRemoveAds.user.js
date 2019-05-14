@@ -192,18 +192,23 @@
                             }
                             $('.ChatSend-txt').val(AutoDanmu)
                             $('.ChatSend-button').click()
-                            setTimeout(() => {
-                                if ($('.RewardModal').length) {
-                                    $('.RewardModal-close').click()
-                                }
-                                $('.RewardModal').css('opacity', 1)
-                            }, 4000)
+                            // 别的点击事件干扰了
+                            if ($('.RewardModal').length) {
+                                $('.RewardModal-close').click()
+                            }
+                            $('.RewardModal').css('opacity', 1)
                         } else if ($('.RewardM-text.count').length && $('.RewardM-text.count').text().indexOf('弹幕:1/1') > -1) {
                             $('.RewardM-text.enable').click()
-                            $('.RewardModal-close').click()
+                            // 别的点击事件干扰了
+                            if ($('.RewardModal').length) {
+                                $('.RewardModal-close').click()
+                            }
                             $('.RewardModal').css('opacity', 1)
                         } else {
-                            $('.RewardModal-close').click()
+                            // 别的点击事件干扰了
+                            if ($('.RewardModal').length) {
+                                $('.RewardModal-close').click()
+                            }
                             $('.RewardModal').css('opacity', 1)
                         }
                     } else {
