@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         斗鱼去火箭横幅(贵族弹幕样式&&聊天区域铭牌)
 // @namespace    https://github.com/wah0713/myTampermonkey
-// @version      1.79
+// @version      1.81
 // @description  一个兴趣使然的脚本，本来只是屏蔽火箭横幅的脚本，到后来。。。 【★功能按钮】 默认最高画质、弹幕悬停、竞猜显示、抽奖显示、背景显示、聊天框简化、完成日常奖励、禁言消息显示。 【★默认设置】左侧展开默认收起、弹幕简化（贵族弹幕）、聊天框消息简化（聊天区域铭牌、大部分系统消息）【★屏蔽】火力全开（输入框上方）、播放器内关注按钮、右侧浮动广告、火箭横幅、亲密互动(播放器左下角)、贵族入场提醒（输入框上方）、贵族入场提醒（输入框上方）、分享 客户端 手游中心（播放器右上角）、导航栏客户端按钮、播放器内主播推荐关注弹幕、播放器内房间号日期（播放器内左下角）、播放器左下角下载客户端QR、播放器左侧亲密互动、未登录提示、分区推荐弹幕、游侠活动、聊天框上方贵族发言、播放器左下方广告、聊天框内广告、底部广告、画面卡顿提示框。
 // @supportURL   https://github.com/wah0713/myTampermonkey/issues
 // @author       wah0713
@@ -76,8 +76,10 @@
             '.Barrage-chat-ad',
             '.SysSign-Ad',
             // 聊天框内广告
-            '.PcDiversion'
+            '.PcDiversion',
             // 画面卡顿提示框
+            '.guessIconReminding'
+            // 主播推荐竞猜
         ]
         let onceTempArr = []
         // 需要重复删除
@@ -100,19 +102,11 @@
             notProcessedAdjustClarity: true,
             backgroundIsShow: true,
             removeBottomAd: true,
-            InitiaGuessGameHeight: true
+            InitiaGuessGameHeight: true,
+            isFlashPlayer: true
         }
 
         const target = $('body')[0]
-
-        // 右侧自定义按钮模块
-        $('body').append('<div id="wah0713"><img src="https://wah0713.github.io/myTampermonkey/image/config.jpg"></div>')
-        $('#wah0713').mouseenter(() => {
-            $('#wah0713').css('transition', 'all 0.5s ease-out')
-            $('#wah0713 >img').fadeOut("slow")
-        }).mouseleave(() => {
-            $('#wah0713 >img').fadeIn("slow")
-        })
 
         // 用户默认配置
         let defaultConfig = {
@@ -159,6 +153,15 @@
                 }
             })
         }
+
+        // 右侧自定义按钮模块
+        $('body').append('<div id="wah0713"><img src="https://wah0713.github.io/myTampermonkey/image/config.jpg"></div>')
+        $('#wah0713').mouseenter(() => {
+            $('#wah0713').css('transition', 'all 0.5s ease-out')
+            $('#wah0713 >img').fadeOut("slow")
+        }).mouseleave(() => {
+            $('#wah0713 >img').fadeIn("slow")
+        })
 
         // 按钮事件
         btnListFun('adjustClarity', '默认最高画质', '开启当前房间最高画质，可能会闪一次屏__本功能由noob-one提出')
@@ -241,6 +244,14 @@
         })
 
         const observer = new MutationObserver(function () {
+            // flash播放器
+            if (once.isFlashPlayer && $('#room-flash-player').length) {
+                $('body').append(`<div id='wah0713-alert'><i>x</i><span>正在使用flash播放器，【斗鱼去火箭横幅】部分功能会失效</span></div>`)
+                setTimeout(() => {
+                    $('body #wah0713-alert').remove()
+                }, 5 * 1000)
+                once.isFlashPlayer = false
+            }
 
             // 获取初始竞猜高度
             if (once.InitiaGuessGameHeight && $('.Bottom-guessGame-placeholder').length) {

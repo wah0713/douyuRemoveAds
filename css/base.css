@@ -45,7 +45,7 @@ html body.head-hide .layout-Main {
 html .Barrage {
   border-top: none;
 }
-html .Barrage-listItem > div {
+html .Barrage-listItem div:first-child {
   padding: 0 10px !important;
 }
 html .Barrage-listItem .Barrage-nickName {
@@ -135,4 +135,35 @@ html #wah0713 > button:last-of-type {
 html #wah0713 > button.close {
   background: #82848a;
   border-color: #82848a;
+}
+html #wah0713-alert {
+  background-color: #fff1f0;
+  padding: 8px 16px;
+  position: fixed;
+  top: 130px;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 30;
+  user-select: none;
+  -webkit-user-select: none;
+}
+html #wah0713-alert > i {
+  width: 14px;
+  height: 14px;
+  background-color: #f5222d;
+  display: inline-block;
+  border-radius: 50%;
+  color: #fff;
+  text-align: center;
+  line-height: 14px;
+  font-family: "Arial", "Microsoft YaHei", "黑体", "宋体", sans-serif;
+  margin-right: 8px;
+  position: relative;
+  top: -1px;
+}
+html #wah0713-alert > span {
+  font-family: "Chinese Quote", -apple-system, BlinkMacSystemFont, "Segoe UI", "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", "Helvetica Neue", Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
+  font-size: 14px;
+  font-variant: tabular-nums;
+  color: rgba(0, 0, 0, 0.65);
 }
