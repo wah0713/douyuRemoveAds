@@ -154,6 +154,19 @@
             })
         }
 
+        $('body').append(`<div id='wah0713-alert'><i>x</i><span></span></div>`)
+
+        /**
+         *  提示框
+         * @param {string} message 内容
+         * @param {string} type 类型
+         */
+        function myAlert(message, type) {
+            $('#wah0713-alert >span').text(message).show()
+            setTimeout(() => {
+                $('#wah0713-alert >span').hide()
+            }, 3 * 1000)
+        }
         // 右侧自定义按钮模块
         $('body').append('<div id="wah0713"><img src="https://wah0713.github.io/myTampermonkey/image/config.jpg"></div>')
         $('#wah0713').mouseenter(() => {
@@ -197,23 +210,28 @@
                         $('.RewardModule-toggle').click()
                         $('.RewardModal').css('opacity', 0)
                         // 自动发送弹幕
-                        if ($('.RewardM-text.count').length && $('.RewardM-text.count').text().indexOf('0') > -1) {
+                        if ($('.RewardM-text.count').length && $('.RewardM-text.count').text().indexOf('弹幕:0/1') > -1) {
                             AutoDanmuSend()
+                            if ($('.RewardM-text.count').length) {
+                                // 别的点击事件干扰了
+                                $('.RewardM-text.enable').click()
+                            }
+                            $('.RewardModal-close').click()
+                            $('.RewardModal').css('opacity', 1)
+                        } else if ($('.RewardM-text.enable').length) {
                             $('.RewardM-text.enable').click()
                             // 别的点击事件干扰了
                             $('.RewardModal-close').click()
                             $('.RewardModal').css('opacity', 1)
                         } else {
-                            $('.RewardM-text.enable').click()
-                            // 别的点击事件干扰了
                             $('.RewardModal-close').click()
                             $('.RewardModal').css('opacity', 1)
                         }
                     } else {
-                        if ($('.RewardM-text.count').length && $('.RewardM-text.count').text().indexOf('0') > -1) {
+                        if ($('.RewardM-text.count').length && $('.RewardM-text.count').text().indexOf('弹幕:0/1') > -1) {
                             AutoDanmuSend()
                             $('.RewardM-text.enable').click()
-                        } else if ($('.RewardM-text.count').length && $('.RewardM-text.count').text().indexOf('弹幕:1/1') > -1) {
+                        } else if ($('.RewardM-text.enable').length) {
                             $('.RewardM-text.enable').click()
                         }
                     }
@@ -246,10 +264,7 @@
         const observer = new MutationObserver(function () {
             // flash播放器
             if (once.isFlashPlayer && $('#room-flash-player').length) {
-                $('body').append(`<div id='wah0713-alert'><i>x</i><span>正在使用flash播放器，【斗鱼去火箭横幅】部分功能会失效</span></div>`)
-                setTimeout(() => {
-                    $('body #wah0713-alert').remove()
-                }, 5 * 1000)
+                myAlert('正在使用flash播放器，【斗鱼去火箭横幅】部分功能会失效')
                 once.isFlashPlayer = false
             }
 
