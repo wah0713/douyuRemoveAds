@@ -10,7 +10,6 @@
 // @icon         https://www.douyu.com/favicon.ico
 // @require      https://cdn.bootcss.com/jquery/3.4.0/jquery.min.js
 // @match        http*://www.douyu.com/*
-// @run-at       document-idle
 // @grant        GM_setValue
 // @grant        GM_getValue
 // ==/UserScript==
@@ -162,9 +161,9 @@
          * @param {string} type 类型
          */
         function myAlert(message, type) {
-            $('#wah0713-alert >span').text(message).show()
+            $('#wah0713-alert >span').text(message).parent('#wah0713-alert').show()
             setTimeout(() => {
-                $('#wah0713-alert >span').hide()
+                $('#wah0713-alert').hide()
             }, 3 * 1000)
         }
         // 右侧自定义按钮模块
@@ -206,13 +205,13 @@
             if ($('.autoReward')[0].style.display !== 'none' && config.autoReward) {
                 RewardText = $('.RewardModule-notify').text()
                 if (RewardText && !isNaN(RewardText) && RewardText > 0) {
-                    if (!$('.RewardModal').length) {
+                    if (!$('.RewardModal').length) { // 弹框没有出来
                         $('.RewardModule-toggle').click()
                         $('.RewardModal').css('opacity', 0)
                         // 自动发送弹幕
                         if ($('.RewardM-text.count').length && $('.RewardM-text.count').text().indexOf('弹幕:0/1') > -1) {
                             AutoDanmuSend()
-                            if ($('.RewardM-text.count').length) {
+                            if ($('.RewardM-text.enable').length) {
                                 // 别的点击事件干扰了
                                 $('.RewardM-text.enable').click()
                             }
@@ -227,10 +226,13 @@
                             $('.RewardModal-close').click()
                             $('.RewardModal').css('opacity', 1)
                         }
-                    } else {
+                    } else { // 弹框出来
                         if ($('.RewardM-text.count').length && $('.RewardM-text.count').text().indexOf('弹幕:0/1') > -1) {
                             AutoDanmuSend()
-                            $('.RewardM-text.enable').click()
+                            if ($('.RewardM-text.enable').length) {
+                                // 别的点击事件干扰了
+                                $('.RewardM-text.enable').click()
+                            }
                         } else if ($('.RewardM-text.enable').length) {
                             $('.RewardM-text.enable').click()
                         }
