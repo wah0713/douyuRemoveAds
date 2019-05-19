@@ -45,6 +45,9 @@ html body.head-hide .layout-Main {
 html .Barrage {
   border-top: none;
 }
+html .danmuItem-31f924 {
+  background-color: transparent !important;
+}
 html .Barrage-listItem div:first-child {
   padding: 0 10px !important;
 }

@@ -94,6 +94,11 @@
             '.bc-f66a59',
             // 播放器内火力全开获奖
             '.FirePowerRewardModal',
+            // 2019.520贵族样式
+            '.activity-icon-c717fc',
+            '.user-icon-eeabb1',
+            '.noble-icon-88f562',
+            '.activity-icon-4b45df'
         ]
 
         // 只执行一次
