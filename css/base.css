@@ -45,6 +45,11 @@ html body.head-hide .layout-Main {
 html .Barrage {
   border-top: none;
 }
+html .autoReward,
+html .adjustClarity,
+html .danmuMove {
+  display: none;
+}
 html .danmuItem-31f924 {
   background-color: transparent !important;
 }
