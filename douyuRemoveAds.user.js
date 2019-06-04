@@ -218,7 +218,7 @@
                             AutoDanmuSend()
                             $('.RewardModal-close').click()
                             $('.RewardModal').css('opacity', 1)
-                        } else if ($('.RewardM-text.enable').length) {
+                        } else if ($('.RewardM-text.enable').length && ($('.RewardM-text.barrage').length === 0)) {
                             $('.RewardM-text.enable').click()
                             // 别的点击事件干扰了
                             $('.RewardModal-close').click()
@@ -230,7 +230,7 @@
                     } else { // 弹框出来
                         if ($('.RewardM-text').length && $('.RewardM-text').text().indexOf('弹幕:0/1') > -1) {
                             AutoDanmuSend()
-                        } else if ($('.RewardM-text.enable').length) {
+                        } else if ($('.RewardM-text.enable').length && ($('.RewardM-text.barrage').length === 0)) {
                             $('.RewardM-text.enable').click()
                         }
                     }
