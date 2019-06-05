@@ -1,0 +1,230 @@
+html {
+    ::-webkit-scrollbar {
+        height: 14px;
+        width: 12px;
+        overflow: visible;
+        position: absolute;
+        bottom: 16px;
+    }
+
+    ::-webkit-scrollbar-button {
+        height: 0;
+        width: 0;
+    }
+
+    ::-webkit-scrollbar-track,
+    ::-webkit-scrollbar-thumb {
+        background-clip: padding-box;
+        border: 3px solid transparent;
+        border-radius: 100px;
+    }
+
+    ::-webkit-scrollbar-corner {
+        background-color: transparent;
+    }
+
+    ::-webkit-scrollbar-thumb {
+        background-color: #ccc;
+    }
+
+    ::-webkit-scrollbar-track {
+        background-color: rgba(255, 255, 255, 0)
+    }
+
+    body {
+        #js-header {
+            transition: 0.5s opacity;
+            opacity: 1;
+        }
+
+        .layout-Main {
+            transition: 0.5s margin-top;
+            margin-top: 0;
+        }
+
+        #js-aside {
+            margin-top: -68px;
+            z-index: 401;
+        }
+
+        &.head-hide {
+            #js-header {
+                opacity: 0.1;
+            }
+
+            .layout-Main {
+                margin-top: -30px;
+            }
+
+        }
+    }
+
+    .Barrage {
+        border-top: none;
+    }
+
+    .autoReward,
+    .adjustClarity,
+    .danmuMove {
+        display: none;
+    }
+
+    .danmuItem-31f924 {
+        background-color: transparent !important;
+    }
+
+    .Barrage-listItem {
+        div:first-child {
+            padding: 0 10px !important;
+        }
+
+        .Barrage-nickName {
+            color: #2b94ff !important;
+
+            &.is-self {
+                color: #ff5d23 !important;
+            }
+        }
+    }
+
+    // 主播公告、贡献周榜、贵宾和粉丝团
+    .layout-Player-asideMainTop {
+        &.hide {
+            .layout-Player-announce {
+                display: none;
+            }
+
+            .layout-Player-barrage {
+                top: 0;
+            }
+
+            .layout-Player-rank {
+                border: none;
+                display: none;
+            }
+
+            .ChatRank-rankWraper {
+                display: none;
+            }
+        }
+    }
+
+    .noble-bf13ad {
+        background: none !important;
+    }
+
+    .Barrage-notice--noble {
+        background: none !important;
+        border: none !important;
+    }
+
+    &.no-background {
+        .bc-wrapper {
+            background-color: transparent !important;
+            background-image: none !important;
+        }
+    }
+
+    .is-fullScreenPage {
+        #wah0713 {
+            display: none;
+        }
+    }
+
+    #wah0713 {
+        position: fixed;
+        top: 50%;
+        transform: translateY(-50%);
+        border-radius: 6px;
+        right: -173px;
+        z-index: 20;
+        padding: 10px 5px;
+        background: #fedf6b url(https://wah0713.github.io/myTampermonkey/image/minion.jpg) no-repeat center / 100%;
+
+        &:hover {
+            right: 0;
+
+            >button {
+                opacity: 1;
+            }
+        }
+
+        >img {
+            width: 32px;
+            position: absolute;
+            padding-right: 13px;
+            top: 50%;
+            left: -45px;
+            transform: translateY(-50%);
+        }
+
+        >button {
+            box-shadow: 3px 3px 5px #ccc;
+            margin: 0 auto 5px;
+            display: block;
+            line-height: 1;
+            white-space: nowrap;
+            cursor: pointer;
+            background: #409eff;
+            border: 1px solid #409eff;
+            color: #fff;
+            -webkit-appearance: none;
+            text-align: center;
+            box-sizing: border-box;
+            outline: none;
+            transition: .1s;
+            font-weight: 500;
+            -moz-user-select: none;
+            -webkit-user-select: none;
+            -ms-user-select: none;
+            padding: 6px 10px;
+            font-size: 14px;
+            border-radius: 4px;
+            opacity: 0.75;
+
+            &:last-of-type {
+                margin-bottom: 0;
+            }
+
+            &.close {
+                background: #82848a;
+                border-color: #82848a;
+            }
+        }
+    }
+
+    #wah0713-alert {
+        display: none;
+        background-color: #fff1f0;
+        padding: 8px 16px;
+        position: fixed;
+        top: 200px;
+        left: 50%;
+        transform: translateX(-50%);
+        z-index: 30;
+        user-select: none;
+        -webkit-user-select: none;
+
+        >i {
+            width: 14px;
+            height: 14px;
+            background-color: #f5222d;
+            display: inline-block;
+            border-radius: 50%;
+            color: #fff;
+            text-align: center;
+            line-height: 14px;
+            font-family: "Arial", "Microsoft YaHei", "黑体", "宋体", sans-serif;
+            margin-right: 8px;
+            position: relative;
+            top: -1px;
+        }
+
+        >span {
+            font-family: "Chinese Quote", -apple-system, BlinkMacSystemFont, "Segoe UI", "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", "Helvetica Neue", Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
+            font-size: 14px;
+            font-variant: tabular-nums;
+            color: rgba(0, 0, 0, 0.65);
+        }
+    }
+}
