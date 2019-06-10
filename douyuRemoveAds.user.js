@@ -17,7 +17,7 @@
 
 (function () {
     if (!/^\/\d+$/.test(window.location.pathname) && window.location.pathname.indexOf('topic') === -1) return false
-
+                console.log(`$('.FuDaiActPanel')`,$('.FuDaiActPanel') )
     // 引入定制的样式
     const myCss = $(`<link class='my-css' rel='stylesheet' href='https://wah0713.github.io/myTampermonkey/dist/prod.css'>`)
     $('head').append(myCss)
@@ -78,8 +78,10 @@
             // 聊天框内广告
             '.PcDiversion',
             // 画面卡顿提示框
-            '.guessIconReminding'
+            '.guessIconReminding',
             // 主播推荐竞猜
+            '.FuDaiActPanel'
+            // 福袋狂欢
         ]
         let onceTempArr = []
         // 需要重复删除
@@ -122,7 +124,7 @@
             backgroundIsShow: false, // 背景显示
             chatBoxCleaning: true, // 聊天框简化
             forbiddenMessage: false, // 禁言消息显示
-            autoReward: false, // 完成日常奖励
+            // autoReward: false, // 完成日常奖励
         }
         let config = GM_getValue('Config', defaultConfig)
         for (let key in defaultConfig) {
@@ -188,7 +190,7 @@
         btnListFun('lotteryIsShow', '抽奖显示', '抽奖是否显示__本功能由lv88ff提出')
         btnListFun('backgroundIsShow', '背景显示', '背景是否显示__本功能由dongliang zhang提出')
         btnListFun('chatBoxCleaning', '聊天框简化', '聊天框头部去除主播公告、贡献周榜、贵宾、粉丝团和主播通知__本功能由dongliang zhang提出')
-        btnListFun('autoReward', '完成日常奖励', '播放器左下角每天日常礼物自动获取---功能还在测试中，欢迎反馈')
+        // btnListFun('autoReward', '完成日常奖励', '播放器左下角每天日常礼物自动获取---功能还在测试中，欢迎反馈')
         btnListFun('forbiddenMessage', '禁言消息显示', '聊天框内用户被禁言消息是否显示__本功能由lv88ff提出')
 
         // 左侧展开默认收起
@@ -206,38 +208,38 @@
             $('.ChatSend-button').click()
         }
 
-        setInterval(() => {
-            // 自动获取日常奖励
-            if ($('.autoReward')[0].style.display !== 'none' && config.autoReward) {
-                RewardText = $('.RewardModule-notify').text()
-                if (RewardText && !isNaN(RewardText) && RewardText > 0) {
-                    if (!$('.RewardModal').length) { // 弹框没有出来
-                        $('.RewardModule-toggle').click()
-                        $('.RewardModal').css('opacity', 0)
-                        // 自动发送弹幕
-                        if ($('.RewardM-text').length && $('.RewardM-text').text().indexOf('弹幕:0/1') > -1) {
-                            AutoDanmuSend()
-                            $('.RewardModal-close').click()
-                            $('.RewardModal').css('opacity', 1)
-                        } else if ($('.RewardM-text.enable').length && ($('.RewardM-text.barrage').length === 0)) {
-                            $('.RewardM-text.enable').click()
-                            // 别的点击事件干扰了
-                            $('.RewardModal-close').click()
-                            $('.RewardModal').css('opacity', 1)
-                        } else {
-                            $('.RewardModal-close').click()
-                            $('.RewardModal').css('opacity', 1)
-                        }
-                    } else { // 弹框出来
-                        if ($('.RewardM-text').length && $('.RewardM-text').text().indexOf('弹幕:0/1') > -1) {
-                            AutoDanmuSend()
-                        } else if ($('.RewardM-text.enable').length && ($('.RewardM-text.barrage').length === 0)) {
-                            $('.RewardM-text.enable').click()
-                        }
-                    }
-                }
-            }
-        }, 5 * 1000)
+        // setInterval(() => {
+        //     // 自动获取日常奖励
+        //     if ($('.autoReward')[0].style.display !== 'none' && config.autoReward) {
+        //         RewardText = $('.RewardModule-notify').text()
+        //         if (RewardText && !isNaN(RewardText) && RewardText > 0) {
+        //             if (!$('.RewardModal').length) { // 弹框没有出来
+        //                 $('.RewardModule-toggle').click()
+        //                 $('.RewardModal').css('opacity', 0)
+        //                 // 自动发送弹幕
+        //                 if ($('.RewardM-text').length && $('.RewardM-text').text().indexOf('弹幕:0/1') > -1) {
+        //                     AutoDanmuSend()
+        //                     $('.RewardModal-close').click()
+        //                     $('.RewardModal').css('opacity', 1)
+        //                 } else if ($('.RewardM-text.enable').length && ($('.RewardM-text.barrage').length === 0)) {
+        //                     $('.RewardM-text.enable').click()
+        //                     // 别的点击事件干扰了
+        //                     $('.RewardModal-close').click()
+        //                     $('.RewardModal').css('opacity', 1)
+        //                 } else {
+        //                     $('.RewardModal-close').click()
+        //                     $('.RewardModal').css('opacity', 1)
+        //                 }
+        //             } else { // 弹框出来
+        //                 if ($('.RewardM-text').length && $('.RewardM-text').text().indexOf('弹幕:0/1') > -1) {
+        //                     AutoDanmuSend()
+        //                 } else if ($('.RewardM-text.enable').length && ($('.RewardM-text.barrage').length === 0)) {
+        //                     $('.RewardM-text.enable').click()
+        //                 }
+        //             }
+        //         }
+        //     }
+        // }, 5 * 1000)
 
         // 头部隐藏
         let headIsHideTimer = null
@@ -295,11 +297,11 @@
                 once.removeBottomAd = false
             }
 
-            // 自定义按钮显示条件
-            if ($('.UnLogin').length && $('.RewardModule-countdown').text().indexOf('领') > -1 || $('.RewardModule-iconnew.done').length)
-                $('.autoReward').hide()
-            else
-                $('.autoReward').show()
+            // // 自定义按钮显示条件
+            // if ($('.UnLogin').length && $('.RewardModule-countdown').text().indexOf('领') > -1 || $('.RewardModule-iconnew.done').length)
+            //     $('.autoReward').hide()
+            // else
+            //     $('.autoReward').show()
 
             if ($('.UnLogin').length) {
                 $('.adjustClarity').hide()
