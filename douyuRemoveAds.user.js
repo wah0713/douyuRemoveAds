@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         斗鱼去火箭横幅(贵族弹幕样式&&聊天区域铭牌)
 // @namespace    https://github.com/wah0713/myTampermonkey
-// @version      1.86
+// @version      1.87
 // @description  一个兴趣使然的脚本，本来只是屏蔽火箭横幅的脚本，到后来。。。 【★功能按钮】 默认最高画质、弹幕悬停、竞猜显示、抽奖显示、背景显示、聊天框简化、完成日常奖励、禁言消息显示。 【★默认设置】左侧展开默认收起、弹幕简化（贵族弹幕）、聊天框消息简化（聊天区域铭牌、大部分系统消息）【★屏蔽】火力全开（输入框上方）、播放器内关注按钮、右侧浮动广告、火箭横幅、亲密互动(播放器左下角)、贵族入场提醒（输入框上方）、贵族入场提醒（输入框上方）、分享 客户端 手游中心（播放器右上角）、导航栏客户端按钮、播放器内主播推荐关注弹幕、播放器内房间号日期（播放器内左下角）、播放器左下角下载客户端QR、播放器左侧亲密互动、未登录提示、分区推荐弹幕、游侠活动、聊天框上方贵族发言、播放器左下方广告、聊天框内广告、底部广告、画面卡顿提示框。
 // @supportURL   https://github.com/wah0713/myTampermonkey/issues
 // @author       wah0713
@@ -26,15 +26,14 @@
     $('.my-css')[0].onload = () => {
         const MutationObserver = window.MutationObserver || window.WebKitMutationObserver || window.MozMutationObserver
         let sign = 0
-        // 日常奖励文本
-        let RewardText = ""
+        // 日常任务的按钮数量
+        let $TreasureBoxBtnList = 0
         // Background-holder的原始paddingTop值
         let InitiaGuessGameHeight = 0
         // 初始竞猜高度
         let OriginalbackgroundGolderPaddingTop = $('.Background-holder').css('padding-top') || 0
         // 只需要一次删除
 
-        // SignBaseComponent-sign-ad
         let onceRemoveDomList = [
             // 火力全开（输入框上方）、
             '.FirePower',
@@ -123,7 +122,7 @@
             backgroundIsShow: false, // 背景显示
             chatBoxCleaning: true, // 聊天框简化
             forbiddenMessage: false, // 禁言消息显示
-            // autoReward: false, // 完成日常奖励
+            autoReward: false, // 完成日常奖励
         }
         let config = GM_getValue('Config', defaultConfig)
         for (let key in defaultConfig) {
@@ -189,7 +188,7 @@
         btnListFun('lotteryIsShow', '抽奖显示', '抽奖是否显示__本功能由lv88ff提出')
         btnListFun('backgroundIsShow', '背景显示', '背景是否显示__本功能由dongliang zhang提出')
         btnListFun('chatBoxCleaning', '聊天框简化', '聊天框头部去除主播公告、贡献周榜、贵宾、粉丝团和主播通知__本功能由dongliang zhang提出')
-        // btnListFun('autoReward', '完成日常奖励', '播放器左下角每天日常礼物自动获取---功能还在测试中，欢迎反馈')
+        btnListFun('autoReward', '完成日常奖励', '播放器左下角每天日常礼物自动获取---功能还在测试中，欢迎反馈')
         btnListFun('forbiddenMessage', '禁言消息显示', '聊天框内用户被禁言消息是否显示__本功能由lv88ff提出')
 
         // 左侧展开默认收起
@@ -197,6 +196,7 @@
             $(".Aside-toggle").click()
         }
 
+        // 自动发送弹幕封装
         function AutoDanmuSend() {
             let raddom = 2 + Math.ceil(8 * Math.random())
             let AutoDanmu = ''
@@ -207,38 +207,42 @@
             $('.ChatSend-button').click()
         }
 
-        // setInterval(() => {
-        //     // 自动获取日常奖励
-        //     if ($('.autoReward')[0].style.display !== 'none' && config.autoReward) {
-        //         RewardText = $('.RewardModule-notify').text()
-        //         if (RewardText && !isNaN(RewardText) && RewardText > 0) {
-        //             if (!$('.RewardModal').length) { // 弹框没有出来
-        //                 $('.RewardModule-toggle').click()
-        //                 $('.RewardModal').css('opacity', 0)
-        //                 // 自动发送弹幕
-        //                 if ($('.RewardM-text').length && $('.RewardM-text').text().indexOf('弹幕:0/1') > -1) {
-        //                     AutoDanmuSend()
-        //                     $('.RewardModal-close').click()
-        //                     $('.RewardModal').css('opacity', 1)
-        //                 } else if ($('.RewardM-text.enable').length && ($('.RewardM-text.barrage').length === 0)) {
-        //                     $('.RewardM-text.enable').click()
-        //                     // 别的点击事件干扰了
-        //                     $('.RewardModal-close').click()
-        //                     $('.RewardModal').css('opacity', 1)
-        //                 } else {
-        //                     $('.RewardModal-close').click()
-        //                     $('.RewardModal').css('opacity', 1)
-        //                 }
-        //             } else { // 弹框出来
-        //                 if ($('.RewardM-text').length && $('.RewardM-text').text().indexOf('弹幕:0/1') > -1) {
-        //                     AutoDanmuSend()
-        //                 } else if ($('.RewardM-text.enable').length && ($('.RewardM-text.barrage').length === 0)) {
-        //                     $('.RewardM-text.enable').click()
-        //                 }
-        //             }
-        //         }
-        //     }
-        // }, 5 * 1000)
+        // 日常奖励按钮封装
+        function TreasureBoxBtnListHandle() {
+            if ($TreasureBoxBtnList.length > 0) {
+                $TreasureBoxBtnList.each((idx, dom) => {
+                    $dom = $(dom)
+                    if ($dom.hasClass('enable')) {
+                        $dom.click()
+                    } else if ($dom.hasClass('barrage-ready')) {
+                        AutoDanmuSend()
+                        return false
+                    }
+                })
+            }
+        }
+
+        let autoRewardTimeId = setInterval(() => {
+            if ($('.autoReward')[0].style.display !== 'none' && config.autoReward) {
+                let $FTP = $('.FTP')
+                $TreasureBoxBtnList = $('.TreasureBox-btn')
+                if (!$FTP.length) { // 弹框没有出来
+                    $('.FishpondTreasure-icon').click()
+                    $FTP = $('.FTP')
+                    $TreasureBoxBtnList = $('.TreasureBox-btn')
+                    $FTP.addClass('opacity0')
+                    TreasureBoxBtnListHandle()
+                    $FTP.removeClass('opacity0')
+                    $('.FTP-close').click()
+                } else { // 弹框出来
+                    TreasureBoxBtnListHandle()
+                }
+            }
+            if ($TreasureBoxBtnList.length === 0) {
+                clearInterval(autoRewardTimeId)
+                $('.autoReward').hide()
+            }
+        }, 30 * 1000)
 
         // 头部隐藏
         let headIsHideTimer = null
@@ -296,18 +300,15 @@
                 once.removeBottomAd = false
             }
 
-            // // 自定义按钮显示条件
-            // if ($('.UnLogin').length && $('.RewardModule-countdown').text().indexOf('领') > -1 || $('.RewardModule-iconnew.done').length)
-            //     $('.autoReward').hide()
-            // else
-            //     $('.autoReward').show()
-
+            // 自定义按钮显示条件
             if ($('.UnLogin').length) {
                 $('.adjustClarity').hide()
                 $('.danmuMove').hide()
+                $('.autoReward').hide()
             } else {
                 $('.adjustClarity').show()
                 $('.danmuMove').show()
+                $('.autoReward').show()
             }
 
             // 抽奖显示

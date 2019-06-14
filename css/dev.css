@@ -179,3 +179,6 @@ html #wah0713-alert > span {
   font-variant: tabular-nums;
   color: rgba(0, 0, 0, 0.65);
 }
+.opacity0 {
+  opacity: 0;
+}
