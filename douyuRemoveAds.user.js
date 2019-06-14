@@ -225,6 +225,7 @@
             }
         }
 
+        // 日常奖励自动获取
         let autoRewardTimeId = setInterval(() => {
             if ($('.autoReward')[0].style.display !== 'none' && config.autoReward) {
                 let $FTP = $('.FTP')
