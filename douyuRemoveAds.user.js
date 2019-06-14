@@ -32,8 +32,10 @@
         let InitiaGuessGameHeight = 0
         // 初始竞猜高度
         let OriginalbackgroundGolderPaddingTop = $('.Background-holder').css('padding-top') || 0
-        // 只需要一次删除
+        // 5秒延迟
+        let delay = false
 
+        // 只需要一次删除
         let onceRemoveDomList = [
             // 火力全开（输入框上方）、
             '.FirePower',
@@ -244,6 +246,10 @@
             }
         }, 30 * 1000)
 
+        setTimeout(() => {
+            delay = true
+        }, 5 * 1000)
+
         // 头部隐藏
         let headIsHideTimer = null
         let headIsShowTimer = null
@@ -308,7 +314,9 @@
             } else {
                 $('.adjustClarity').show()
                 $('.danmuMove').show()
-                $('.autoReward').show()
+                if ($TreasureBoxBtnList.length) {
+                    $('.autoReward').show()
+                }
             }
 
             // 抽奖显示
@@ -337,7 +345,7 @@
 
             // 登录开启最高画质
             if ($('.adjustClarity')[0].style.display !== 'none' && config.adjustClarity) {
-                if (once.notProcessedAdjustClarity && $('.tip-e3420a ul') && $('.tip-e3420a ul').children().length && !$('.tip-e3420a ul li:first-child').hasClass('selected-3a8039')) {
+                if (delay && once.notProcessedAdjustClarity && $('.tip-e3420a ul') && $('.tip-e3420a ul').children().length && !$('.tip-e3420a ul li:first-child').hasClass('selected-3a8039')) {
                     $('.tip-e3420a ul li:first-child').click()
                     once.notProcessedAdjustClarity = false
                 }
