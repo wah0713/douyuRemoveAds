@@ -110,7 +110,8 @@
             backgroundIsShow: true,
             removeBottomAd: true,
             InitiaGuessGameHeight: true,
-            isFlashPlayer: true
+            isFlashPlayer: true,
+            AdjustClarityDelay: true
         }
 
         const target = $('body')[0]
@@ -184,7 +185,7 @@
         })
 
         // 按钮事件
-        btnListFun('adjustClarity', '默认最高画质', '开启当前房间最高画质，可能会闪一次屏__本功能由noob-one提出')
+        btnListFun('adjustClarity', '默认最高画质', '10秒后开启当前房间最高画质，可能会闪一次屏__本功能由noob-one提出')
         btnListFun('danmuMove', '弹幕悬停', '播放器内弹幕被选中时悬停__本功能由noob-one提出')
         btnListFun('guessIsShow', '竞猜显示', '竞猜是否显示__本功能由noob-one提出')
         btnListFun('lotteryIsShow', '抽奖显示', '抽奖是否显示__本功能由lv88ff提出')
@@ -246,10 +247,6 @@
             }
         }, 30 * 1000)
 
-        setTimeout(() => {
-            delay = true
-        }, 5 * 1000)
-
         // 头部隐藏
         let headIsHideTimer = null
         let headIsShowTimer = null
@@ -273,6 +270,15 @@
         })
 
         const observer = new MutationObserver(function () {
+
+            // 开启高清画质延迟5秒
+            if (once.AdjustClarityDelay && $('.tip-e3420a ul') && $('.tip-e3420a ul').children().length) {
+                setTimeout(() => {
+                    delay = true
+                }, 10 * 1000)
+                once.AdjustClarityDelay = false
+            }
+
             // flash播放器
             if (once.isFlashPlayer && $('#room-flash-player').length) {
                 myAlert('正在使用flash播放器，【斗鱼去火箭横幅】部分功能会失效')
