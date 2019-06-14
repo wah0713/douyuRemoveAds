@@ -57,6 +57,10 @@ html {
             }
 
         }
+
+        &.backgroundIsShow .layout-Main {
+            margin-top: 0 !important;
+        }
     }
 
     .Barrage {
@@ -143,7 +147,17 @@ html {
         right: -173px;
         z-index: 20;
         padding: 10px 5px;
-        background: #fedf6b url(https://wah0713.github.io/myTampermonkey/image/minion.jpg) no-repeat center / 100%;
+        background: #fef54e url(https://wah0713.github.io/myTampermonkey/image/minion.jpg) no-repeat center / 100%;
+        width: 160px;
+
+        .tip {
+            margin-bottom: 5px;
+            -webkit-user-select: none;
+            -moz-user-select: none;
+            -ms-user-select: none;
+            user-select: none;
+            cursor: default;
+        }
 
         &:hover {
             right: 0;
@@ -178,9 +192,10 @@ html {
             outline: none;
             transition: .1s;
             font-weight: 500;
-            -moz-user-select: none;
             -webkit-user-select: none;
+            -moz-user-select: none;
             -ms-user-select: none;
+            user-select: none;
             padding: 6px 10px;
             font-size: 14px;
             border-radius: 4px;
@@ -206,8 +221,10 @@ html {
         left: 50%;
         transform: translateX(-50%);
         z-index: 30;
-        user-select: none;
         -webkit-user-select: none;
+        -moz-user-select: none;
+        -ms-user-select: none;
+        user-select: none;
 
         >i {
             width: 14px;

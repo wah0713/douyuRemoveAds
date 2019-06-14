@@ -184,8 +184,10 @@
             $('#wah0713 >img').fadeIn("slow")
         })
 
+        $("#wah0713").append(`<p class='tip'>1.87：因为现在tampermonkey插件调整画质会出现时间不同步的问题，所以不推荐开启脚本时调整画质</p>`)
+
         // 按钮事件
-        btnListFun('adjustClarity', '默认最高画质', '10秒后开启当前房间最高画质，可能会闪一次屏__本功能由noob-one提出')
+        btnListFun('adjustClarity', '默认最高画质', '10秒后开启当前房间最高画质，可能会闪一次屏（因为现在tampermonkey插件调整画质会出现时间不同步的问题，所以不推荐开启脚本时调整画质）__本功能由noob-one提出')
         btnListFun('danmuMove', '弹幕悬停', '播放器内弹幕被选中时悬停__本功能由noob-one提出')
         btnListFun('guessIsShow', '竞猜显示', '竞猜是否显示__本功能由noob-one提出')
         btnListFun('lotteryIsShow', '抽奖显示', '抽奖是否显示__本功能由lv88ff提出')
@@ -407,6 +409,7 @@
                     $('.layout-Main')[0].removeAttribute('style')
                 }
                 $('.bc-wrapper').show()
+                $('body').addClass('backgroundIsShow')
             } else {
                 // 播放器位置
                 $('.Background-holder').css('padding-top', 10)
@@ -446,6 +449,7 @@
                     })
                 })
                 $('.bc-wrapper').not($('.bc-wrapper')[sign]).hide()
+                $('body').removeClass('backgroundIsShow')
             }
 
             // 播发器调整定位
