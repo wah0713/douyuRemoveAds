@@ -144,7 +144,7 @@ html {
         top: 50%;
         transform: translateY(-50%);
         border-radius: 6px;
-        right: -173px;
+        right: -182px;
         z-index: 20;
         padding: 10px 5px;
         background: #fef54e url(https://wah0713.github.io/myTampermonkey/image/minion.jpg) no-repeat center / 100%;
@@ -214,7 +214,6 @@ html {
 
     #wah0713-alert {
         display: none;
-        background-color: #fff1f0;
         padding: 8px 16px;
         position: fixed;
         top: 200px;
@@ -229,7 +228,6 @@ html {
         >i {
             width: 14px;
             height: 14px;
-            background-color: #f5222d;
             display: inline-block;
             border-radius: 50%;
             color: #fff;
@@ -239,6 +237,22 @@ html {
             margin-right: 8px;
             position: relative;
             top: -1px;
+        }
+
+        &.warning {
+            background-color: #fff1f0;
+
+            >i {
+                background-color: #f5222d;
+            }
+        }
+
+        &.info {
+            background-color: #f4f4f5;
+
+            >i {
+                background-color: #909399;
+            }
         }
 
         >span {

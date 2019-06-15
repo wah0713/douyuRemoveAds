@@ -100,7 +100,7 @@ html #wah0713 {
   top: 50%;
   transform: translateY(-50%);
   border-radius: 6px;
-  right: -173px;
+  right: -182px;
   z-index: 20;
   padding: 10px 5px;
   background: #fef54e url(https://wah0713.github.io/myTampermonkey/image/minion.jpg) no-repeat center / 100%;
@@ -162,7 +162,6 @@ html #wah0713 > button.close {
 }
 html #wah0713-alert {
   display: none;
-  background-color: #fff1f0;
   padding: 8px 16px;
   position: fixed;
   top: 200px;
@@ -177,7 +176,6 @@ html #wah0713-alert {
 html #wah0713-alert > i {
   width: 14px;
   height: 14px;
-  background-color: #f5222d;
   display: inline-block;
   border-radius: 50%;
   color: #fff;
@@ -187,6 +185,18 @@ html #wah0713-alert > i {
   margin-right: 8px;
   position: relative;
   top: -1px;
+}
+html #wah0713-alert.warning {
+  background-color: #fff1f0;
+}
+html #wah0713-alert.warning > i {
+  background-color: #f5222d;
+}
+html #wah0713-alert.info {
+  background-color: #f4f4f5;
+}
+html #wah0713-alert.info > i {
+  background-color: #909399;
 }
 html #wah0713-alert > span {
   font-family: "Chinese Quote", -apple-system, BlinkMacSystemFont, "Segoe UI", "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", "Helvetica Neue", Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
