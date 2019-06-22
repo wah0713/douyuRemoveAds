@@ -172,6 +172,8 @@ html #wah0713-alert {
   -moz-user-select: none;
   -ms-user-select: none;
   user-select: none;
+  border: 1px solid #ccc;
+  border-radius: 8px;
 }
 html #wah0713-alert > i {
   width: 14px;

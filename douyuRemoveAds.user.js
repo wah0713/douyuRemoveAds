@@ -90,8 +90,10 @@
             // 播放器内右下角悬浮广告
             '.recommendAD-54569e',
             // 播放器内左下角悬浮签到广告
-            '.vivo-ad-743527'
+            '.vivo-ad-743527',
             // LPL赛事播放器内左下角广告
+            '.FuDaiActPanel'
+            // 福袋活动
         ]
         let onceTempArr = []
         // 需要重复删除
@@ -535,10 +537,25 @@
         // setTimeout(() => {
         // }, 5 * 1000);
 
-        // // debugStyle
-        // const node = document.createTextNode(`
-        // `)
-        // $('head').append($(`<style type="text/css"></style>`).append(node))
+        // debugStyle
+        const node = document.createTextNode(`
+        html #wah0713-alert {
+            display: none;
+            padding: 8px 16px;
+            position: fixed;
+            top: 200px;
+            left: 50%;
+            transform: translateX(-50%);
+            z-index: 30;
+            -webkit-user-select: none;
+            -moz-user-select: none;
+            -ms-user-select: none;
+            user-select: none;
+            border: 1px solid #ccc;
+            border-radius: 8px;
+          }
+        `)
+        $('head').append($(`<style type="text/css"></style>`).append(node))
 
     }
 })()
