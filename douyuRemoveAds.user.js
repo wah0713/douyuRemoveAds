@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         斗鱼去火箭横幅(贵族弹幕样式&&聊天区域铭牌)
 // @namespace    https://github.com/wah0713/myTampermonkey
-// @version      1.89
+// @version      1.90
 // @description  一个兴趣使然的脚本，本来只是屏蔽火箭横幅的脚本，到后来。。。 【★功能按钮】 默认最高画质、弹幕悬停、竞猜显示、抽奖显示、背景显示、聊天框简化、完成日常奖励、禁言消息显示。 【★默认设置】左侧展开默认收起、弹幕简化（贵族弹幕）、聊天框消息简化（聊天区域铭牌、大部分系统消息）【★屏蔽】火力全开（输入框上方）、播放器内关注按钮、右侧浮动广告、火箭横幅、亲密互动(播放器左下角)、贵族入场提醒（输入框上方）、贵族入场提醒（输入框上方）、分享 客户端 手游中心（播放器右上角）、导航栏客户端按钮、播放器内主播推荐关注弹幕、播放器内房间号日期（播放器内左下角）、播放器左下角下载客户端QR、播放器左侧亲密互动、未登录提示、分区推荐弹幕、游侠活动、聊天框上方贵族发言、播放器左下方广告、聊天框内广告、底部广告、画面卡顿提示框、播放器右下角悬浮广告、播放器内左下角悬浮签到广告、LPL赛事播放器内左下角广告。
 // @supportURL   https://github.com/wah0713/myTampermonkey/issues
 // @author       wah0713
@@ -35,9 +35,9 @@
         // 5秒延迟
         let delay = false
         // 版本号
-        const version = 1.88
+        const version = 1.90
         // 更新说明
-        const updateNotes = version + '：1、增自动获取日常奖励 适应斗鱼新版 （测试量太少了） 2、时间不对问题尝试修复（测试量太少了）'
+        const updateNotes = version + '：1、时间不对问题尝试修复（已经放弃，是tampermonkey插件的问题）'
 
         // 只需要一次删除
         let onceRemoveDomList = [
@@ -216,7 +216,8 @@
         })
 
         // 版本号和提示语
-        $("#wah0713").append(`<p class='tip'>${version}更新版本内容：</br>因为现在tampermonkey插件调整画质会出现时间不同步的问题，所以不推荐开启脚本时调整画质</p>`)
+        $("#wah0713").append(`<p class='tip'>${version}更新版本内容：</br>因为现在tampermonkey插件调整画质会出现时间不同步的问题，所以不推荐开启脚本时调整画质
+        <a href='https://tieba.baidu.com/p/6160140900' target='_blank'>斗鱼解释(点击详情)</a></p>`)
 
         // 按钮事件
         btnListFun('adjustClarity', '默认最高画质', '10秒后开启当前房间最高画质，可能会闪一次屏（因为现在tampermonkey插件调整画质会出现时间不同步的问题，所以不推荐开启脚本时调整画质）__本功能由noob-one提出')
@@ -537,25 +538,10 @@
         // setTimeout(() => {
         // }, 5 * 1000);
 
-        // debugStyle
-        const node = document.createTextNode(`
-        html #wah0713-alert {
-            display: none;
-            padding: 8px 16px;
-            position: fixed;
-            top: 200px;
-            left: 50%;
-            transform: translateX(-50%);
-            z-index: 30;
-            -webkit-user-select: none;
-            -moz-user-select: none;
-            -ms-user-select: none;
-            user-select: none;
-            border: 1px solid #ccc;
-            border-radius: 8px;
-          }
-        `)
-        $('head').append($(`<style type="text/css"></style>`).append(node))
+        // // debugStyle
+        // const node = document.createTextNode(`
+        // `)
+        // $('head').append($(`<style type="text/css"></style>`).append(node))
 
     }
 })()

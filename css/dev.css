@@ -114,6 +114,9 @@ html #wah0713 .tip {
   user-select: none;
   cursor: default;
 }
+html #wah0713 .tip > a {
+  color: red;
+}
 html #wah0713:hover {
   right: 0;
 }
