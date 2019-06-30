@@ -18,6 +18,7 @@
 (function () {
     if (!/^\/\d+$/.test(window.location.pathname) && window.location.pathname.indexOf('topic') === -1) return false
     // 引入定制的样式
+
     const myCss = $(`<link class='my-css' rel='stylesheet' href='https://wah0713.github.io/myTampermonkey/dist/prod.css'>`)
     $('head').append(myCss)
     $('.my-css')[0].onerror = () => {
@@ -92,8 +93,10 @@
             // 播放器内左下角悬浮签到广告
             '.vivo-ad-743527',
             // LPL赛事播放器内左下角广告
-            '.FuDaiActPanel'
+            '.FuDaiActPanel',
             // 福袋活动
+            '.WXTipsBox'
+            // 火箭礼包抢不到推送的微信提示框
         ]
         let onceTempArr = []
         // 需要重复删除
