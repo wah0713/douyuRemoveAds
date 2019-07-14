@@ -1,8 +1,8 @@
 // ==UserScript==
 // @name         斗鱼去火箭横幅(贵族弹幕样式&&聊天区域铭牌)
 // @namespace    https://github.com/wah0713/myTampermonkey
-// @version      1.90
-// @description  一个兴趣使然的脚本，本来只是屏蔽火箭横幅的脚本，到后来。。。 【★功能按钮】 默认最高画质、弹幕悬停、竞猜显示、抽奖显示、背景显示、聊天框简化、完成日常奖励、禁言消息显示。 【★默认设置】左侧展开默认收起、弹幕简化（贵族弹幕）、聊天框消息简化（聊天区域铭牌、大部分系统消息）【★屏蔽】火力全开（输入框上方）、播放器内关注按钮、右侧浮动广告、火箭横幅、亲密互动(播放器左下角)、贵族入场提醒（输入框上方）、贵族入场提醒（输入框上方）、分享 客户端 手游中心（播放器右上角）、导航栏客户端按钮、播放器内主播推荐关注弹幕、播放器内房间号日期（播放器内左下角）、播放器左下角下载客户端QR、播放器左侧亲密互动、未登录提示、分区推荐弹幕、游侠活动、聊天框上方贵族发言、播放器左下方广告、聊天框内广告、底部广告、画面卡顿提示框、播放器右下角悬浮广告、播放器内左下角悬浮签到广告、LPL赛事播放器内左下角广告。
+// @version      1.91
+// @description  一个兴趣使然的脚本，本来只是屏蔽火箭横幅的脚本，到后来。。。 【★功能按钮】 默认最高画质、弹幕悬停、竞猜显示、抽奖显示、背景显示、聊天框简化、完成日常奖励、禁言消息显示。 【★默认设置】左侧展开默认收起、弹幕简化（贵族弹幕）、聊天框消息简化（聊天区域铭牌、大部分系统消息）【★屏蔽】火力全开（输入框上方）、播放器内关注按钮、右侧浮动广告、火箭横幅、亲密互动(播放器左下角)、贵族入场提醒（输入框上方）、贵族入场提醒（输入框上方）、分享 客户端 手游中心（播放器右上角）、导航栏客户端按钮、播放器内主播推荐关注弹幕、播放器内房间号日期（播放器内左下角）、播放器左下角下载客户端QR、播放器左侧亲密互动、未登录提示、分区推荐弹幕、游侠活动、聊天框上方贵族发言、播放器左下方广告、聊天框内广告、底部广告、画面卡顿提示框、播放器右下角悬浮广告、播放器内左下角悬浮签到广告、LPL赛事播放器内左下角广告、播放器内竞猜提醒弹幕。
 // @supportURL   https://github.com/wah0713/myTampermonkey/issues
 // @author       wah0713
 // @compatible   chrome
@@ -27,8 +27,14 @@
     $('.my-css')[0].onload = () => {
         const MutationObserver = window.MutationObserver || window.WebKitMutationObserver || window.MozMutationObserver
         let sign = 0
-        // 日常任务的按钮数量
-        let $TreasureBoxBtnList = 0
+        // 自定义自动获取奖励按钮隐藏
+        let autoRewardHide = false
+        // 已经拿到的日常奖励数量
+        let completionReward = 0
+        // 日常奖励弹框
+        let $FTP
+        // 日常任务的按钮
+        let $TreasureBoxBtnList = null
         // Background-holder的原始paddingTop值
         let InitiaGuessGameHeight = 0
         // 初始竞猜高度
@@ -36,9 +42,12 @@
         // 5秒延迟
         let delay = false
         // 版本号
-        const version = 1.90
+        const version = 1.91
         // 更新说明
-        const updateNotes = version + '：1、时间不对问题尝试修复（已经放弃，是tampermonkey插件的问题）'
+        const updateNotes = version + `：1、更新日常奖励，目前还没有测试
+        2、播放器内竞猜提醒弹幕
+        3、粉丝节冠军特殊处理（目前只发现小团团房间开启去背景出现问题）
+        4、最近加班有点严重，所以不能及时更新脚本。`
 
         // 只需要一次删除
         let onceRemoveDomList = [
@@ -95,8 +104,10 @@
             // LPL赛事播放器内左下角广告
             '.FuDaiActPanel',
             // 福袋活动
-            '.WXTipsBox'
+            '.WXTipsBox',
             // 火箭礼包抢不到推送的微信提示框
+            '.DanmuEffectDom-container'
+            // 播放器内竞猜提醒弹幕
         ]
         let onceTempArr = []
         // 需要重复删除
@@ -250,10 +261,12 @@
 
         // 日常奖励按钮封装
         function TreasureBoxBtnListHandle() {
+            $TreasureBoxBtnList = $('.TreasureBox-btn')
             if ($TreasureBoxBtnList.length > 0) {
                 $TreasureBoxBtnList.each((idx, dom) => {
                     $dom = $(dom)
                     if ($dom.hasClass('enable')) {
+                        console.log(`点`, )
                         $dom.click()
                     } else if ($dom.hasClass('barrage-ready')) {
                         AutoDanmuSend()
@@ -263,26 +276,46 @@
             }
         }
 
+        // 每日奖励封装
+        function loop() {
+            setTimeout(() => {
+                $FTP = $('.FTP')
+                $FTPBtn = $('.FTP-btn')
+                if ($FTPBtn.length) {
+                    $FTPBtn.each((idx, ele) => {
+                        if ($(ele).text() === '每日活跃') {
+                            TreasureBoxBtnListHandle()
+                            $TreasureBoxBtnList = $('.TreasureBox-btn')
+                            completionReward = $('.TreasureBox-itemImg.open').length
+                            $FTP.removeClass('opacity0')
+                            $('.FTP-close').click()
+                        }
+                    })
+                    return false
+                } else {
+                    loop()
+                }
+            }, 50)
+        }
+
         // 日常奖励自动获取
         let autoRewardTimeId = setInterval(() => {
             if ($('.autoReward')[0].style.display !== 'none' && config.autoReward) {
-                let $FTP = $('.FTP')
-                $TreasureBoxBtnList = $('.TreasureBox-btn')
+                $FTP = $('.FTP')
                 if (!$FTP.length) { // 弹框没有出来
                     $('.FishpondTreasure-icon').click()
                     $FTP = $('.FTP')
-                    $TreasureBoxBtnList = $('.TreasureBox-btn')
                     $FTP.addClass('opacity0')
-                    TreasureBoxBtnListHandle()
-                    $FTP.removeClass('opacity0')
-                    $('.FTP-close').click()
+                    loop()
                 } else { // 弹框出来
                     TreasureBoxBtnListHandle()
                 }
-            }
-            if ($TreasureBoxBtnList.length === 0) {
-                clearInterval(autoRewardTimeId)
-                $('.autoReward').hide()
+                // 清除自动获取奖励按钮和清除定时器
+                if (completionReward && completionReward === 4) {
+                    autoRewardHide = true
+                    clearInterval(autoRewardTimeId)
+                    $('.autoReward').hide()
+                }
             }
         }, 30 * 1000)
 
@@ -363,7 +396,7 @@
             } else {
                 $('.adjustClarity').show()
                 $('.danmuMove').show()
-                if ($TreasureBoxBtnList.length) {
+                if (!autoRewardHide) {
                     $('.autoReward').show()
                 }
             }
@@ -489,6 +522,13 @@
                     })
                 })
                 $('.bc-wrapper').not($('.bc-wrapper')[sign]).hide()
+                let $layoutMainParent = $('.bc-wrapper').eq(sign)
+
+                // 粉丝节冠军特殊处理
+                if ($layoutMainParent.css('margin-top').indexOf('0') > -1) {
+                    $layoutMainParent.css('margin-top', 0)
+                }
+
                 $('body').removeClass('backgroundIsShow')
             }
 
@@ -503,7 +543,7 @@
             }
 
             // 去掉播放器下方活动列表
-            $('.ToolbarGiftArea').length === 1 && $('.ToolbarGiftArea').children().not('.GiftInfoPanel').not('.ToolbarGiftArea-GiftBox').not('.ToolbarGiftArea-giftExpandBox').not($('.ToolbarGiftArea').children().eq(-1)).hide()
+            $('.ToolbarGiftArea').length && $('.ToolbarGiftArea .ToolbarGiftArea-GiftBox').prevAll().hide()
 
             // 输入框上方送礼3000毫米淡出
             $('#js-player-barrage .BarrageBanner').children().delay(1000 * 3).fadeOut('slow')

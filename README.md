@@ -1,19 +1,21 @@
 # [斗鱼去火箭横幅(贵族弹幕样式&&聊天区域铭牌)](https://greasyfork.org/zh-CN/scripts/381934-%E6%96%97%E9%B1%BC%E5%8E%BB%E7%81%AB%E7%AE%AD%E6%A8%AA%E5%B9%85)
 
-### 当前版本1.88效果图：
+### 当前版本1.91效果图：
+
+1、更新日常奖励，目前还没有测试
+2、播放器内竞猜提醒弹幕
+3、粉丝节冠军特殊处理（目前只发现小团团房间开启去背景出现问题）
+4、最近加班有点严重，所以不能及时更新脚本。
+
+![当前版本1.91](https://wah0713.github.io/myTampermonkey/image/douyu1.91.png)
+
+### 上个版本1.88效果图：
 
 1、增因为现在tampermonkey插件调整画质会出现时间不同步的问题，所以不推荐开启脚本时调整画质
 2、新增版本号提示
 3、播放器右下角悬浮广告--由hsy66网友提出
 
-![当前版本1.88](https://wah0713.github.io/myTampermonkey/image/douyu1.88.png)
-
-### 上个版本1.87效果图：
-
-1、增自动获取日常奖励 适应斗鱼新版 （测试量太少了）
-2、时间不对问题尝试修复（测试量太少了）
-
-![当前版本1.87](https://wah0713.github.io/myTampermonkey/image/douyu1.87.png)
+![上个版本1.88](https://wah0713.github.io/myTampermonkey/image/douyu1.88.png)
 
 ### bug和建议：
 
