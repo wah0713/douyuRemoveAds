@@ -26,6 +26,8 @@
     }
     $('.my-css')[0].onload = () => {
         const MutationObserver = window.MutationObserver || window.WebKitMutationObserver || window.MozMutationObserver
+        // layoutMainParent的初始MarginTop
+        let OriginalLayoutMainParentMarginTop = null
         let sign = 0
         // 自定义自动获取奖励按钮隐藏
         let autoRewardHide = false
@@ -482,6 +484,18 @@
                     $('.layout-Main')[0].removeAttribute('style')
                 }
                 $('.bc-wrapper').show()
+
+                $('.bc-wrapper').each((index, element) => {
+                    $(element).children().each((idx, ele) => {
+                        if ($(ele).hasClass('layout-Main')) {
+                            sign = index
+                            return false
+                        }
+                    })
+                })
+                let $layoutMainParent = $('.bc-wrapper').eq(sign)
+                OriginalLayoutMainParentMarginTop && $layoutMainParent.css('margin-top', OriginalLayoutMainParentMarginTop)
+
                 $('body').addClass('backgroundIsShow')
             } else {
                 // 播放器位置
@@ -523,12 +537,11 @@
                 })
                 $('.bc-wrapper').not($('.bc-wrapper')[sign]).hide()
                 let $layoutMainParent = $('.bc-wrapper').eq(sign)
-
                 // 粉丝节冠军特殊处理
-                if ($layoutMainParent.css('margin-top') && $layoutMainParent.css('margin-top').indexOf('0') > -1) {
+                if ($layoutMainParent.css('margin-top') && $layoutMainParent.css('margin-top').indexOf('-') > -1) {
+                    OriginalLayoutMainParentMarginTop = $layoutMainParent.css('margin-top')
                     $layoutMainParent.css('margin-top', 0)
                 }
-
                 $('body').removeClass('backgroundIsShow')
             }
 
