@@ -543,7 +543,16 @@
             }
 
             // 去掉播放器下方活动列表
-            $('.ToolbarGiftArea').length && $('.ToolbarGiftArea .ToolbarGiftArea-GiftBox').prevAll().hide()
+            let allhide = true
+            let $toolbarGiftAreaGiftBoxPrevAllList = $('.ToolbarGiftArea .ToolbarGiftArea-GiftBox').prevAll()
+            $toolbarGiftAreaGiftBoxPrevAllList.each((idx, ele) => {
+                if ($(ele).is(':visible')) { // 判断是否隐藏
+                    allhide = false
+                }
+                if (!allhide) {
+                    $toolbarGiftAreaGiftBoxPrevAllList.hide()
+                }
+            })
 
             // 输入框上方送礼3000毫米淡出
             $('#js-player-barrage .BarrageBanner').children().delay(1000 * 3).fadeOut('slow')
