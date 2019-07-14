@@ -525,7 +525,7 @@
                 let $layoutMainParent = $('.bc-wrapper').eq(sign)
 
                 // 粉丝节冠军特殊处理
-                if ($layoutMainParent.css('margin-top').indexOf('0') > -1) {
+                if ($layoutMainParent.css('margin-top') && $layoutMainParent.css('margin-top').indexOf('0') > -1) {
                     $layoutMainParent.css('margin-top', 0)
                 }
 
