@@ -242,7 +242,7 @@
         btnListFun('lotteryIsShow', '抽奖显示', '抽奖是否显示__本功能由lv88ff提出')
         btnListFun('backgroundIsShow', '背景显示', '背景是否显示__本功能由dongliang zhang提出')
         btnListFun('chatBoxCleaning', '聊天框简化', '聊天框头部去除主播公告、贡献周榜、贵宾、粉丝团和主播通知__本功能由dongliang zhang提出')
-        btnListFun('autoReward', '完成日常奖励', '播放器左下角每天日常礼物自动获取，自动发弹幕“666”，（选择人多的直播间，以防尴尬）---功能还在测试中，欢迎反馈')
+        btnListFun('autoReward', '完成日常奖励', '播放器左下角每天日常礼物自动获取，自动发弹幕“666”，（选择人多的直播间，以防尴尬）')
         btnListFun('forbiddenMessage', '禁言消息显示', '聊天框内用户被禁言消息是否显示__本功能由lv88ff提出')
 
         // 左侧展开默认收起
