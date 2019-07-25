@@ -117,19 +117,39 @@ html #wah0713 .tip {
 html #wah0713 .tip > a {
   color: red;
 }
+html #wah0713 .tip.active {
+  animation: Bigger linear 2s infinite;
+}
 html #wah0713:hover {
   right: 0;
 }
 html #wah0713:hover > button {
   opacity: 1;
 }
-html #wah0713 > img {
+html #wah0713 .gear {
   width: 32px;
+  margin-right: 13px;
   position: absolute;
-  padding-right: 13px;
   top: 50%;
   left: -45px;
   transform: translateY(-50%);
+}
+html #wah0713 .gear > img {
+  width: 100%;
+  animation: rotating linear 30s infinite paused;
+}
+html #wah0713 .gear > img.active {
+  animation-play-state: running;
+}
+html #wah0713 .gear .redDot {
+  display: none;
+  width: 9px;
+  height: 9px;
+  background-color: #fd4a4e;
+  border-radius: 50%;
+  position: absolute;
+  top: 3px;
+  right: 2px;
 }
 html #wah0713 > button {
   box-shadow: 3px 3px 5px #ccc;
@@ -211,4 +231,23 @@ html #wah0713-alert > span {
 }
 .opacity0 {
   opacity: 0;
+}
+@keyframes rotating {
+  0% {
+    transform: rotate(0);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}
+@keyframes Bigger {
+  0% {
+    transform: scale(0.95);
+  }
+  50% {
+    transform: scale(1);
+  }
+  100% {
+    transform: scale(0.95);
+  }
 }

@@ -108,10 +108,13 @@
             // 福袋活动
             '.WXTipsBox',
             // 火箭礼包抢不到推送的微信提示框
-            '.DanmuEffectDom-container'
+            '.DanmuEffectDom-container',
             // 播放器内竞猜提醒弹幕
+            '.ActDayPay-toast'
+            // 充值活动2019年7月25日21:37:24
         ]
         let onceTempArr = []
+
         // 需要重复删除
         const removeDomList = [
             // 火力全开弹幕
@@ -213,22 +216,29 @@
                     $('#wah0713-alert').hide()
                 })
                 params.dom.mouseenter(() => {
+                    GM_setValue(version, true)
                     $('#wah0713-alert').show()
                 })
             }
         }
         // 右侧自定义按钮模块
-        $('body').append('<div id="wah0713"><img src="https://wah0713.github.io/myTampermonkey/image/config.jpg"></div>')
+        $('body').append(`
+        <div id="wah0713">
+            <div class="gear"><img src="https://wah0713.github.io/myTampermonkey/image/config.jpg">
+                <div class="redDot"></div>
+            </div>
+        </div>
+        `)
         $('#wah0713').mouseenter(() => {
             $('#wah0713').css('transition', 'all 0.5s ease-out')
-            $('#wah0713 >img').fadeOut("slow")
+            $('#wah0713 .gear').fadeOut("slow")
             myAlert({
                 message: updateNotes,
                 type: 'info',
                 dom: $('#wah0713 >.tip')
             })
         }).mouseleave(() => {
-            $('#wah0713 >img').fadeIn("slow")
+            $('#wah0713 .gear').fadeIn("slow")
         })
 
         // 版本号和提示语
@@ -268,7 +278,6 @@
                 $TreasureBoxBtnList.each((idx, dom) => {
                     $dom = $(dom)
                     if ($dom.hasClass('enable')) {
-                        console.log(`点`, )
                         $dom.click()
                     } else if ($dom.hasClass('barrage-ready')) {
                         AutoDanmuSend()
@@ -344,6 +353,16 @@
         })
 
         const observer = new MutationObserver(function () {
+            // 提示用户更新了
+            if (GM_getValue(version)) {
+                $('#wah0713 .gear >img').removeClass('active')
+                $('#wah0713 .gear .redDot').hide()
+                $('#wah0713 .tip').removeClass('active')
+            } else {
+                $('#wah0713 .gear >img').addClass('active')
+                $('#wah0713 .gear .redDot').show()
+                $('#wah0713 .tip').addClass('active')
+            }
 
             // 开启高清画质延迟5秒
             if (once.AdjustClarityDelay && $('.tip-e3420a ul') && $('.tip-e3420a ul').children().length) {

@@ -157,8 +157,13 @@ html {
             -ms-user-select: none;
             user-select: none;
             cursor: default;
-            >a{
+
+            >a {
                 color: red;
+            }
+
+            &.active {
+                animation: Bigger linear 2s infinite;
             }
         }
 
@@ -170,13 +175,34 @@ html {
             }
         }
 
-        >img {
+        .gear {
             width: 32px;
+            margin-right: 13px;
             position: absolute;
-            padding-right: 13px;
             top: 50%;
             left: -45px;
             transform: translateY(-50%);
+
+            >img {
+                width: 100%;
+                animation: rotating linear 30s infinite paused;
+
+                &.active {
+                    animation-play-state: running
+                }
+            }
+
+            .redDot {
+                display: none;
+                width: 9px;
+                height: 9px;
+                background-color: #fd4a4e;
+                border-radius: 50%;
+                position: absolute;
+                top: 3px;
+                right: 2px;
+            }
+
         }
 
         >button {
@@ -271,4 +297,26 @@ html {
 
 .opacity0 {
     opacity: 0
+}
+@keyframes rotating {
+    0% {
+        transform: rotate(0);
+    }
+
+    100% {
+        transform: rotate(360deg);
+    }
+}
+
+@keyframes Bigger {
+    0% {
+        transform: scale(0.95)
+    }
+
+    50% {
+        transform: scale(1)
+    }
+    100% {
+        transform: scale(0.95)
+    }
 }
