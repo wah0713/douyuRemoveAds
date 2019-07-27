@@ -152,7 +152,6 @@ html #wah0713 .gear .redDot {
   right: 2px;
 }
 html #wah0713 > button {
-  box-shadow: 3px 3px 5px #ccc;
   margin: 0 auto 5px;
   display: block;
   line-height: 1;
@@ -179,15 +178,18 @@ html #wah0713 > button {
 html #wah0713 > button:last-of-type {
   margin-bottom: 0;
 }
+html #wah0713 > button:hover {
+  opacity: 0.8;
+}
 html #wah0713 > button.close {
-  background: #82848a;
-  border-color: #82848a;
+  background-color: #fff;
+  color: #409eff;
 }
 html #wah0713-alert {
   display: none;
   padding: 8px 16px;
   position: fixed;
-  top: 200px;
+  top: 30%;
   left: 50%;
   transform: translateX(-50%);
   z-index: 30;
@@ -213,12 +215,14 @@ html #wah0713-alert > i {
 }
 html #wah0713-alert.warning {
   background-color: #fff1f0;
+  border-color: #f5222d;
 }
 html #wah0713-alert.warning > i {
   background-color: #f5222d;
 }
 html #wah0713-alert.info {
   background-color: #f4f4f5;
+  border-color: #909399;
 }
 html #wah0713-alert.info > i {
   background-color: #909399;

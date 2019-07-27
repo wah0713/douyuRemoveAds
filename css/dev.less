@@ -206,7 +206,6 @@ html {
         }
 
         >button {
-            box-shadow: 3px 3px 5px #ccc;
             margin: 0 auto 5px;
             display: block;
             line-height: 1;
@@ -234,9 +233,13 @@ html {
                 margin-bottom: 0;
             }
 
+            &:hover{
+                opacity: 0.8;
+            }
+
             &.close {
-                background: #82848a;
-                border-color: #82848a;
+                background-color: #fff;
+                color: #409eff;
             }
         }
     }
@@ -245,7 +248,7 @@ html {
         display: none;
         padding: 8px 16px;
         position: fixed;
-        top: 200px;
+        top: 30%;
         left: 50%;
         transform: translateX(-50%);
         z-index: 30;
@@ -272,6 +275,7 @@ html {
 
         &.warning {
             background-color: #fff1f0;
+            border-color: #f5222d;
 
             >i {
                 background-color: #f5222d;
@@ -280,6 +284,7 @@ html {
 
         &.info {
             background-color: #f4f4f5;
+            border-color: #909399;
 
             >i {
                 background-color: #909399;
