@@ -25,7 +25,10 @@
         alert('网络问题，脚本执行出错！')
     }
     $('.my-css')[0].onload = () => {
-        const MutationObserver = window.MutationObserver || window.WebKitMutationObserver || window.MozMutationObserver
+        // 版本号
+        const version = 1.92
+        // 更新说明
+        const updateNotes = version + `：1、屏蔽斗鱼充值活动2019年7月25日21:37:24`
         // layoutMainParent的初始MarginTop
         let OriginalLayoutMainParentMarginTop = null
         let sign = 0
@@ -43,10 +46,9 @@
         let OriginalbackgroundGolderPaddingTop = $('.Background-holder').css('padding-top') || 0
         // 5秒延迟
         let delay = false
-        // 版本号
-        const version = 1.92
-        // 更新说明
-        const updateNotes = version + `：1、屏蔽斗鱼充值活动2019年7月25日21:37:24（）`
+
+        const target = $('body')[0]
+        const MutationObserver = window.MutationObserver || window.WebKitMutationObserver || window.MozMutationObserver
 
         // 只需要一次删除
         let onceRemoveDomList = [
@@ -144,8 +146,6 @@
             AdjustClarityDelay: true
         }
 
-        const target = $('body')[0]
-
         // 用户默认配置
         let defaultConfig = {
             adjustClarity: false, // 登陆最高画质
@@ -215,6 +215,7 @@
                     $('#wah0713-alert').hide()
                 })
                 params.dom.mouseenter(() => {
+                    // 提示用户更新内容
                     GM_setValue(version, true)
                     $('#wah0713-alert').show()
                 })
