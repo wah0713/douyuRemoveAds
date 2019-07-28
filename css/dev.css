@@ -99,8 +99,9 @@ html #wah0713 {
   position: fixed;
   top: 50%;
   transform: translateY(-50%);
-  border-radius: 6px;
   right: -182px;
+  border: 1px solid #ccc;
+  border-radius: 6px;
   z-index: 20;
   padding: 10px 5px;
   background: #fef54e url(https://wah0713.github.io/myTampermonkey/image/minion.jpg) no-repeat center / 100%;
