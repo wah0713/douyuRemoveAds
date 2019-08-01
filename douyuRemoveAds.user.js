@@ -9,7 +9,7 @@
 // @license      MIT
 // @icon         https://www.douyu.com/favicon.ico
 // @require      https://cdn.bootcss.com/jquery/1.12.4/jquery.min.js
-// @require      https://greasyfork.org/scripts/388079-canvas%E5%8A%A8%E7%94%BB/code/canvas%E5%8A%A8%E7%94%BB.js?version=721543
+// @require      https://greasyfork.org/scripts/388079-canvas%E5%8A%A8%E7%94%BB/code/canvas%E5%8A%A8%E7%94%BB.js?version=721553
 // @match        http*://www.douyu.com/*
 // @run-at       document-idle
 // @grant        GM_setValue
@@ -220,7 +220,10 @@
                     GM_setValue(version, true)
                     $('#wah0713-alert').show()
                     // 彩蛋
-                    if(!config.backgroundIsShow){
+                    if (!config.backgroundIsShow) {
+                        if (!$('#easterEgg').length) {
+                            window.easterEgg && window.easterEgg()
+                        }
                         $('#easterEgg').show()
                     } else {
                         $('#easterEgg').hide()
