@@ -242,6 +242,9 @@ html #wah0713-alert > span {
 .opacity0 {
   opacity: 0;
 }
+.is-hide {
+  display: none !important;
+}
 @keyframes rotating {
   0% {
     transform: rotate(0);

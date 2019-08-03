@@ -2,7 +2,7 @@
 // @name         斗鱼去火箭横幅(贵族弹幕样式&&聊天区域铭牌)
 // @namespace    https://github.com/wah0713/myTampermonkey
 // @version      1.93
-// @description  一个兴趣使然的脚本，本来只是屏蔽火箭横幅的脚本，到后来。。。 【★功能按钮】 默认最高画质、弹幕悬停、竞猜显示、抽奖显示、背景显示、聊天框简化、完成日常奖励、禁言消息显示。 【★默认设置】左侧展开默认收起、弹幕简化（贵族弹幕）、聊天框消息简化（聊天区域铭牌、大部分系统消息）【★屏蔽】火力全开（输入框上方）、播放器内关注按钮、右侧浮动广告、火箭横幅、亲密互动(播放器左下角)、贵族入场提醒（输入框上方）、贵族入场提醒（输入框上方）、分享 客户端 手游中心（播放器右上角）、导航栏客户端按钮、播放器内主播推荐关注弹幕、播放器内房间号日期（播放器内左下角）、播放器左下角下载客户端QR、播放器左侧亲密互动、未登录提示、分区推荐弹幕、游侠活动、聊天框上方贵族发言、播放器左下方广告、聊天框内广告、底部广告、画面卡顿提示框、播放器右下角悬浮广告、播放器内左下角悬浮签到广告、LPL赛事播放器内左下角广告、播放器内竞猜提醒弹幕....
+// @description  一个兴趣使然的脚本，本来只是屏蔽火箭横幅的脚本，到后来。。。 【★功能按钮】 默认最高画质、弹幕悬停、竞猜显示、抽奖显示、背景显示、礼物栏简化、聊天框简化、完成日常奖励、禁言消息显示。 【★默认设置】左侧展开默认收起、弹幕简化（贵族弹幕）、聊天框消息简化（聊天区域铭牌、大部分系统消息）【★屏蔽】火力全开（输入框上方）、播放器内关注按钮、右侧浮动广告、火箭横幅、亲密互动(播放器左下角)、贵族入场提醒（输入框上方）、贵族入场提醒（输入框上方）、分享 客户端 手游中心（播放器右上角）、导航栏客户端按钮、播放器内主播推荐关注弹幕、播放器内房间号日期（播放器内左下角）、播放器左下角下载客户端QR、播放器左侧亲密互动、未登录提示、分区推荐弹幕、游侠活动、聊天框上方贵族发言、播放器左下方广告、聊天框内广告、底部广告、画面卡顿提示框、播放器右下角悬浮广告、播放器内左下角悬浮签到广告、LPL赛事播放器内左下角广告、播放器内竞猜提醒弹幕....
 // @supportURL   https://github.com/wah0713/myTampermonkey/issues
 // @author       wah0713
 // @compatible   chrome
@@ -19,7 +19,6 @@
 (function () {
     if (!/^\/\d+$/.test(window.location.pathname) && window.location.pathname.indexOf('topic') === -1) return false
     // 引入定制的样式
-
     const myCss = $(`<link class='my-css' rel='stylesheet' href='https://wah0713.github.io/myTampermonkey/dist/prod.css'>`)
     $('head').append(myCss)
     $('.my-css')[0].onerror = () => {
@@ -28,8 +27,10 @@
     $('.my-css')[0].onload = () => {
         // 版本号
         const version = 1.93
+        GM_setValue(version, false)
         // 更新说明
-        const updateNotes = version + `：1、屏蔽斗鱼充值活动2019年7月25日21:37:24`
+        const updateNotes = version + `：1、新增功能按钮礼物栏简化，播放器下方礼物栏简化。
+        2、增加一个隐藏彩蛋（需要触发）`
         // layoutMainParent的初始MarginTop
         let OriginalLayoutMainParentMarginTop = null
         let sign = 0
@@ -152,6 +153,7 @@
             guessIsShow: false, // 竞猜显示
             lotteryIsShow: false, // 抽奖显示
             backgroundIsShow: false, // 背景显示
+            playerBottomSimplification: false, // 播放器下方简化
             chatBoxCleaning: true, // 聊天框简化
             forbiddenMessage: false, // 禁言消息显示
             autoReward: false, // 完成日常奖励
@@ -250,8 +252,7 @@
         })
 
         // 版本号和提示语
-        $("#wah0713").append(`<p class='tip'>${version}更新版本内容：</br>因为现在tampermonkey插件调整画质会出现时间不同步的问题，所以不推荐开启脚本时调整画质
-        <a href='https://tieba.baidu.com/p/6160140900' target='_blank'>斗鱼解释(点击详情)</a></p>`)
+        $("#wah0713").append(`<p class='tip'>${version}版本（更新内容详情）</p>`)
 
         // 按钮事件
         btnListFun('adjustClarity', '默认最高画质', '10秒后开启当前房间最高画质，可能会闪一次屏（因为现在tampermonkey插件调整画质会出现时间不同步的问题，所以不推荐开启脚本时调整画质）__本功能由noob-one提出')
@@ -259,6 +260,7 @@
         btnListFun('guessIsShow', '竞猜显示', '竞猜是否显示__本功能由noob-one提出')
         btnListFun('lotteryIsShow', '抽奖显示', '抽奖是否显示__本功能由lv88ff提出')
         btnListFun('backgroundIsShow', '背景显示', '背景是否显示__本功能由dongliang zhang提出')
+        btnListFun('playerBottomSimplification', '礼物栏简化', '播放器下方礼物栏简化__本功能由evenora提出')
         btnListFun('chatBoxCleaning', '聊天框简化', '聊天框头部去除主播公告、贡献周榜、贵宾、粉丝团和主播通知__本功能由dongliang zhang提出')
         btnListFun('autoReward', '完成日常奖励', '播放器左下角每天日常礼物自动获取，自动发弹幕“666”，（选择人多的直播间，以防尴尬）')
         btnListFun('forbiddenMessage', '禁言消息显示', '聊天框内用户被禁言消息是否显示__本功能由lv88ff提出')
@@ -452,6 +454,27 @@
                 $(".LotteryContainer-svgaWrap").hide()
             }
 
+            // 礼物栏简化
+            let allhide = true
+            let $toolbarGiftAreaGiftBoxPrevAllList = $('.ToolbarGiftArea .ToolbarGiftArea-GiftBox').prevAll()
+            $toolbarGiftAreaGiftBoxPrevAllList.each((idx, ele) => {
+                if ($(ele).is(':visible')) { // 判断是否隐藏
+                    allhide = false
+                }
+                if (!allhide && config.playerBottomSimplification) {
+                    $toolbarGiftAreaGiftBoxPrevAllList.hide()
+                } else {
+                    $toolbarGiftAreaGiftBoxPrevAllList.show()
+                }
+            })
+            if (config.playerBottomSimplification) {
+                $('.ActivityItem').addClass('is-hide')
+                $('.PlayerToolbar-Task').addClass('is-hide')
+            } else {
+                $('.ActivityItem').removeClass('is-hide')
+                $('.PlayerToolbar-Task').removeClass('is-hide')
+            }
+
             // 主播公告、贡献周榜、贵宾和粉丝团
             if (config.chatBoxCleaning) {
                 $(".layout-Player-asideMainTop").addClass("hide")
@@ -485,9 +508,7 @@
                 $('.Barrage-list .Barrage-guess').parent('.Barrage-listItem').show()
                 $('.guessGameContainer').show()
                 $(".ActivityItem").each((idx, dom) => {
-                    if ($(dom).find(".GuessIcon").length === 0) {
-                        $(dom).hide()
-                    } else {
+                    if ($(dom).find(".GuessIcon").length) {
                         $(dom).show()
                     }
                 })
@@ -496,7 +517,11 @@
                 // 聊天框用户竞猜获奖
                 $('.Barrage-list .Barrage-guess').parent('.Barrage-listItem').hide()
                 $('.guessGameContainer').hide()
-                $(".ActivityItem").hide()
+                $(".ActivityItem").each((idx, dom) => {
+                    if ($(dom).find(".GuessIcon").length) {
+                        $(dom).hide()
+                    }
+                })
                 $('.Bottom-guessGame-placeholder').height(0)
             }
 
@@ -589,18 +614,6 @@
                 once.backgroundIsShow = false
             }
 
-            // 去掉播放器下方活动列表
-            let allhide = true
-            let $toolbarGiftAreaGiftBoxPrevAllList = $('.ToolbarGiftArea .ToolbarGiftArea-GiftBox').prevAll()
-            $toolbarGiftAreaGiftBoxPrevAllList.each((idx, ele) => {
-                if ($(ele).is(':visible')) { // 判断是否隐藏
-                    allhide = false
-                }
-                if (!allhide) {
-                    $toolbarGiftAreaGiftBoxPrevAllList.hide()
-                }
-            })
-
             // 输入框上方送礼3000毫米淡出
             $('#js-player-barrage .BarrageBanner').children().delay(1000 * 3).fadeOut('slow')
 
@@ -637,15 +650,10 @@
         // setTimeout(() => {
         // }, 5 * 1000);
 
-        // debugStyle
-        const node = document.createTextNode(`
-        html body .broadcastDiv-af5699 {
-            display: none !important;
-            opacity: 0 !important;
-            visibility: hidden !important;
-          }
-        `)
-        $('head').append($(`<style type="text/css"></style>`).append(node))
+        // // debugStyle
+        // const node = document.createTextNode(`
+        // `)
+        // $('head').append($(`<style type="text/css"></style>`).append(node))
 
     }
 })()
