@@ -27,7 +27,6 @@
     $('.my-css')[0].onload = () => {
         // 版本号
         const version = 1.93
-        GM_setValue(version, false)
         // 更新说明
         const updateNotes = version + `：1、新增功能按钮礼物栏简化，播放器下方礼物栏简化。
         2、增加一个隐藏彩蛋（需要触发）`
