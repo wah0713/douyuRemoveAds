@@ -576,7 +576,17 @@
         .WXTipsBox,
         .DanmuEffectDom-container,
         .ActDayPay-toast,
-        .player-dialog {
+        .player-dialog,
+        .afterpic-8a2e13,
+        .FirePowerIcon,
+        .user-icon-8af1e3,
+        .noble-icon-c10b6a,
+        .bc-f66a59,
+        .FirePowerRewardModal,
+        .activity-icon-c717fc,
+        .user-icon-eeabb1,
+        .noble-icon-88f562,
+        .activity-icon-4b45df {
           display: none !important;
         }
         `)
