@@ -29,7 +29,7 @@
         const version = 1.93
         // 更新说明
         const updateNotes = version + `：1、新增功能按钮礼物栏简化，播放器下方礼物栏简化。
-        2、增加一个隐藏彩蛋（需要触发）`
+        2、增加一个隐藏彩蛋`
         // layoutMainParent的初始MarginTop
         let OriginalLayoutMainParentMarginTop = null
         let sign = 0
@@ -51,90 +51,6 @@
         const target = $('body')[0]
         const MutationObserver = window.MutationObserver || window.WebKitMutationObserver || window.MozMutationObserver
 
-        // 只需要一次删除
-        let onceRemoveDomList = [
-            // 火力全开（输入框上方）、
-            '.FirePower',
-            // 播放器内关注按钮、
-            '.focus_box_con-7adc83',
-            // 右侧浮动广告、
-            ' #js-room-activity',
-            // 亲密互动(播放器左下角)、
-            '.closeBg-998534',
-            // 贵族入场提醒（输入框上方）、
-            '.EnterEffect',
-            // 贵族入场提醒（输入框上方）、
-            '.Title-roomOtherBottom',
-            // 分享 客户端 手游中心（播放器右上角）、
-            '.Header-download-wrap',
-            // 导航栏客户端按钮、
-            '.noSubFloat-3e7a50',
-            // 播放器内主播推荐关注弹幕、
-            '.watermark-442a18',
-            // 播放器内房间号日期（播放器内左下角）、
-            '.code_box-5cdf5a',
-            '.code-box-15b952',
-            // 播放器左下角下载客户端QR、
-            '.normalBg-a5403d',
-            // 播放器左侧亲密互动、
-            '.multiBitRate-da4b60',
-            // 未登录提示、
-            '.ordinaryBcBox-8220a7',
-            // 分区推荐弹幕、
-            '.PaladinWeek-toast',
-            // 游侠活动
-            '.Barrage-topFloater',
-            // 聊天框上方贵族发言
-            '.RoomText-wrap',
-            // 播放器左下方广告
-            '.Barrage-chat-ad',
-            // 聊天框内广告
-            '.SysSign-Ad',
-            // 画面卡顿提示框
-            '.PcDiversion',
-            // 主播推荐竞猜
-            '.guessIconReminding',
-            // 福袋狂欢
-            '.FuDaiActPanel',
-            // 播放器内右下角悬浮广告
-            '.ad-box-f661ba',
-            // 播放器内左下角悬浮签到广告
-            '.recommendAD-54569e',
-            // LPL赛事播放器内左下角广告
-            '.vivo-ad-743527',
-            // 福袋活动
-            '.FuDaiActPanel',
-            // 火箭礼包抢不到推送的微信提示框
-            '.WXTipsBox',
-            // 播放器内竞猜提醒弹幕
-            '.DanmuEffectDom-container',
-            // 充值活动2019年7月25日21:37:24
-            '.ActDayPay-toast',
-            // 水友福利社
-            '.AppFlow'
-        ]
-        let onceTempArr = []
-
-        // 需要重复删除
-        const hideDomList = [
-            // 火力全开弹幕
-            '.afterpic-8a2e13',
-            // 火力全开聊天区域
-            '.FirePowerIcon',
-            // 播放器内贵族样式弹幕（降级为普通弹幕）
-            '.user-icon-8af1e3',
-            '.noble-icon-c10b6a',
-            // 播放器内分区弹幕
-            '.bc-f66a59',
-            // 播放器内火力全开获奖
-            '.FirePowerRewardModal',
-            // 2019.520贵族样式
-            '.activity-icon-c717fc',
-            '.user-icon-eeabb1',
-            '.noble-icon-88f562',
-            '.activity-icon-4b45df'
-        ]
-
         // 只执行一次
         let once = {
             notProcessedAdjustClarity: true,
@@ -152,7 +68,7 @@
             guessIsShow: false, // 竞猜显示
             lotteryIsShow: false, // 抽奖显示
             backgroundIsShow: false, // 背景显示
-            playerBottomSimplification: false, // 播放器下方简化
+            playerBottomSimplification: true, // 播放器下方简化
             chatBoxCleaning: true, // 聊天框简化
             forbiddenMessage: false, // 禁言消息显示
             autoReward: false, // 完成日常奖励
@@ -396,26 +312,6 @@
                 InitiaGuessGameHeight = $('.Bottom-guessGame-placeholder').height()
                 once.InitiaGuessGameHeight = false
             }
-            // onceRemoveDomList模块
-            onceTempArr = onceRemoveDomList.slice(0)
-            let i = 0
-            onceRemoveDomList.length && onceRemoveDomList.forEach((dom, idx) => {
-                const $dom = $(dom)
-                if ($dom.length) {
-                    $dom.hide()
-                    onceTempArr.splice(idx + i, 1)
-                    i--
-                }
-            })
-            onceRemoveDomList = onceTempArr.slice(0)
-
-            // hideDomList模块
-            hideDomList.forEach((dom, idx) => {
-                const $dom = $(dom)
-                if ($dom.length) {
-                    $dom.hide()
-                }
-            })
 
             // 底部广告（特殊dom）
             if (once.removeBottomAd && $('.Bottom-ad').length) {
@@ -649,10 +545,42 @@
         // setTimeout(() => {
         // }, 5 * 1000);
 
-        // // debugStyle
-        // const node = document.createTextNode(`
-        // `)
-        // $('head').append($(`<style type="text/css"></style>`).append(node))
+        // debugStyle
+        const node = document.createTextNode(`
+        .FirePower,
+        .focus_box_con-7adc83,
+        #js-room-activity,
+        .closeBg-998534,
+        .EnterEffect,
+        .Title-roomOtherBottom,
+        .Header-download-wrap,
+        .noSubFloat-3e7a50,
+        .watermark-442a18,
+        .code_box-5cdf5a,
+        .code-box-15b952,
+        .normalBg-a5403d,
+        .multiBitRate-da4b60,
+        .ordinaryBcBox-8220a7,
+        .PaladinWeek-toast,
+        .Barrage-topFloater,
+        .RoomText-wrap,
+        .Barrage-chat-ad,
+        .SysSign-Ad,
+        .PcDiversion,
+        .guessIconReminding,
+        .FuDaiActPanel,
+        .ad-box-f661ba,
+        .recommendAD-54569e,
+        .vivo-ad-743527,
+        .FuDaiActPanel,
+        .WXTipsBox,
+        .DanmuEffectDom-container,
+        .ActDayPay-toast,
+        .player-dialog {
+          display: none !important;
+        }
+        `)
+        $('head').append($(`<style type="text/css"></style>`).append(node))
 
     }
 })()
