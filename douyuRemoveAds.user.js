@@ -83,31 +83,6 @@
             GM_setValue('Config', config)
         }
 
-        /**
-         *  封装按钮显示事件
-         * @param {string} localStorageName 按钮本地存储名
-         * @param {string} displayName 按钮显示名
-         */
-        function btnListFun(localStorageName, displayName, description) {
-            $("#wah0713").append(`<button class='${localStorageName}' title='${description}'>${displayName}(close)</button>`)
-
-            function btnInit() {
-                if (!config[localStorageName]) {
-                    $(`#wah0713 .${localStorageName}`).addClass('close').text(`${displayName}(close)`)
-                } else {
-                    $(`#wah0713 .${localStorageName}`).removeClass('close').text(`${displayName}(open)`)
-                }
-            }
-            btnInit()
-            $(`#wah0713 .${localStorageName}`).click(() => {
-                config[localStorageName] = !config[localStorageName]
-                btnInit()
-                if (typeof (once[localStorageName]) !== 'undefined') {
-                    once[localStorageName] = true
-                }
-            })
-        }
-
         $('body').append(`<div id='wah0713-alert'><i></i><span></span></div>`)
 
         /**
@@ -168,6 +143,31 @@
 
         // 版本号和提示语
         $("#wah0713").append(`<p class='tip'>${version}版本（更新内容详情）</p>`)
+
+        /**
+         *  封装按钮显示事件
+         * @param {string} localStorageName 按钮本地存储名
+         * @param {string} displayName 按钮显示名
+         */
+        function btnListFun(localStorageName, displayName, description) {
+            $("#wah0713").append(`<button class='${localStorageName}' title='${description}'>${displayName}(close)</button>`)
+
+            function btnInit() {
+                if (!config[localStorageName]) {
+                    $(`#wah0713 .${localStorageName}`).addClass('close').text(`${displayName}(close)`)
+                } else {
+                    $(`#wah0713 .${localStorageName}`).removeClass('close').text(`${displayName}(open)`)
+                }
+            }
+            btnInit()
+            $(`#wah0713 .${localStorageName}`).click(() => {
+                config[localStorageName] = !config[localStorageName]
+                btnInit()
+                if (typeof (once[localStorageName]) !== 'undefined') {
+                    once[localStorageName] = true
+                }
+            })
+        }
 
         // 按钮事件
         btnListFun('adjustClarity', '默认最高画质', '10秒后开启当前房间最高画质，可能会闪一次屏（因为现在tampermonkey插件调整画质会出现时间不同步的问题，所以不推荐开启脚本时调整画质）__本功能由noob-one提出')
@@ -545,52 +545,10 @@
         // setTimeout(() => {
         // }, 5 * 1000);
 
-        // debugStyle
-        const node = document.createTextNode(`
-        .FirePower,
-        .focus_box_con-7adc83,
-        #js-room-activity,
-        .closeBg-998534,
-        .EnterEffect,
-        .Title-roomOtherBottom,
-        .Header-download-wrap,
-        .noSubFloat-3e7a50,
-        .watermark-442a18,
-        .code_box-5cdf5a,
-        .code-box-15b952,
-        .normalBg-a5403d,
-        .multiBitRate-da4b60,
-        .ordinaryBcBox-8220a7,
-        .PaladinWeek-toast,
-        .Barrage-topFloater,
-        .RoomText-wrap,
-        .Barrage-chat-ad,
-        .SysSign-Ad,
-        .PcDiversion,
-        .guessIconReminding,
-        .FuDaiActPanel,
-        .ad-box-f661ba,
-        .recommendAD-54569e,
-        .vivo-ad-743527,
-        .FuDaiActPanel,
-        .WXTipsBox,
-        .DanmuEffectDom-container,
-        .ActDayPay-toast,
-        .player-dialog,
-        .afterpic-8a2e13,
-        .FirePowerIcon,
-        .user-icon-8af1e3,
-        .noble-icon-c10b6a,
-        .bc-f66a59,
-        .FirePowerRewardModal,
-        .activity-icon-c717fc,
-        .user-icon-eeabb1,
-        .noble-icon-88f562,
-        .activity-icon-4b45df {
-          display: none !important;
-        }
-        `)
-        $('head').append($(`<style type="text/css"></style>`).append(node))
+        // // debugStyle
+        // const node = document.createTextNode(`
+        // `)
+        // $('head').append($(`<style type="text/css"></style>`).append(node))
 
     }
 })()
