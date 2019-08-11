@@ -343,6 +343,19 @@
       $(".LotteryContainer-svgaWrap").hide()
     }
 
+    // 屏蔽播放器内大多活动
+    $('.player-dialog').children().each((index, dom) => {
+      if (config.lotteryIsShow) {
+        if (!$(dom).find('.LotteryContainer').length) {
+          $(dom).hide()
+        } else {
+          $(dom).show()
+        }
+      } else {
+        $(dom).hide()
+      }
+    })
+
     // 礼物栏简化
     let allhide = true
     let $toolbarGiftAreaGiftBoxPrevAllList = $('.ToolbarGiftArea .ToolbarGiftArea-GiftBox').prevAll()
