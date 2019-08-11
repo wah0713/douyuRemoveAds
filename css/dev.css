@@ -44,12 +44,6 @@ html body #js-aside {
 html body.head-hide #js-header {
   opacity: 0.1;
 }
-html body.head-hide .layout-Main {
-  margin-top: -30px;
-}
-html body.backgroundIsShow .layout-Main {
-  margin-top: 0 !important;
-}
 html .Barrage {
   border-top: none;
 }
@@ -96,6 +90,26 @@ html .Barrage-notice--noble {
 html.no-background .bc-wrapper {
   background-color: transparent !important;
   background-image: none !important;
+}
+html.no-background .Background-holder {
+  padding-top: 10px;
+}
+html.no-background #js-bottom {
+  display: none;
+}
+html.no-background body {
+  background-image: none;
+  background-color: #ffe;
+}
+html.no-background body.go-beyound {
+  background-image: url('https://wah0713.github.io/myTampermonkey/image/down.jpg');
+  background-color: #f6f6f6;
+  background-position: center 68px;
+  background-repeat: repeat-y;
+}
+html.no-background body .layout-Containe {
+  background-image: none;
+  background-color: #ffe;
 }
 html .is-fullScreenPage #wah0713 {
   display: none;
@@ -275,6 +289,7 @@ html #wah0713-alert > span {
 .noble-icon-c10b6a,
 .bc-f66a59,
 .FirePowerRewardModal,
+.HeaderNav,
 .activity-icon-c717fc,
 .user-icon-eeabb1,
 .noble-icon-88f562,

@@ -58,15 +58,9 @@ html {
                 opacity: 0.1;
             }
 
-            .layout-Main {
-                margin-top: -30px;
-            }
-
         }
 
-        &.backgroundIsShow .layout-Main {
-            margin-top: 0 !important;
-        }
+
     }
 
     .Barrage {
@@ -136,6 +130,32 @@ html {
         .bc-wrapper {
             background-color: transparent !important;
             background-image: none !important;
+        }
+
+        .Background-holder {
+            padding-top: 10px;
+        }
+
+        #js-bottom {
+            display: none;
+        }
+
+        body {
+            background-image: none;
+            background-color: #ffe;
+
+            &.go-beyound {
+                background-image: url('https://wah0713.github.io/myTampermonkey/image/down.jpg');
+                background-color: #f6f6f6;
+                background-position: center 68px;
+                background-repeat: repeat-y;
+            }
+
+            .layout-Containe {
+                background-image: none;
+                background-color: #ffe;
+            }
+
         }
     }
 
@@ -377,11 +397,14 @@ html {
 .bc-f66a59,
 // 播放器内火力全开获奖
 .FirePowerRewardModal,
+// 顶部导航广告
+.HeaderNav,
 // 2019.520贵族样式
 .activity-icon-c717fc,
 .user-icon-eeabb1,
 .noble-icon-88f562,
-.activity-icon-4b45df {
+.activity-icon-4b45df
+ {
     display: none !important;
 }
 
