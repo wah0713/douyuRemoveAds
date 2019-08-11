@@ -424,7 +424,7 @@
       $layoutMain[0].style = ""
       if (once.backgroundIsShow) {
         setTimeout(() => {
-          window.scrollTo(0, $layoutMain.offset().top - 70)
+          window.scrollTo(0, $layoutMain.offset().top - 100)
         }, 200)
         once.backgroundIsShow = false
       }
@@ -449,7 +449,7 @@
           } else {
             $layoutMain[0].style = ""
           }
-          window.scrollTo(0, $layoutMain.offset().top - 70)
+          window.scrollTo(0, $layoutMain.offset().top - 100)
         }, 200)
         once.backgroundIsShow = false
       }
