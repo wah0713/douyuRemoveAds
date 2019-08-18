@@ -44,6 +44,15 @@ html body #js-aside {
 html body.head-hide #js-header {
   opacity: 0.1;
 }
+html body .super-user-icon-574f31,
+html body .super-tail-bffa58,
+html body .super-noble-icon-9aacaf,
+html body .super-user-icon-574f31 {
+  display: none !important;
+}
+html body .super-text-0281ca {
+  background: none !important;
+}
 html .Barrage {
   border-top: none;
 }
