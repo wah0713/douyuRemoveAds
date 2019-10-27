@@ -23,22 +23,16 @@
   const version = 1.95
   // 更新说明
   const updateNotes = version + `：<br />
-        1、修复抽奖(播放器左下角)不消失问题（由网友evenora提出）<br />
-        2、修改礼物栏简化功能按钮，默认显示房间签到（由网友尽量公开提出）<br />
-        3、取消完成日常奖励功能按钮，一来斗鱼升级太频繁了，二来我加班太累了，下班不想在研究斗鱼<br />`
+        1、粉丝福利社抽奖并入抽奖按钮中<br />
+        2、完成日常奖励功能按钮更新，测试阶段有异常记得反馈，网页崩溃等严重问题记得关闭按钮<br />
+        `
   // layoutMain的初始MarginTop
   let originalLayoutMainMarginTop = null
   // layoutMain的初始OffsetTop
   let originalayoutMainOffsetTop = null
   let sign = 0
-  // 自定义自动获取奖励按钮隐藏
-  let autoRewardHide = false
-  // 已经拿到的日常奖励数量
-  let completionReward = 0
   // 日常奖励弹框
   let $FTP
-  // 日常任务的按钮
-  let $TreasureBoxBtnList = null
   // Background-holder的原始paddingTop值
   let InitiaGuessGameHeight = 0
   // 5秒延迟
@@ -173,7 +167,7 @@
   btnListFun('backgroundIsShow', '背景显示', '背景是否显示__本功能由dongliang zhang提出')
   btnListFun('playerBottomSimplification', '礼物栏简化', '播放器下方礼物栏简化__本功能由evenora提出')
   btnListFun('chatBoxCleaning', '聊天框简化', '聊天框头部去除主播公告、贡献周榜、贵宾、粉丝团和主播通知__本功能由dongliang zhang提出')
-  // btnListFun('autoReward', '完成日常奖励', '播放器左下角每天日常礼物自动获取，自动发弹幕“666”，（选择人多的直播间，以防尴尬）')
+  btnListFun('autoReward', '完成日常奖励', '测试阶段有异常记得反馈，网页崩溃等严重问题记得关闭按钮')
   btnListFun('forbiddenMessage', '禁言消息显示', '聊天框内用户被禁言消息是否显示__本功能由lv88ff提出')
 
   // 左侧展开默认收起
@@ -194,62 +188,33 @@
 
   // 日常奖励按钮封装
   function TreasureBoxBtnListHandle() {
-    $TreasureBoxBtnList = $('.TreasureBox-btn')
-    if ($TreasureBoxBtnList.length > 0) {
-      $TreasureBoxBtnList.each((idx, dom) => {
-        $dom = $(dom)
-        if ($dom.hasClass('enable')) {
-          $dom.click()
-        } else if ($dom.hasClass('barrage-ready')) {
-          AutoDanmuSend()
-          return false
-        }
-      })
+    const $oneCompleteBtn = $('.FTP-bubble-progressText.is-complete').eq(0)
+    if ($oneCompleteBtn.length === 1) {
+      $oneCompleteBtn.click()
+    }
+    const $oneFinishedBtn = $('.FTP-singleTask-btn.is-finished').eq(0)
+    if ($oneFinishedBtn.length === 1) {
+      $oneFinishedBtn.click()
+    } else {
+      $('.FTP-activePoint').click()
+      $('.FTP-singleTask-btn.is-finished').eq(0).click()
     }
   }
 
-  // 每日奖励封装
-  function loop() {
-    setTimeout(() => {
+  // 日常奖励自动获取
+  setInterval(() => {
+    if ($('.autoReward')[0].style.display !== 'none' && config.autoReward) {
       $FTP = $('.FTP')
-      $FTPBtn = $('.FTP-btn')
-      if ($FTPBtn.length) {
-        $FTPBtn.each((idx, ele) => {
-          if ($(ele).text() === '每日活跃') {
-            TreasureBoxBtnListHandle()
-            $TreasureBoxBtnList = $('.TreasureBox-btn')
-            completionReward = $('.TreasureBox-itemImg.open').length
-            $FTP.removeClass('opacity0')
-            $('.FTP-close').click()
-          }
-        })
-        return false
-      } else {
-        loop()
+      if (!$FTP.length) { // 弹框没有出来
+        $('.FishpondTreasure-icon').click()
+        $FTP = $('.FTP')
+        $FTP.addClass('opacity0')
+        TreasureBoxBtnListHandle()
+      } else { // 弹框出来
+        TreasureBoxBtnListHandle()
       }
-    }, 50)
-  }
-
-  // // 日常奖励自动获取
-  // let autoRewardTimeId = setInterval(() => {
-  //   if ($('.autoReward')[0].style.display !== 'none' && config.autoReward) {
-  //     $FTP = $('.FTP')
-  //     if (!$FTP.length) { // 弹框没有出来
-  //       $('.FishpondTreasure-icon').click()
-  //       $FTP = $('.FTP')
-  //       $FTP.addClass('opacity0')
-  //       loop()
-  //     } else { // 弹框出来
-  //       TreasureBoxBtnListHandle()
-  //     }
-  //     // 清除自动获取奖励按钮和清除定时器
-  //     if (completionReward && completionReward === 4) {
-  //       autoRewardHide = true
-  //       clearInterval(autoRewardTimeId)
-  //       $('.autoReward').hide()
-  //     }
-  //   }
-  // }, 30 * 1000)
+    }
+  }, 30 * 1000)
 
   // 头部隐藏
   let headIsHideTimer = null
@@ -323,9 +288,7 @@
     } else {
       $('.adjustClarity').show()
       $('.danmuMove').show()
-      if (!autoRewardHide) {
-        $('.autoReward').show()
-      }
+      $('.autoReward').show()
     }
 
     // 抽奖显示
