@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         斗鱼去火箭横幅(贵族弹幕样式&&聊天区域铭牌)
 // @namespace    https://github.com/wah0713/myTampermonkey
-// @version      1.94
+// @version      1.95
 // @description  一个兴趣使然的脚本，本来只是屏蔽火箭横幅的脚本，到后来。。。 【★功能按钮】 默认最高画质、弹幕悬停、竞猜显示、抽奖显示、背景显示、礼物栏简化、聊天框简化、完成日常奖励、禁言消息显示。 【★默认设置】左侧展开默认收起、弹幕简化（贵族弹幕）、聊天框消息简化（聊天区域铭牌、大部分系统消息）【★屏蔽】火力全开（输入框上方）、播放器内关注按钮、右侧浮动广告、火箭横幅、亲密互动(播放器左下角)、贵族入场提醒（输入框上方）、贵族入场提醒（输入框上方）、分享 客户端 手游中心（播放器右上角）、导航栏客户端按钮、播放器内主播推荐关注弹幕、播放器内房间号日期（播放器内左下角）、播放器左下角下载客户端QR、播放器左侧亲密互动、未登录提示、分区推荐弹幕、游侠活动、聊天框上方贵族发言、播放器左下方广告、聊天框内广告、底部广告、画面卡顿提示框、播放器右下角悬浮广告、播放器内左下角悬浮签到广告、LPL赛事播放器内左下角广告、播放器内竞猜提醒弹幕....
 // @supportURL   https://github.com/wah0713/myTampermonkey/issues
 // @author       wah0713
@@ -20,7 +20,7 @@
   if (!/^\/\d+$/.test(window.location.pathname) && window.location.pathname.indexOf('topic') === -1) return false
 
   // 版本号
-  const version = 1.94
+  const version = 1.95
   // 更新说明
   const updateNotes = version + `：<br />
         1、修复抽奖(播放器左下角)不消失问题（由网友evenora提出）<br />
@@ -336,6 +336,9 @@
       $(".UPlayerLotteryEnter").removeClass('is-hide')
       // 中奖播放器中显示
       $(".LotteryContainer-svgaWrap").show()
+      // 粉丝福利社抽奖
+      $('.LotteryDrawEnter').show()
+
     } else {
       // 抽奖中间部提示框、
       $(".LotteryContainer").hide()
@@ -343,6 +346,8 @@
       $(".UPlayerLotteryEnter").addClass('is-hide')
       // 中奖播放器中显示
       $(".LotteryContainer-svgaWrap").hide()
+      // 粉丝福利社抽奖
+      $('.LotteryDrawEnter').hide()
     }
 
     // 屏蔽播放器内大多活动
@@ -359,35 +364,22 @@
     })
 
     // 礼物栏简化
-    let allhide = true
     let $toolbarGiftAreaGiftBoxPrevAllList = $('.ToolbarGiftArea .ToolbarGiftArea-GiftBox').prevAll()
     $toolbarGiftAreaGiftBoxPrevAllList.each((idx, ele) => {
-      if ($(ele).is(':visible')) { // 判断是否隐藏
-        allhide = false
-      }
-      if (!allhide && config.playerBottomSimplification) {
-        $toolbarGiftAreaGiftBoxPrevAllList.hide()
+      // if ($(ele).is(':visible')) { // 判断是否隐藏
+      //   allhide = false
+      // }
+      if (config.playerBottomSimplification) {
+        $toolbarGiftAreaGiftBoxPrevAllList.not($('.LotteryDrawEnter')).hide()
       } else {
-        $toolbarGiftAreaGiftBoxPrevAllList.show()
+        $toolbarGiftAreaGiftBoxPrevAllList.not($('.LotteryDrawEnter')).show()
       }
     })
     if (config.playerBottomSimplification) {
-      $('.ActivityItem').removeClass('is-hide')
-      if (config.guessIsShow) {
-        $('.ActivityItem').not($('.ActivityItem[data-flag=room_level]')).each((index, dom) => {
-          if ($(dom).find(".GuessIcon").length) {
-            $(dom).removeClass('is-hide')
-          } else {
-            $(dom).addClass('is-hide')
-          }
-        })
-      } else {
-        $('.ActivityItem').not($('.ActivityItem[data-flag=room_level]')).addClass('is-hide')
-      }
+      $('.ActivityItem').not($('.ActivityItem[data-flag=room_level]')).not('.ActivityItem[data-flag="anchor_quiz"]').addClass('is-hide')
       $('.PlayerToolbar-Task').addClass('is-hide')
     } else {
-      $('.ActivityItem').removeClass('is-hide')
-
+      $('.ActivityItem').not('.ActivityItem[data-flag="anchor_quiz"]').removeClass('is-hide')
       $('.PlayerToolbar-Task').removeClass('is-hide')
     }
 
@@ -422,22 +414,14 @@
     if (config.guessIsShow) {
       // 聊天框用户竞猜获奖
       $('.Barrage-list .Barrage-guess').parent('.Barrage-listItem').show()
+      $('.ActivityItem[data-flag="anchor_quiz"]').show()
       $('.guessGameContainer').show()
-      $(".ActivityItem").each((idx, dom) => {
-        if ($(dom).find(".GuessIcon").length) {
-          $(dom).show()
-        }
-      })
       $('.Bottom-guessGame-placeholder').height(InitiaGuessGameHeight)
     } else {
       // 聊天框用户竞猜获奖
       $('.Barrage-list .Barrage-guess').parent('.Barrage-listItem').hide()
+      $('.ActivityItem[data-flag="anchor_quiz"]').hide()
       $('.guessGameContainer').hide()
-      $(".ActivityItem").each((idx, dom) => {
-        if ($(dom).find(".GuessIcon").length) {
-          $(dom).hide()
-        }
-      })
       $('.Bottom-guessGame-placeholder').height(0)
     }
 
