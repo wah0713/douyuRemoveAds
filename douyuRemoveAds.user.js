@@ -199,6 +199,8 @@
       $('.FTP-activePoint').click()
       $('.FTP-singleTask-btn.is-finished').eq(0).click()
     }
+    // 关闭
+    $('.FishpondTreasure-icon').click()
   }
 
   // 日常奖励自动获取
