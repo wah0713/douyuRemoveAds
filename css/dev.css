@@ -193,7 +193,7 @@ html #wah0713 > button {
   text-align: center;
   box-sizing: border-box;
   outline: none;
-  transition: .1s;
+  transition: 0.1s;
   font-weight: 500;
   -webkit-user-select: none;
   -moz-user-select: none;
@@ -298,6 +298,7 @@ html #wah0713-alert > span {
 .bc-f66a59,
 .FirePowerRewardModal,
 .HeaderNav,
+.PlayerToolbar-signCont,
 .activity-icon-c717fc,
 .user-icon-eeabb1,
 .noble-icon-88f562,
