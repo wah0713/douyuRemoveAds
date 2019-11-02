@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         斗鱼去火箭横幅(贵族弹幕样式&&聊天区域铭牌)
 // @namespace    https://github.com/wah0713/myTampermonkey
-// @version      1.95
+// @version      1.96
 // @description  一个兴趣使然的脚本，本来只是屏蔽火箭横幅的脚本，到后来。。。 【★功能按钮】 默认最高画质、弹幕悬停、竞猜显示、抽奖显示、背景显示、礼物栏简化、聊天框简化、完成日常奖励、禁言消息显示。 【★默认设置】左侧展开默认收起、弹幕简化（贵族弹幕）、聊天框消息简化（聊天区域铭牌、大部分系统消息）【★屏蔽】火力全开（输入框上方）、播放器内关注按钮、右侧浮动广告、火箭横幅、亲密互动(播放器左下角)、贵族入场提醒（输入框上方）、贵族入场提醒（输入框上方）、分享 客户端 手游中心（播放器右上角）、导航栏客户端按钮、播放器内主播推荐关注弹幕、播放器内房间号日期（播放器内左下角）、播放器左下角下载客户端QR、播放器左侧亲密互动、未登录提示、分区推荐弹幕、游侠活动、聊天框上方贵族发言、播放器左下方广告、聊天框内广告、底部广告、画面卡顿提示框、播放器右下角悬浮广告、播放器内左下角悬浮签到广告、LPL赛事播放器内左下角广告、播放器内竞猜提醒弹幕....
 // @supportURL   https://github.com/wah0713/myTampermonkey/issues
 // @author       wah0713
@@ -20,11 +20,11 @@
   if (!/^\/\d+$/.test(window.location.pathname) && window.location.pathname.indexOf('topic') === -1) return false
 
   // 版本号
-  const version = 1.95
+  const version = 1.96
   // 更新说明
   const updateNotes = version + `：<br />
-        1、粉丝福利社抽奖并入抽奖按钮中<br />
-        2、完成日常奖励功能按钮更新，测试阶段有异常记得反馈，网页崩溃等严重问题记得关闭按钮<br />
+        1、完成日常奖励功能按钮--支持获取鱼塘的奖励和自动房间签到，取消自动发弹幕获取奖励<br />
+        2、优化2个bug ，（1）房间签到按钮首次进入消失，（2）开启自动完成日常奖励功能按钮礼物栏部分按钮不能使用，由 火小山 提出<br />
         `
   // layoutMain的初始MarginTop
   let originalLayoutMainMarginTop = null
@@ -167,7 +167,7 @@
   btnListFun('backgroundIsShow', '背景显示', '背景是否显示__本功能由dongliang zhang提出')
   btnListFun('playerBottomSimplification', '礼物栏简化', '播放器下方礼物栏简化__本功能由evenora提出')
   btnListFun('chatBoxCleaning', '聊天框简化', '聊天框头部去除主播公告、贡献周榜、贵宾、粉丝团和主播通知__本功能由dongliang zhang提出')
-  btnListFun('autoReward', '完成日常奖励', '测试阶段有异常记得反馈，网页崩溃等严重问题记得关闭按钮')
+  btnListFun('autoReward', '完成日常奖励', '支持获取鱼塘的奖励和自动房间签到，取消自动发弹幕获取奖励')
   btnListFun('forbiddenMessage', '禁言消息显示', '聊天框内用户被禁言消息是否显示__本功能由lv88ff提出')
 
   // 左侧展开默认收起
@@ -206,14 +206,19 @@
   // 日常奖励自动获取
   setInterval(() => {
     if ($('.autoReward')[0].style.display !== 'none' && config.autoReward) {
-      $FTP = $('.FTP')
-      if (!$FTP.length) { // 弹框没有出来
-        $('.FishpondTreasure-icon').click()
+      if ($('.RoomLevelDetail-level').text() === '签到' && $('.Title-followBtnBox.is-followed').length) {
+        $('.RoomLevelDetail-level').click()
+      }
+      if (Number($('.FishpondTreasure-num').text())) {
         $FTP = $('.FTP')
-        $FTP.addClass('opacity0')
-        TreasureBoxBtnListHandle()
-      } else { // 弹框出来
-        TreasureBoxBtnListHandle()
+        if (!$FTP.length) { // 弹框没有出来
+          $('.FishpondTreasure-icon').click()
+          $FTP = $('.FTP')
+          $FTP.addClass('opacity0')
+          TreasureBoxBtnListHandle()
+        } else { // 弹框出来
+          TreasureBoxBtnListHandle()
+        }
       }
     }
   }, 30 * 1000)
@@ -341,10 +346,11 @@
       }
     })
     if (config.playerBottomSimplification) {
-      $('.ActivityItem').not($('.ActivityItem[data-flag=room_level]')).not('.ActivityItem[data-flag="anchor_quiz"]').addClass('is-hide')
+      $('.ActivityItem').removeClass('is-hide')
+      $('.ActivityItem:not(.ActivityItem[data-flag="room_level"]):not(.ActivityItem[data-flag="anchor_quiz"])').addClass('is-hide')
       $('.PlayerToolbar-Task').addClass('is-hide')
     } else {
-      $('.ActivityItem').not('.ActivityItem[data-flag="anchor_quiz"]').removeClass('is-hide')
+      $('.ActivityItem').removeClass('is-hide')
       $('.PlayerToolbar-Task').removeClass('is-hide')
     }
 
