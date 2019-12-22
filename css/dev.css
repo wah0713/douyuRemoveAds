@@ -167,6 +167,7 @@ html #wah0713 .gear {
 html #wah0713 .gear > img {
   width: 100%;
   animation: rotating linear 30s infinite paused;
+  border-radius: 33%;
 }
 html #wah0713 .gear > img.active {
   animation-play-state: running;
