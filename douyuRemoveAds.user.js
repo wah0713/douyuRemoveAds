@@ -334,9 +334,9 @@
 
     // 礼物栏简化
 
-      // if ($(ele).is(':visible')) { // 判断是否隐藏
-      //   allhide = false
-      // }
+    // if ($(ele).is(':visible')) { // 判断是否隐藏
+    //   allhide = false
+    // }
 
     if (config.playerBottomSimplification) {
       $('.ActivityItem').removeClass('is-hide')
@@ -454,6 +454,12 @@
     // 聊天框用户送礼
     $('.Barrage-list .Barrage-message').parent('.Barrage-listItem').hide()
 
+    // 聊天框用户点赞 （parents多个s）
+    $('.Barrage-list .roomDianzanIcon').parents('.Barrage-listItem').hide()
+
+    // 聊天框用户铭牌
+    $('.Barrage-list .Barrage-nickName').prevAll().hide()
+
     // 聊天框用户相关消息广播
     // 系统提示（例如禁言）Barrage-notice--red
     $('.Barrage-list .Barrage-icon--sys').each((idx, dom) => {
@@ -468,8 +474,7 @@
         domParent.hide()
       }
     })
-    // 聊天框用户铭牌
-    $('.Barrage-list .Barrage-nickName').prevAll().hide()
+
   })
   const observerConfig = {
     subtree: true,
