@@ -2,7 +2,7 @@
 // @name         斗鱼去火箭横幅(贵族弹幕样式&&聊天区域铭牌)
 // @namespace    https://github.com/wah0713/myTampermonkey
 // @version      1.97
-// @description  一个兴趣使然的脚本，本来只是屏蔽火箭横幅的脚本，到后来。。。 【★功能按钮】 默认最高画质、弹幕悬停、竞猜显示、抽奖显示、背景显示、礼物栏简化、聊天框简化、完成日常奖励、禁言消息显示。 【★默认设置】左侧展开默认收起、弹幕简化（贵族弹幕）、聊天框消息简化（聊天区域铭牌、大部分系统消息）【★屏蔽】火力全开（输入框上方）、播放器内关注按钮、右侧浮动广告、火箭横幅、亲密互动(播放器左下角)、贵族入场提醒（输入框上方）、贵族入场提醒（输入框上方）、分享 客户端 手游中心（播放器右上角）、导航栏客户端按钮、播放器内主播推荐关注弹幕、播放器内房间号日期（播放器内左下角）、播放器左下角下载客户端QR、播放器左侧亲密互动、未登录提示、分区推荐弹幕、游侠活动、聊天框上方贵族发言、播放器左下方广告、聊天框内广告、底部广告、画面卡顿提示框、播放器右下角悬浮广告、播放器内左下角悬浮签到广告、LPL赛事播放器内左下角广告、播放器内竞猜提醒弹幕....
+// @description  一个兴趣使然的脚本，本来只是屏蔽火箭横幅的脚本，到后来。。。 【✅功能按钮】 默认最高画质、弹幕悬停、竞猜显示、抽奖显示、背景显示、礼物栏简化、聊天框简化、完成日常奖励、禁言消息显示。 【✅默认设置】左侧展开默认收起、弹幕简化（贵族弹幕）、聊天框消息简化（聊天区域铭牌、大部分系统消息）【✅屏蔽】火力全开（输入框上方）、播放器内关注按钮、右侧浮动广告、火箭横幅、亲密互动(播放器左下角)、贵族入场提醒（输入框上方）、贵族入场提醒（输入框上方）、分享 客户端 手游中心（播放器右上角）、导航栏客户端按钮、播放器内主播推荐关注弹幕、播放器内房间号日期（播放器内左下角）、播放器左下角下载客户端QR、播放器左侧亲密互动、未登录提示、分区推荐弹幕、游侠活动、聊天框上方贵族发言、播放器左下方广告、聊天框内广告、底部广告、画面卡顿提示框、播放器右下角悬浮广告、播放器内左下角悬浮签到广告、LPL赛事播放器内左下角广告、播放器内竞猜提醒弹幕....
 // @supportURL   https://github.com/wah0713/myTampermonkey/issues
 // @author       wah0713
 // @compatible   chrome
@@ -38,11 +38,11 @@
   // 5秒延迟
   let delay = false
 
-  const target = $('body')[0]
+  const body = $('body')[0]
   const MutationObserver = window.MutationObserver || window.WebKitMutationObserver || window.MozMutationObserver
 
   // 只执行一次
-  let once = {
+  const once = {
     notProcessedAdjustClarity: true,
     backgroundIsShow: true,
     removeBottomAd: true,
@@ -52,7 +52,7 @@
   }
 
   // 用户默认配置
-  let defaultConfig = {
+  const defaultConfig = {
     adjustClarity: false, // 登陆最高画质
     danmuMove: false, // 弹幕悬停
     guessIsShow: false, // 竞猜显示
@@ -63,7 +63,7 @@
     forbiddenMessage: false, // 禁言消息显示
     autoReward: false, // 完成日常奖励
   }
-  let config = GM_getValue('Config', defaultConfig)
+  const config = GM_getValue('Config', defaultConfig)
   for (let key in defaultConfig) {
     if (typeof (config[key]) === 'undefined') {
       config[key] = defaultConfig[key]
@@ -159,14 +159,14 @@
   }
 
   // 按钮事件
-  btnListFun('adjustClarity', '默认最高画质', '10秒后开启当前房间最高画质，可能会闪一次屏（因为现在tampermonkey插件调整画质会出现时间不同步的问题，所以不推荐开启脚本时调整画质）__本功能由noob-one提出')
+  btnListFun('adjustClarity', '默认最高画质', '10秒后开启当前房间最高画质，可能会闪一次屏__本功能由noob-one提出')
   btnListFun('danmuMove', '弹幕悬停', '播放器内弹幕被选中时悬停__本功能由noob-one提出')
   btnListFun('guessIsShow', '竞猜显示', '竞猜是否显示__本功能由noob-one提出')
   btnListFun('lotteryIsShow', '抽奖显示', '抽奖是否显示__本功能由lv88ff提出')
   btnListFun('backgroundIsShow', '背景显示', '背景是否显示__本功能由dongliang zhang提出')
   btnListFun('playerBottomSimplification', '礼物栏简化', '播放器下方礼物栏简化__本功能由evenora提出')
   btnListFun('chatBoxCleaning', '聊天框简化', '聊天框头部去除主播公告、贡献周榜、贵宾、粉丝团和主播通知__本功能由dongliang zhang提出')
-  btnListFun('autoReward', '完成日常奖励', '支持获取鱼塘的奖励和自动房间签到，取消自动发弹幕获取奖励')
+  btnListFun('autoReward', '完成日常奖励', '支持获取鱼塘的奖励和自动房间签到')
   btnListFun('forbiddenMessage', '禁言消息显示', '聊天框内用户被禁言消息是否显示__本功能由lv88ff提出')
 
   // 左侧展开默认收起
@@ -176,11 +176,11 @@
 
   // 自动发送弹幕封装
   function AutoDanmuSend() {
-    let raddom = 2 + Math.ceil(8 * Math.random())
-    let AutoDanmu = ''
-    for (let i = 1; i <= raddom; i++) {
-      AutoDanmu += '6'
-    }
+    //  大于3小于10的数字
+    const raddom = Math.max(3, Math.ceil(7 * Math.random()))
+    const arr = []
+    arr.length = raddom
+    const AutoDanmu = arr.fill('6').join('')
     $('.ChatSend-txt').val(AutoDanmu)
     $('.ChatSend-button').click()
   }
@@ -480,7 +480,7 @@
     subtree: true,
     childList: true,
   }
-  observer.observe(target, observerConfig)
+  observer.observe(body, observerConfig)
 
   const node = document.createTextNode(`
 html ::-webkit-scrollbar{height:14px;width:12px;overflow:visible;position:absolute;bottom:16px}html ::-webkit-scrollbar-button{height:0;width:0}html ::-webkit-scrollbar-thumb,html ::-webkit-scrollbar-track{background-clip:padding-box;border:3px solid transparent;border-radius:100px}html ::-webkit-scrollbar-corner{background-color:transparent}html ::-webkit-scrollbar-thumb{background-color:#ccc}html ::-webkit-scrollbar-track{background-color:hsla(0,0%,100%,0)}html body .broadcastDiv-af5699{display:none!important;opacity:0!important;visibility:hidden!important}html body #js-header{transition:opacity .5s;opacity:1}html body .layout-Main{transition:margin-top .5s;margin-top:0}html body #js-aside{margin-top:-68px;z-index:401}html body.head-hide #js-header{opacity:.1}html body .super-noble-icon-9aacaf,html body .super-tail-bffa58,html body .super-user-icon-574f31{display:none!important}html body .super-text-0281ca{background:none!important}html .Barrage{border-top:none}html .adjustClarity,html .autoReward,html .danmuMove{display:none}html .danmuItem-31f924{background-color:transparent!important}html .danmuItem-31f924 .text-b132b0{font:700 24px SimHei,Microsoft JhengHei,Arial,Helvetica,sans-serif!important}html .Barrage-listItem div:first-child{padding:0 10px!important}html .Barrage-listItem .Barrage-nickName{color:#2b94ff!important}html .Barrage-listItem .Barrage-nickName.is-self{color:#ff5d23!important}html .layout-Player-asideMainTop.hide .layout-Player-announce{display:none}html .layout-Player-asideMainTop.hide .layout-Player-barrage{top:0}html .layout-Player-asideMainTop.hide .layout-Player-rank{border:none;display:none}html .layout-Player-asideMainTop.hide .ChatRank-rankWraper{display:none}html .noble-bf13ad{background:none!important}html .Barrage-notice--noble{background:none!important;border:none!important}html.no-background .bc-wrapper{background-color:transparent!important;background-image:none!important}html.no-background .Background-holder{padding-top:10px}html.no-background #js-bottom{display:none}html.no-background body{background-image:none;background-color:#ffe}html.no-background body.go-beyound{background-image:url(https://wx2.sinaimg.cn/mw690/8666830cgy1g9xp15vwl4j20i20jdwey.jpg);background-color:#f6f6f6;background-position:center 68px;background-repeat:repeat-y}html.no-background body .layout-Container{background-image:none;background-color:#ffe}html .is-fullScreenPage #wah0713{display:none}html #wah0713{position:fixed;top:50%;transform:translateY(-50%);right:-182px;border:1px solid #ccc;border-radius:6px;z-index:20;padding:10px 5px;background:#fef54e url(http://wx3.sinaimg.cn/mw690/8666830cgy1g9xp179mfvj20hs0vkaac.jpg) no-repeat 50%/100%;width:160px;transition:all .5s ease-out}html #wah0713 .tip{margin-bottom:5px;-webkit-user-select:none;-moz-user-select:none;-ms-user-select:none;user-select:none;cursor:default}html #wah0713 .tip>a{color:red}html #wah0713 .tip.active{animation:Bigger 2s linear infinite}html #wah0713:hover{right:0}html #wah0713:hover>button{opacity:1}html #wah0713 .gear{width:32px;padding-right:13px;position:absolute;top:50%;left:-45px;transform:translateY(-50%)}html #wah0713 .gear>img{width:100%;animation:rotating 30s linear infinite paused;border-radius:33%}html #wah0713 .gear>img.active{animation-play-state:running}html #wah0713 .gear .redDot{display:none;width:9px;height:9px;background-color:#fd4a4e;border-radius:50%;position:absolute;top:3px;right:2px}html #wah0713>button{margin:0 auto 5px;display:block;line-height:1;white-space:nowrap;cursor:pointer;background:#409eff;border:1px solid #409eff;color:#fff;-webkit-appearance:none;text-align:center;box-sizing:border-box;outline:none;transition:.1s;font-weight:500;-webkit-user-select:none;-moz-user-select:none;-ms-user-select:none;user-select:none;padding:6px 10px;font-size:14px;border-radius:4px;opacity:.75}html #wah0713>button:last-of-type{margin-bottom:0}html #wah0713>button:hover{opacity:.8}html #wah0713>button.close{background-color:#fff;color:#409eff}html #wah0713-alert{display:none;padding:8px 16px;position:fixed;top:30%;left:50%;transform:translateX(-50%);z-index:30;-webkit-user-select:none;-moz-user-select:none;-ms-user-select:none;user-select:none;border:1px solid #ccc;border-radius:8px}html #wah0713-alert>i{width:14px;height:14px;display:inline-block;border-radius:50%;color:#fff;text-align:center;line-height:14px;font-family:Arial,Microsoft YaHei,黑体,宋体,sans-serif;margin-right:8px;position:relative;top:-1px}html #wah0713-alert.warning{background-color:#fff1f0;border-color:#f5222d}html #wah0713-alert.warning>i{background-color:#f5222d}html #wah0713-alert.info{background-color:#f4f4f5;border-color:#909399}html #wah0713-alert.info>i{background-color:#909399}html #wah0713-alert>span{font-family:Chinese Quote,-apple-system,BlinkMacSystemFont,Segoe UI,PingFang SC,Hiragino Sans GB,Microsoft YaHei,Helvetica Neue,Helvetica,Arial,sans-serif,Apple Color Emoji,Segoe UI Emoji,Segoe UI Symbol;font-size:14px;font-variant:tabular-nums;color:rgba(0,0,0,.65)}#js-room-activity,.ActDayPay-toast,.activity-icon-4b45df,.activity-icon-c717fc,.ad-box-f661ba,.afterpic-8a2e13,.Barrage-chat-ad,.Barrage-topFloater,.bc-f66a59,.closeBg-998534,.code-box-15b952,.code_box-5cdf5a,.DanmuEffectDom-container,.EnterEffect,.FirePower,.FirePowerIcon,.FirePowerRewardModal,.focus_box_con-7adc83,.FuDaiActPanel,.guessIconReminding,.Header-download-wrap,.HeaderNav,.headpic-dda332,.LotteryContainer-svgaDes,.LuckyStartEnter,.multiBitRate-da4b60,.noble-icon-88f562,.noble-icon-c10b6a,.normalBg-a5403d,.noSubFloat-3e7a50,.ordinaryBcBox-8220a7,.PaladinWeek-toast,.PcDiversion,.PlayerToolbar-signCont,.PrivilegeGiftModalDialog,.recommendAD-54569e,.RoomText-wrap,.SysSign-Ad,.Title-roomOtherBottom,.user-icon-8af1e3,.user-icon-eeabb1,.vivo-ad-743527,.watermark-442a18,.WXTipsBox{display:none!important}.opacity0{opacity:0}.is-hide{display:none!important}@keyframes rotating{0%{transform:rotate(0)}to{transform:rotate(1turn)}}@keyframes Bigger{0%{transform:scale(.95)}50%{transform:scale(1)}to{transform:scale(.95)}}
