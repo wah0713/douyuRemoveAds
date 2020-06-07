@@ -269,6 +269,7 @@ html .marginTop100 {
 }
 html .background-image-hide {
   background-image: none !important;
+  background-color: none !important;
 }
 .FirePower,
 .focus_box_con-7adc83,
