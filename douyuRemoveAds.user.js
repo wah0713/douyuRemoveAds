@@ -343,11 +343,13 @@
       $('.ActiviesExpanel').addClass('is-hide')
       $('.ActivityItem:not(.ActivityItem[data-flag="room_level"]):not(.ActivityItem[data-flag="anchor_quiz"])').addClass('is-hide')
       $('.PlayerToolbar-Task').addClass('is-hide')
+      $('.ActCenterPkEntry').addClass('is-hide')
       $('.ToolbarActivityArea>div:last-child>div>div:not(.LotteryDrawEnter)').addClass('is-hide')
     } else {
       $('.ActivityItem').removeClass('is-hide')
       $('.ActiviesExpanel').removeClass('is-hide')
       $('.PlayerToolbar-Task').removeClass('is-hide')
+      $('.ActCenterPkEntry').removeClass('is-hide')
       $('.ToolbarActivityArea>div:last-child>div>div:not(.LotteryDrawEnter)').removeClass('is-hide')
     }
 
