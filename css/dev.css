@@ -137,6 +137,7 @@ html #wah0713 {
   transition: all 0.5s ease-out;
 }
 html #wah0713 .tip {
+  text-align: center;
   margin-bottom: 5px;
   -webkit-user-select: none;
   -moz-user-select: none;
@@ -180,7 +181,7 @@ html #wah0713 .gear .redDot {
   border-radius: 50%;
   position: absolute;
   top: 3px;
-  right: 2px;
+  right: 13px;
 }
 html #wah0713 > button {
   margin: 0 auto 5px;
