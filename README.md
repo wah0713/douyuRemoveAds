@@ -1,19 +1,22 @@
 # [斗鱼去火箭横幅(贵族弹幕样式&&聊天区域铭牌)](https://greasyfork.org/zh-CN/scripts/381934-%E6%96%97%E9%B1%BC%E5%8E%BB%E7%81%AB%E7%AE%AD%E6%A8%AA%E5%B9%85)
 
-### 当前版本1.97效果图：
+### 当前版本1.98效果图：
+
+1、更新[ 完成日常奖励 ]的功能
+2、屏蔽广告一处
+3、背景显示的bug 由 随机的名字 提出
+4、由于我不怎么上斗鱼，所以更新变慢了。我是辜负了还在使用的朋友。
+假如大伙发现什么问题，可以给我留言
+
+
+![当前版本1.98](https://wah0713.github.io/myTampermonkey/image/douyu1.98.png)
+
+### 上个版本1.96效果图：
 
 1、斗鱼升级，修改了礼物栏简化，现在能正常屏蔽 由 火小山 提出
 2、优化了一处体验感不是很好的地方
 
-
-![当前版本1.97](https://wah0713.github.io/myTampermonkey/image/douyu1.97.png)
-
-### 上个版本1.96效果图：
-
-1、完成日常奖励功能按钮--支持获取鱼塘的奖励和自动房间签到，取消自动发弹幕获取奖励
-2、优化2个bug ，（1）房间签到按钮首次进入消失，（2）开启自动完成日常奖励功能按钮礼物栏部分按钮不能使用，由 火小山 提出
-
-![上个版本1.96](https://wah0713.github.io/myTampermonkey/image/douyu1.96.png)
+![上个版本1.97](https://wah0713.github.io/myTampermonkey/image/douyu1.97.png)
 
 ### bug和建议：
 
