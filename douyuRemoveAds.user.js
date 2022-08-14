@@ -20,14 +20,12 @@
   if (!/^\/\d+$/.test(window.location.pathname) && window.location.pathname.indexOf('topic') === -1) return false
 
   // 版本号
-  const version = 1.98
+  const version = 2.00
   // 更新说明
   const updateNotes = version + `：<br />
-        1、更新[完成日常奖励]的功能<br />
-        2、屏蔽广告一处<br />
-        3、背景显示的bug 由 随机的名字 提出<br />
-        4、由于我不怎么上斗鱼，所以更新变慢了。我是辜负了还在使用的朋友。<br />
-        假如大伙发现什么问题，可以给我留言<br />
+        1、[完成日常奖励]功能下线<br />
+        2、[聊天框用户铭牌显示]功能键 由 BerryBarry11 提出<br />
+        3、多弹幕情况下会卡顿（因为是[完成日常奖励]失效，阻碍页面） 由 Jesse1uo 提出<br />
         `
   // layoutMain的初始MarginTop
   let originalLayoutMainMarginTop = null
