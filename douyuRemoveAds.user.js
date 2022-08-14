@@ -64,7 +64,6 @@
     playerBottomSimplification: true, // 播放器下方简化
     chatBoxCleaning: true, // 聊天框简化
     forbiddenMessage: false, // 禁言消息显示
-    autoReward: false, // 完成日常奖励
   }
   const config = GM_getValue('Config', defaultConfig)
   for (let key in defaultConfig) {
@@ -169,58 +168,12 @@
   btnListFun('backgroundIsShow', '背景显示', '背景是否显示__本功能由dongliang zhang提出')
   btnListFun('playerBottomSimplification', '礼物栏简化', '播放器下方礼物栏简化__本功能由evenora提出')
   btnListFun('chatBoxCleaning', '聊天框简化', '聊天框头部去除主播公告、贡献周榜、贵宾、粉丝团和主播通知__本功能由dongliang zhang提出')
-  btnListFun('autoReward', '完成日常奖励', '支持获取鱼塘的奖励和自动房间签到')
   btnListFun('forbiddenMessage', '禁言消息显示', '聊天框内用户被禁言消息是否显示__本功能由lv88ff提出')
 
   // 左侧展开默认收起
   if ($(".Aside-main--shrink").width() > 100) {
     $(".Aside-toggle").click()
   }
-
-  // 自动发送弹幕封装
-  function AutoDanmuSend() {
-    //  大于3小于10的数字
-    const raddom = Math.max(3, Math.ceil(7 * Math.random()))
-    const arr = []
-    arr.length = raddom
-    const AutoDanmu = arr.fill('6').join('')
-    $('.ChatSend-txt').val(AutoDanmu)
-    $('.ChatSend-button').click()
-  }
-
-  // 日常奖励按钮封装
-  function TreasureBoxBtnListHandle() {
-    const $highlight = $('.FPT-treasure-tag.highlight').eq(0)
-    if ($highlight.length === 1) {
-      $highlight.click()
-    }
-    const $oneFinishedBtn = $('.FTP-singleTask-btn.is-finished').eq(0)
-    if ($oneFinishedBtn.length === 1) {
-      $oneFinishedBtn.click()
-    }
-    // 关闭
-    $('.FishpondEntrance-icon').click()
-  }
-
-  // 日常奖励自动获取
-  setInterval(() => {
-    if ($('.autoReward')[0].style.display !== 'none' && config.autoReward) {
-      if ($('.RoomLevelDetail-level').text() === '签到' && $('.Title-followBtnBox.is-followed').length) {
-        $('.RoomLevelDetail-level').click()
-      }
-      if (Number($('.FishpondEntrance-num').text())) {
-        $FTP = $('.FTP')
-        if (!$FTP.length) { // 弹框没有出来
-          $('.FishpondEntrance-icon').click()
-          $FTP = $('.FTP')
-          $FTP.addClass('opacity0')
-          TreasureBoxBtnListHandle()
-        } else { // 弹框出来
-          TreasureBoxBtnListHandle()
-        }
-      }
-    }
-  }, 30 * 1000)
 
   // 头部隐藏
   let headIsHideTimer = null
@@ -290,11 +243,9 @@
     if ($('.UnLogin').length) {
       $('.adjustClarity').hide()
       $('.danmuMove').hide()
-      $('.autoReward').hide()
     } else {
       $('.adjustClarity').show()
       $('.danmuMove').show()
-      $('.autoReward').show()
     }
 
     // 抽奖显示
@@ -380,14 +331,9 @@
 
     // 弹幕悬停关闭
     if ($('.danmuMove')[0].style.display !== 'none' && config.danmuMove) {
-      $(".danmuItem-31f924 .mask").remove()
+      $('.room-Player-Box').removeClass('mark')
     } else {
-      $('.danmuItem-31f924').each((idx, dom) => {
-        if (!$(dom)[0].handle) {
-          $(dom)[0].handle = true
-          $(dom).append('<div class="mask" style="height: 100%;width: 100%;position: absolute;top: 0;left: 0;z-index: 999; cursor:default;"></div>')
-        }
-      })
+      $('.room-Player-Box').addClass('mark')
     }
 
     // 竞猜显示
@@ -511,7 +457,7 @@
   observer.observe(body, observerConfig)
 
   const node = document.createTextNode(`
-  html ::-webkit-scrollbar{height:14px;width:12px;overflow:visible;position:absolute;bottom:16px}html ::-webkit-scrollbar-button{height:0;width:0}html ::-webkit-scrollbar-thumb,html ::-webkit-scrollbar-track{background-clip:padding-box;border:3px solid transparent;border-radius:100px}html ::-webkit-scrollbar-corner{background-color:transparent}html ::-webkit-scrollbar-thumb{background-color:#ccc}html ::-webkit-scrollbar-track{background-color:hsla(0,0%,100%,0)}html body .broadcastDiv-af5699{display:none!important;opacity:0!important;visibility:hidden!important}html body #js-header{transition:opacity .5s;opacity:1}html body .layout-Main{transition:margin-top .5s;margin-top:0}html body #js-aside{margin-top:-68px;z-index:401}html body.head-hide #js-header{opacity:.1}html body .super-noble-icon-9aacaf,html body .super-tail-bffa58,html body .super-user-icon-574f31{display:none!important}html body .super-text-0281ca{background:none!important}html .Barrage{border-top:none}html .adjustClarity,html .autoReward,html .danmuMove{display:none}html .danmuItem-31f924{background-color:transparent!important}html .danmuItem-31f924 .text-b132b0{font:700 24px SimHei,Microsoft JhengHei,Arial,Helvetica,sans-serif!important}html .Barrage-listItem div:first-child{padding:0 10px!important}html .Barrage-listItem .Barrage-nickName{color:#2b94ff!important}html .Barrage-listItem .Barrage-nickName.is-self{color:#ff5d23!important}html .layout-Player-asideMainTop.hide .layout-Player-announce{display:none}html .layout-Player-asideMainTop.hide .layout-Player-barrage{top:0}html .layout-Player-asideMainTop.hide .layout-Player-rank{border:none;display:none}html .layout-Player-asideMainTop.hide .ChatRank-rankWraper{display:none}html .noble-bf13ad{background:none!important}html .Barrage-notice--noble{background:none!important;border:none!important}html.no-background .bc-wrapper{background-color:transparent!important;background-image:none!important}html.no-background .Background-holder{padding-top:10px}html.no-background #js-bottom{display:none}html.no-background body{background-image:none;background-color:#ffe}html.no-background body.go-beyound{background-image:url(https://img-blog.csdnimg.cn/20210116195614315.jpg?x-oss-process=image%2Fwatermark%2Ctype_ZmFuZ3poZW5naGVpdGk%2Cshadow_10%2Ctext_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L2MyODY4OTgyMzI%3D%2Csize_16%2Ccolor_FFFFFF%2Ct_70#pic_center);background-color:#f6f6f6;background-position:center 68px;background-repeat:repeat-y}html.no-background body .layout-Container{background-image:none;background-color:#ffe}html .is-fullScreenPage #wah0713{display:none}html #wah0713{position:fixed;top:50%;transform:translateY(-50%);right:-182px;border:1px solid #ccc;border-radius:6px;z-index:20;padding:10px 5px;background:#fef54e url(https://img-blog.csdnimg.cn/20210116195614319.jpg?x-oss-process=image%2Fwatermark%2Ctype_ZmFuZ3poZW5naGVpdGk%2Cshadow_10%2Ctext_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L2MyODY4OTgyMzI%3D%2Csize_16%2Ccolor_FFFFFF%2Ct_70#pic_center) no-repeat 50%/100%;width:160px;transition:all .5s ease-out}html #wah0713 .tip{text-align:center;margin-bottom:5px;-webkit-user-select:none;-moz-user-select:none;-ms-user-select:none;user-select:none;cursor:default}html #wah0713 .tip>a{color:red}html #wah0713 .tip.active{animation:Bigger 2s linear infinite}html #wah0713:hover{right:0}html #wah0713:hover>button{opacity:1}html #wah0713 .gear{width:32px;padding-right:13px;position:absolute;top:50%;left:-45px;transform:translateY(-50%)}html #wah0713 .gear>img{width:100%;animation:rotating 30s linear infinite paused;border-radius:33%}html #wah0713 .gear>img.active{animation-play-state:running}html #wah0713 .gear .redDot{display:none;width:9px;height:9px;background-color:#fd4a4e;border-radius:50%;position:absolute;top:3px;right:13px}html #wah0713>button{margin:0 auto 5px;display:block;line-height:1;white-space:nowrap;cursor:pointer;background:#409eff;border:1px solid #409eff;color:#fff;-webkit-appearance:none;text-align:center;box-sizing:border-box;outline:none;transition:.1s;font-weight:500;-webkit-user-select:none;-moz-user-select:none;-ms-user-select:none;user-select:none;padding:6px 10px;font-size:14px;border-radius:4px;opacity:.75}html #wah0713>button:last-of-type{margin-bottom:0}html #wah0713>button:hover{opacity:.8}html #wah0713>button.close{background-color:#fff;color:#409eff}html #wah0713-alert{display:none;padding:8px 16px;position:fixed;top:30%;left:50%;transform:translateX(-50%);z-index:30;-webkit-user-select:none;-moz-user-select:none;-ms-user-select:none;user-select:none;border:1px solid #ccc;border-radius:8px}html #wah0713-alert>i{width:14px;height:14px;display:inline-block;border-radius:50%;color:#fff;text-align:center;line-height:14px;font-family:Arial,Microsoft YaHei,黑体,宋体,sans-serif;margin-right:8px;position:relative;top:-1px}html #wah0713-alert.warning{background-color:#fff1f0;border-color:#f5222d}html #wah0713-alert.warning>i{background-color:#f5222d}html #wah0713-alert.info{background-color:#f4f4f5;border-color:#909399}html #wah0713-alert.info>i{background-color:#909399}html #wah0713-alert>span{font-family:Chinese Quote,-apple-system,BlinkMacSystemFont,Segoe UI,PingFang SC,Hiragino Sans GB,Microsoft YaHei,Helvetica Neue,Helvetica,Arial,sans-serif,Apple Color Emoji,Segoe UI Emoji,Segoe UI Symbol;font-size:14px;font-variant:tabular-nums;color:rgba(0,0,0,.65)}html .marginTop100{margin-top:100px!important}html .background-image-hide{background-image:none!important;background-color:transparent!important}#FansFestival2003Tips,#js-room-activity,.ActDayPay-toast,.activity-icon-4b45df,.activity-icon-c717fc,.ad-box-f661ba,.afterpic-8a2e13,.AnchorPocketTips,.AnchorReturnDialog,.Barrage-chat-ad,.Barrage-topFloater,.bc-f66a59,.closeBg-998534,.code-box-15b952,.code_box-5cdf5a,.DanmuEffectDom-container,.DiamondsFansPromptPop,.EnterEffect,.FirePower,.FirePowerIcon,.FirePowerRewardModal,.FishShopTip,.focus_box_con-7adc83,.FuDaiActPanel,.FudaiGiftToolBarTips,.guessIconReminding,.Header-download-wrap,.HeaderNav,.headpic-dda332,.LotteryContainer-svgaDes,.LuckyStartEnter,.multiBitRate-da4b60,.noble-icon-88f562,.noble-icon-c10b6a,.normalBg-a5403d,.noSubFloat-3e7a50,.ordinaryBcBox-8220a7,.PaladinWeek-toast,.PcDiversion,.PlayerToolbar-signCont,.PrivilegeGiftModalDialog,.RechargeBigRewards,.recommendAD-54569e,.RoomText-wrap,.SignBaseComponent-sign-ad,.SysSign-Ad,.Title-roomOtherBottom,.user-icon-8af1e3,.user-icon-eeabb1,.vivo-ad-743527,.watermark-442a18,.WishingForestDialog,.WXTipsBox,.XinghaiAd{display:none!important}.opacity0{opacity:0}.is-hide{display:none!important}@keyframes rotating{0%{transform:rotate(0)}to{transform:rotate(1turn)}}@keyframes Bigger{0%{transform:scale(.95)}50%{transform:scale(1)}to{transform:scale(.95)}}
+ html ::-webkit-scrollbar{height:14px;width:12px;overflow:visible;position:absolute;bottom:16px}html ::-webkit-scrollbar-button{height:0;width:0}html ::-webkit-scrollbar-thumb,html ::-webkit-scrollbar-track{background-clip:padding-box;border:3px solid transparent;border-radius:100px}html ::-webkit-scrollbar-corner{background-color:transparent}html ::-webkit-scrollbar-thumb{background-color:#ccc}html ::-webkit-scrollbar-track{background-color:hsla(0,0%,100%,0)}html body .broadcastDiv-af5699{display:none!important;opacity:0!important;visibility:hidden!important}html body #js-header{transition:opacity .5s;opacity:1}html body .layout-Main{transition:margin-top .5s;margin-top:0}html body #js-aside{margin-top:-68px;z-index:401}html body.head-hide #js-header{opacity:.1}html body .super-noble-icon-9aacaf,html body .super-tail-bffa58,html body .super-user-icon-574f31{display:none!important}html body .super-text-0281ca{background:none!important}html .Barrage{border-top:none}html .adjustClarity,html .danmuMove{display:none}html .room-Player-Box.mark .danmuItem-31f924{cursor:default;pointer-events:none}html .danmuItem-31f924{background-color:transparent!important}html .danmuItem-31f924 .text-b132b0{font:700 24px SimHei,Microsoft JhengHei,Arial,Helvetica,sans-serif!important}html .Barrage-listItem div:first-child{padding:0 10px!important}html .Barrage-listItem .Barrage-nickName{color:#2b94ff!important}html .Barrage-listItem .Barrage-nickName.is-self{color:#ff5d23!important}html .layout-Player-asideMainTop.hide .layout-Player-announce{display:none}html .layout-Player-asideMainTop.hide .layout-Player-barrage{top:0}html .layout-Player-asideMainTop.hide .layout-Player-rank{border:none;display:none}html .layout-Player-asideMainTop.hide .ChatRank-rankWraper{display:none}html .noble-bf13ad{background:none!important}html .Barrage-notice--noble{background:none!important;border:none!important}html.no-background .bc-wrapper{background-color:transparent!important;background-image:none!important}html.no-background .Background-holder{padding-top:10px}html.no-background #js-bottom{display:none}html.no-background body{background-image:none;background-color:#ffe}html.no-background body.go-beyound{background-image:url(https://img-blog.csdnimg.cn/20210116195614315.jpg?x-oss-process=image%2Fwatermark%2Ctype_ZmFuZ3poZW5naGVpdGk%2Cshadow_10%2Ctext_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L2MyODY4OTgyMzI%3D%2Csize_16%2Ccolor_FFFFFF%2Ct_70#pic_center);background-color:#f6f6f6;background-position:center 68px;background-repeat:repeat-y}html.no-background body .layout-Container{background-image:none;background-color:#ffe}html .is-fullScreenPage #wah0713{display:none}html #wah0713{position:fixed;top:50%;transform:translateY(-50%);right:-182px;border:1px solid #ccc;border-radius:6px;z-index:20;padding:10px 5px;background:#fef54e url(https://img-blog.csdnimg.cn/20210116195614319.jpg?x-oss-process=image%2Fwatermark%2Ctype_ZmFuZ3poZW5naGVpdGk%2Cshadow_10%2Ctext_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L2MyODY4OTgyMzI%3D%2Csize_16%2Ccolor_FFFFFF%2Ct_70#pic_center) no-repeat 50%/100%;width:160px;transition:all .5s ease-out}html #wah0713 .tip{text-align:center;margin-bottom:5px;-webkit-user-select:none;-moz-user-select:none;-ms-user-select:none;user-select:none;cursor:default}html #wah0713 .tip>a{color:red}html #wah0713 .tip.active{animation:Bigger 2s linear infinite}html #wah0713:hover{right:0}html #wah0713:hover>button{opacity:1}html #wah0713 .gear{width:32px;padding-right:13px;position:absolute;top:50%;left:-45px;transform:translateY(-50%)}html #wah0713 .gear>img{width:100%;animation:rotating 30s linear infinite paused;border-radius:33%}html #wah0713 .gear>img.active{animation-play-state:running}html #wah0713 .gear .redDot{display:none;width:9px;height:9px;background-color:#fd4a4e;border-radius:50%;position:absolute;top:3px;right:13px}html #wah0713>button{margin:0 auto 5px;display:block;line-height:1;white-space:nowrap;cursor:pointer;background:#409eff;border:1px solid #409eff;color:#fff;-webkit-appearance:none;text-align:center;box-sizing:border-box;outline:none;transition:.1s;font-weight:500;-webkit-user-select:none;-moz-user-select:none;-ms-user-select:none;user-select:none;padding:6px 10px;font-size:14px;border-radius:4px;opacity:.75}html #wah0713>button:last-of-type{margin-bottom:0}html #wah0713>button:hover{opacity:.8}html #wah0713>button.close{background-color:#fff;color:#409eff}html #wah0713-alert{display:none;padding:8px 16px;position:fixed;top:30%;left:50%;transform:translateX(-50%);z-index:30;-webkit-user-select:none;-moz-user-select:none;-ms-user-select:none;user-select:none;border:1px solid #ccc;border-radius:8px}html #wah0713-alert>i{width:14px;height:14px;display:inline-block;border-radius:50%;color:#fff;text-align:center;line-height:14px;font-family:Arial,Microsoft YaHei,黑体,宋体,sans-serif;margin-right:8px;position:relative;top:-1px}html #wah0713-alert.warning{background-color:#fff1f0;border-color:#f5222d}html #wah0713-alert.warning>i{background-color:#f5222d}html #wah0713-alert.info{background-color:#f4f4f5;border-color:#909399}html #wah0713-alert.info>i{background-color:#909399}html #wah0713-alert>span{font-family:Chinese Quote,-apple-system,BlinkMacSystemFont,Segoe UI,PingFang SC,Hiragino Sans GB,Microsoft YaHei,Helvetica Neue,Helvetica,Arial,sans-serif,Apple Color Emoji,Segoe UI Emoji,Segoe UI Symbol;font-size:14px;font-variant:tabular-nums;color:rgba(0,0,0,.65)}html .marginTop100{margin-top:100px!important}html .background-image-hide{background-image:none!important;background-color:transparent!important}#FansFestival2003Tips,#js-room-activity,.ActDayPay-toast,.activity-icon-4b45df,.activity-icon-c717fc,.ad-box-f661ba,.afterpic-8a2e13,.AnchorPocketTips,.AnchorReturnDialog,.Barrage-chat-ad,.Barrage-topFloater,.bc-f66a59,.ChargeTask-closeBg,.closeBg-998534,.code-box-15b952,.code_box-5cdf5a,.DanmuEffectDom-container,.DiamondsFansPromptPop,.EnterEffect,.FirePower,.FirePowerIcon,.FirePowerRewardModal,.FishShopTip,.focus_box_con-7adc83,.FuDaiActPanel,.FudaiGiftToolBarTips,.guessIconReminding,.Header-download-wrap,.HeaderNav,.headpic-dda332,.LotteryContainer-svgaDes,.LuckyStartEnter,.multiBitRate-da4b60,.noble-icon-88f562,.noble-icon-c10b6a,.normalBg-a5403d,.noSubFloat-3e7a50,.ordinaryBcBox-8220a7,.PaladinWeek-toast,.PcDiversion,.PlayerToolbar-signCont,.PrivilegeGiftModalDialog,.RechargeBigRewards,.recommendAD-54569e,.RoomText-wrap,.SignBaseComponent-sign-ad,.SysSign-Ad,.Title-roomOtherBottom,.user-icon-8af1e3,.user-icon-eeabb1,.vivo-ad-743527,.watermark-442a18,.WishingForestDialog,.WXTipsBox,.XinghaiAd{display:none!important}.opacity0{opacity:0}.is-hide{display:none!important}@keyframes rotating{0%{transform:rotate(0)}to{transform:rotate(1turn)}}@keyframes Bigger{0%{transform:scale(.95)}50%{transform:scale(1)}to{transform:scale(.95)}}
 
 `)
   $('head').append($(`<style type="text/css"></style>`).append(node))

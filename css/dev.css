@@ -56,10 +56,13 @@ html body .super-text-0281ca {
 html .Barrage {
   border-top: none;
 }
-html .autoReward,
 html .adjustClarity,
 html .danmuMove {
   display: none;
+}
+html .room-Player-Box.mark .danmuItem-31f924 {
+  cursor: default;
+  pointer-events: none;
 }
 html .danmuItem-31f924 {
   background-color: transparent !important;
@@ -326,6 +329,7 @@ html .background-image-hide {
 .SignBaseComponent-sign-ad,
 .RechargeBigRewards,
 .WishingForestDialog,
+.ChargeTask-closeBg,
 .headpic-dda332 {
   display: none !important;
 }
