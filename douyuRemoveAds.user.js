@@ -64,6 +64,7 @@
     playerBottomSimplification: true, // 播放器下方简化
     chatBoxCleaning: true, // 聊天框简化
     forbiddenMessage: false, // 禁言消息显示
+    isShowNickName: false, // 聊天框用户铭牌显示
   }
   const config = GM_getValue('Config', defaultConfig)
   for (let key in defaultConfig) {
@@ -169,6 +170,7 @@
   btnListFun('playerBottomSimplification', '礼物栏简化', '播放器下方礼物栏简化__本功能由evenora提出')
   btnListFun('chatBoxCleaning', '聊天框简化', '聊天框头部去除主播公告、贡献周榜、贵宾、粉丝团和主播通知__本功能由dongliang zhang提出')
   btnListFun('forbiddenMessage', '禁言消息显示', '聊天框内用户被禁言消息是否显示__本功能由lv88ff提出')
+  btnListFun('isShowNickName', '用户铭牌显示', '聊天框用户铭牌显示是否显示__本功能由BerryBarry11提出')
 
   // 左侧展开默认收起
   if ($(".Aside-main--shrink").width() > 100) {
@@ -432,7 +434,9 @@
     $('.Barrage-list .roomDianzanIcon').parents('.Barrage-listItem').hide()
 
     // 聊天框用户铭牌
-    $('.Barrage-list .Barrage-nickName').prevAll().hide()
+    if (!config.isShowNickName) {
+      $('.Barrage-list .Barrage-nickName').prevAll().hide()
+    }
 
     // 聊天框用户相关消息广播
     // 系统提示（例如禁言）Barrage-notice--red
