@@ -138,6 +138,15 @@ html #wah0713 {
   width: 160px;
   transition: all 0.5s ease-out;
 }
+html #wah0713.hasUpdate .tip {
+  animation: Bigger linear 2s infinite;
+}
+html #wah0713.hasUpdate .gear > img {
+  animation-play-state: running;
+}
+html #wah0713.hasUpdate .gear .redDot {
+  display: block;
+}
 html #wah0713 .tip {
   text-align: center;
   margin-bottom: 5px;
@@ -149,9 +158,6 @@ html #wah0713 .tip {
 }
 html #wah0713 .tip > a {
   color: red;
-}
-html #wah0713 .tip.active {
-  animation: Bigger linear 2s infinite;
 }
 html #wah0713:hover {
   right: 0;
@@ -171,9 +177,6 @@ html #wah0713 .gear > img {
   width: 100%;
   animation: rotating linear 30s infinite paused;
   border-radius: 33%;
-}
-html #wah0713 .gear > img.active {
-  animation-play-state: running;
 }
 html #wah0713 .gear .redDot {
   display: none;

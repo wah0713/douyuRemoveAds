@@ -195,6 +195,21 @@ html {
         width: 160px;
         transition: all 0.5s ease-out;
 
+        &.hasUpdate {
+            .tip {
+                animation: Bigger linear 2s infinite;
+            }
+
+            .gear>img {
+                animation-play-state: running
+            }
+
+            .gear .redDot {
+                display: block;
+
+            }
+        }
+
         .tip {
             text-align: center;
             margin-bottom: 5px;
@@ -206,10 +221,6 @@ html {
 
             >a {
                 color: red;
-            }
-
-            &.active {
-                animation: Bigger linear 2s infinite;
             }
         }
 
@@ -233,10 +244,6 @@ html {
                 width: 100%;
                 animation: rotating linear 30s infinite paused;
                 border-radius: 33%;
-
-                &.active {
-                    animation-play-state: running
-                }
             }
 
             .redDot {
