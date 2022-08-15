@@ -41,7 +41,6 @@
     backgroundIsShow: true,
     removeBottomAd: true,
     InitiaGuessGameHeight: true,
-    isFlashPlayer: true,
   }
 
   $('body').append(`<div id='wah0713-alert'><i></i><span></span></div>`)
@@ -218,29 +217,8 @@
     $('#wah0713').addClass('hasUpdate')
   }
 
-
-  console.log(`$('#room-flash-player').length`, $('#room-flash-player').length)
-  // flash播放器
-  if ($('#room-flash-player').length) {
-    myAlert({
-      message: '正在使用flash播放器，【斗鱼去火箭横幅】部分功能会失效',
-      type: 'warning',
-      time: 3
-    })
-  }
-
   // clearInterval(window.abc)
   // window.abc = setInterval(() => {
-
-  //   // flash播放器
-  //   if (once.isFlashPlayer && $('#room-flash-player').length) {
-  //     myAlert({
-  //       message: '正在使用flash播放器，【斗鱼去火箭横幅】部分功能会失效',
-  //       type: 'warning',
-  //       time: 3
-  //     })
-  //     once.isFlashPlayer = false
-  //   }
 
   //   // 获取初始竞猜高度
   //   if (once.InitiaGuessGameHeight && $('.Bottom-guessGame-placeholder').length) {
