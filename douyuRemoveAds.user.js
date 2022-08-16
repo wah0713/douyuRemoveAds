@@ -10,6 +10,7 @@
 // @icon         https://www.douyu.com/favicon.ico
 // @require      https://cdn.bootcss.com/jquery/1.12.4/jquery.min.js
 // @match        http*://www.douyu.com/*
+// @noframes     true
 // @run-at       document-idle
 // @grant        GM_setValue
 // @grant        GM_getValue
@@ -217,218 +218,225 @@
     $('#wah0713').addClass('hasUpdate')
   }
 
-  // clearInterval(window.abc)
-  // window.abc = setInterval(() => {
+  const body = $('body')[0]
+  const MutationObserver = window.MutationObserver || window.WebKitMutationObserver || window.MozMutationObserver
 
-  //   // 获取初始竞猜高度
-  //   if (once.InitiaGuessGameHeight && $('.Bottom-guessGame-placeholder').length) {
-  //     InitiaGuessGameHeight = $('.Bottom-guessGame-placeholder').height()
-  //     once.InitiaGuessGameHeight = false
-  //   }
+  const observer = new MutationObserver(function () {
 
-  //   // 底部广告（特殊dom）
-  //   if (once.removeBottomAd && $('.Bottom-ad').length) {
-  //     $('.Bottom-ad').hide()
-  //     once.removeBottomAd = false
-  //   }
+    // 获取初始竞猜高度
+    if (once.InitiaGuessGameHeight && $('.Bottom-guessGame-placeholder').length) {
+      InitiaGuessGameHeight = $('.Bottom-guessGame-placeholder').height()
+      once.InitiaGuessGameHeight = false
+    }
 
-  //   // 自定义按钮显示条件
-  //   if ($('.UnLogin').length) {
-  //     $('.danmuMove').hide()
-  //   } else {
-  //     $('.danmuMove').show()
-  //   }
+    // 底部广告（特殊dom）
+    if (once.removeBottomAd && $('.Bottom-ad').length) {
+      $('.Bottom-ad').hide()
+      once.removeBottomAd = false
+    }
 
-  //   // 抽奖显示
-  //   if (config.lotteryIsShow) {
-  //     // 抽奖中间部提示框、
-  //     $(".LotteryContainer").show()
-  //     // 抽奖(播放器左下角)、
-  //     $(".UPlayerLotteryEnter").removeClass('is-hide')
-  //     // 中奖播放器中显示
-  //     $(".LotteryContainer-svgaWrap").show()
-  //     // 粉丝福利社抽奖
-  //     $('.LotteryDrawEnter').show()
+    // 自定义按钮显示条件
+    if ($('.UnLogin').length) {
+      $('.danmuMove').hide()
+    } else {
+      $('.danmuMove').show()
+    }
 
-  //   } else {
-  //     // 抽奖中间部提示框、
-  //     $(".LotteryContainer").hide()
-  //     // 抽奖(播放器左下角)、
-  //     $(".UPlayerLotteryEnter").addClass('is-hide')
-  //     // 中奖播放器中显示
-  //     $(".LotteryContainer-svgaWrap").hide()
-  //     // 粉丝福利社抽奖
-  //     $('.LotteryDrawEnter').hide()
-  //   }
+    // 抽奖显示
+    if (config.lotteryIsShow) {
+      // 抽奖中间部提示框、
+      $(".LotteryContainer").show()
+      // 抽奖(播放器左下角)、
+      $(".UPlayerLotteryEnter").removeClass('is-hide')
+      // 中奖播放器中显示
+      $(".LotteryContainer-svgaWrap").show()
+      // 粉丝福利社抽奖
+      $('.LotteryDrawEnter').show()
 
-  //   // 屏蔽播放器内大多活动
-  //   $('.player-dialog').children().each((index, dom) => {
-  //     if (config.lotteryIsShow) {
-  //       if (!$(dom).find('.LotteryContainer').length) {
-  //         $(dom).hide()
-  //       } else {
-  //         $(dom).show()
-  //       }
-  //     } else {
-  //       $(dom).hide()
-  //     }
-  //   })
+    } else {
+      // 抽奖中间部提示框、
+      $(".LotteryContainer").hide()
+      // 抽奖(播放器左下角)、
+      $(".UPlayerLotteryEnter").addClass('is-hide')
+      // 中奖播放器中显示
+      $(".LotteryContainer-svgaWrap").hide()
+      // 粉丝福利社抽奖
+      $('.LotteryDrawEnter').hide()
+    }
 
-
-  //   if (config.playerBottomSimplification) {
-  //     $('.ActivityItem').removeClass('is-hide')
-  //     if (!config.guessIsShow) {
-  //       $('.ActiviesExpanel').addClass('is-hide')
-  //     } else {
-  //       $('.ActiviesExpanel').removeClass('is-hide')
-  //       $('.ActiviesExpandPanel').css({
-  //         width: 'auto',
-  //         'margin-left': '0',
-  //       })
-  //     }
-  //     $('.ActivityItem:not(.ActivityItem[data-flag="room_level"]):not(.ActivityItem[data-flag="anchor_quiz"])').addClass('is-hide')
-  //     $('.PlayerToolbar-Task').addClass('is-hide')
-  //     $('.ActCenterPkEntry').addClass('is-hide')
-  //     $('.PartyEntry').addClass('is-hide')
-  //     $('.ToolbarActivityArea>div:last-child>div>div:not(.LotteryDrawEnter)').addClass('is-hide')
-  //   } else {
-  //     $('.ActivityItem').removeClass('is-hide')
-  //     $('.ActiviesExpanel').removeClass('is-hide')
-  //     $('.PlayerToolbar-Task').removeClass('is-hide')
-  //     $('.ActCenterPkEntry').removeClass('is-hide')
-  //     $('.PartyEntry').removeClass('is-hide')
-  //     $('.ToolbarActivityArea>div:last-child>div>div:not(.LotteryDrawEnter)').removeClass('is-hide')
-  //   }
-
-  //   // 主播公告、贡献周榜、贵宾和粉丝团
-  //   if (config.chatBoxCleaning) {
-  //     $(".layout-Player-asideMainTop").addClass("hide")
-  //   } else {
-  //     $(".layout-Player-asideMainTop").removeClass("hide")
-  //   }
+    // 屏蔽播放器内大多活动
+    $('.player-dialog').children().each((index, dom) => {
+      if (config.lotteryIsShow) {
+        if (!$(dom).find('.LotteryContainer').length) {
+          $(dom).hide()
+        } else {
+          $(dom).show()
+        }
+      } else {
+        $(dom).hide()
+      }
+    })
 
 
-  //   // 弹幕悬停关闭
-  //   if ($('.danmuMove')[0].style.display !== 'none' && config.danmuMove) {
-  //     $('.room-Player-Box').removeClass('mark')
-  //   } else {
-  //     $('.room-Player-Box').addClass('mark')
-  //   }
+    if (config.playerBottomSimplification) {
+      $('.ActivityItem').removeClass('is-hide')
+      if (!config.guessIsShow) {
+        $('.ActiviesExpanel').addClass('is-hide')
+      } else {
+        $('.ActiviesExpanel').removeClass('is-hide')
+        $('.ActiviesExpandPanel').css({
+          width: 'auto',
+          'margin-left': '0',
+        })
+      }
+      $('.ActivityItem:not(.ActivityItem[data-flag="room_level"]):not(.ActivityItem[data-flag="anchor_quiz"])').addClass('is-hide')
+      $('.PlayerToolbar-Task').addClass('is-hide')
+      $('.ActCenterPkEntry').addClass('is-hide')
+      $('.PartyEntry').addClass('is-hide')
+      $('.ToolbarActivityArea>div:last-child>div>div:not(.LotteryDrawEnter)').addClass('is-hide')
+    } else {
+      $('.ActivityItem').removeClass('is-hide')
+      $('.ActiviesExpanel').removeClass('is-hide')
+      $('.PlayerToolbar-Task').removeClass('is-hide')
+      $('.ActCenterPkEntry').removeClass('is-hide')
+      $('.PartyEntry').removeClass('is-hide')
+      $('.ToolbarActivityArea>div:last-child>div>div:not(.LotteryDrawEnter)').removeClass('is-hide')
+    }
 
-  //   // 竞猜显示
-  //   if (config.guessIsShow) {
-  //     // 聊天框用户竞猜获奖
-  //     $('.Barrage-list .Barrage-guess').parent('.Barrage-listItem').show()
-  //     $('.ActivityItem[data-flag="anchor_quiz"]').show()
-  //     $('.GuessGameMiniPanelB-wrapper').show()
-  //     $('.guessGameContainer').show()
-  //     $('.Bottom-guessGame-placeholder').height(InitiaGuessGameHeight)
-  //   } else {
-  //     // 聊天框用户竞猜获奖
-  //     $('.Barrage-list .Barrage-guess').parent('.Barrage-listItem').hide()
-  //     $('.ActivityItem[data-flag="anchor_quiz"]').hide()
-  //     $('.GuessGameMiniPanelB-wrapper').hide()
-  //     $('.guessGameContainer').hide()
-  //     $('.Bottom-guessGame-placeholder').height(0)
-  //   }
+    // 主播公告、贡献周榜、贵宾和粉丝团
+    if (config.chatBoxCleaning) {
+      $(".layout-Player-asideMainTop").addClass("hide")
+    } else {
+      $(".layout-Player-asideMainTop").removeClass("hide")
+    }
 
-  //   // 背景图
-  //   $layoutMain = $('.layout-Main')
-  //   if (config.backgroundIsShow && !$('.is-fullScreenPage').length) {
-  //     if (once.backgroundIsShow) {
-  //       $('html').removeClass('no-background')
-  //       // 恢复除播放器以外的多余bc-wrapper元素
-  //       $('.bc-wrapper').show()
 
-  //       $('.wm-general').show().removeClass('marginTop100')
+    // 弹幕悬停关闭
+    if ($('.danmuMove')[0].style.display !== 'none' && config.danmuMove) {
+      $('.room-Player-Box').removeClass('mark')
+    } else {
+      $('.room-Player-Box').addClass('mark')
+    }
 
-  //       $('.wm-general-bgblur').removeClass('background-image-hide')
+    // 竞猜显示
+    if (config.guessIsShow) {
+      // 聊天框用户竞猜获奖
+      $('.Barrage-list .Barrage-guess').parent('.Barrage-listItem').show()
+      $('.ActivityItem[data-flag="anchor_quiz"]').show()
+      $('.GuessGameMiniPanelB-wrapper').show()
+      $('.guessGameContainer').show()
+      $('.Bottom-guessGame-placeholder').height(InitiaGuessGameHeight)
+    } else {
+      // 聊天框用户竞猜获奖
+      $('.Barrage-list .Barrage-guess').parent('.Barrage-listItem').hide()
+      $('.ActivityItem[data-flag="anchor_quiz"]').hide()
+      $('.GuessGameMiniPanelB-wrapper').hide()
+      $('.guessGameContainer').hide()
+      $('.Bottom-guessGame-placeholder').height(0)
+    }
 
-  //       $layoutMain[0].style = ""
-  //       setTimeout(() => {
-  //         window.scrollTo(0, $('.layout-Player').offset().top - 100)
-  //       }, 200)
-  //       once.backgroundIsShow = false
-  //     }
-  //   } else if (!$('.is-fullScreenPage').length) {
-  //     $('html').addClass('no-background')
-  //     // 暴雪频道特有
-  //     if (originalayoutMainOffsetTop && (originalayoutMainOffsetTop > $(window).height() * 1 / 2)) {
-  //       $('body').addClass('go-beyound')
-  //     } else {
-  //       $('body').removeClass('go-beyound')
-  //     }
+    // 背景图
+    $layoutMain = $('.layout-Main')
+    if (config.backgroundIsShow && !$('.is-fullScreenPage').length) {
+      if (once.backgroundIsShow) {
+        $('html').removeClass('no-background')
+        // 恢复除播放器以外的多余bc-wrapper元素
+        $('.bc-wrapper').show()
 
-  //     !originalLayoutMainMarginTop && (originalLayoutMainMarginTop = $layoutMain.css('margin-top').split('px')[0] - 0)
-  //     if (once.backgroundIsShow) {
-  //       setTimeout(() => {
-  //         originalayoutMainOffsetTop = $layoutMain.offset().top
-  //         if (originalayoutMainOffsetTop < 70) {
-  //           const gaps = 70 - originalayoutMainOffsetTop
-  //           $layoutMain.css('margin-top', originalLayoutMainMarginTop + gaps)
-  //         } else {
-  //           $layoutMain[0].style = ""
-  //         }
-  //         window.scrollTo(0, $('.layout-Player').offset().top - 100)
-  //       }, 200)
-  //       once.backgroundIsShow = false
-  //     }
+        $('.wm-general').show().removeClass('marginTop100')
 
-  //     // 去掉除播放器以外的多余bc-wrapper元素
-  //     $('.bc-wrapper').each((index, element) => {
-  //       $(element).children().each((idx, ele) => {
-  //         if ($(ele).hasClass('layout-Main')) {
-  //           sign = index
-  //           return false
-  //         }
-  //       })
-  //     })
+        $('.wm-general-bgblur').removeClass('background-image-hide')
 
-  //     $('.wm-general').each((idx, dom) => {
-  //       if ($(dom).find('div.layout-Main').length) {
-  //         $(dom).addClass('marginTop100')
-  //       } else {
-  //         $(dom).hide()
-  //       }
-  //     })
-  //     $('.wm-general-bgblur').addClass('background-image-hide')
+        $layoutMain[0].style = ""
+        setTimeout(() => {
+          window.scrollTo(0, $('.layout-Player').offset().top - 100)
+        }, 200)
+        once.backgroundIsShow = false
+      }
+    } else if (!$('.is-fullScreenPage').length) {
+      $('html').addClass('no-background')
+      // 暴雪频道特有
+      if (originalayoutMainOffsetTop && (originalayoutMainOffsetTop > $(window).height() * 1 / 2)) {
+        $('body').addClass('go-beyound')
+      } else {
+        $('body').removeClass('go-beyound')
+      }
 
-  //     $('.bc-wrapper').not($('.bc-wrapper')[sign]).hide()
-  //   }
+      !originalLayoutMainMarginTop && (originalLayoutMainMarginTop = $layoutMain.css('margin-top').split('px')[0] - 0)
+      if (once.backgroundIsShow) {
+        setTimeout(() => {
+          originalayoutMainOffsetTop = $layoutMain.offset().top
+          if (originalayoutMainOffsetTop < 70) {
+            const gaps = 70 - originalayoutMainOffsetTop
+            $layoutMain.css('margin-top', originalLayoutMainMarginTop + gaps)
+          } else {
+            $layoutMain[0].style = ""
+          }
+          window.scrollTo(0, $('.layout-Player').offset().top - 100)
+        }, 200)
+        once.backgroundIsShow = false
+      }
 
-  //   // 输入框上方送礼3000毫米淡出
-  //   $('#js-player-barrage .BarrageBanner').children().delay(1000 * 3).fadeOut('slow')
+      // 去掉除播放器以外的多余bc-wrapper元素
+      $('.bc-wrapper').each((index, element) => {
+        $(element).children().each((idx, ele) => {
+          if ($(ele).hasClass('layout-Main')) {
+            sign = index
+            return false
+          }
+        })
+      })
 
-  //   // 聊天框用户进入欢迎语
-  //   $('.Barrage-list .Barrage-userEnter').parent('.Barrage-listItem').hide()
+      $('.wm-general').each((idx, dom) => {
+        if ($(dom).find('div.layout-Main').length) {
+          $(dom).addClass('marginTop100')
+        } else {
+          $(dom).hide()
+        }
+      })
+      $('.wm-general-bgblur').addClass('background-image-hide')
 
-  //   // 聊天框用户送礼
-  //   $('.Barrage-list .Barrage-message').parent('.Barrage-listItem').hide()
+      $('.bc-wrapper').not($('.bc-wrapper')[sign]).hide()
+    }
 
-  //   // 聊天框用户点赞 （parents多个s）
-  //   $('.Barrage-list .roomDianzanIcon').parents('.Barrage-listItem').hide()
+    // 输入框上方送礼3000毫米淡出
+    $('#js-player-barrage .BarrageBanner').children().delay(1000 * 3).fadeOut('slow')
 
-  //   // 聊天框用户铭牌
-  //   if (!config.isShowNickName) {
-  //     $('.Barrage-list .Barrage-nickName').prevAll().hide()
-  //   }
+    // 聊天框用户进入欢迎语
+    $('.Barrage-list .Barrage-userEnter').parent('.Barrage-listItem').hide()
 
-  //   // 聊天框用户相关消息广播
-  //   // 系统提示（例如禁言）Barrage-notice--red
-  //   $('.Barrage-list .Barrage-icon--sys').each((idx, dom) => {
-  //     const domParent = $(dom).parent('.Barrage-listItem')
-  //     if (config.forbiddenMessage) {
-  //       if (domParent.find('.Barrage-text').text().indexOf("禁言") === -1) {
-  //         domParent.hide()
-  //       } else {
-  //         domParent.show()
-  //       }
-  //     } else {
-  //       domParent.hide()
-  //     }
-  //   })
+    // 聊天框用户送礼
+    $('.Barrage-list .Barrage-message').parent('.Barrage-listItem').hide()
 
-  // }, 500);
+    // 聊天框用户点赞 （parents多个s）
+    $('.Barrage-list .roomDianzanIcon').parents('.Barrage-listItem').hide()
+
+    // 聊天框用户铭牌
+    if (!config.isShowNickName) {
+      $('.Barrage-list .Barrage-nickName').prevAll().hide()
+    }
+
+    // 聊天框用户相关消息广播
+    // 系统提示（例如禁言）Barrage-notice--red
+    $('.Barrage-list .Barrage-icon--sys').each((idx, dom) => {
+      const domParent = $(dom).parent('.Barrage-listItem')
+      if (config.forbiddenMessage) {
+        if (domParent.find('.Barrage-text').text().indexOf("禁言") === -1) {
+          domParent.hide()
+        } else {
+          domParent.show()
+        }
+      } else {
+        domParent.hide()
+      }
+    })
+
+  })
+  const observerConfig = {
+    subtree: true,
+    childList: true,
+  }
+  observer.observe(body, observerConfig)
 
 
   GM_addStyle(`
