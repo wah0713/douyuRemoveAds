@@ -69,7 +69,7 @@ html .danmuItem-31f924 {
 html .danmuItem-31f924 .text-b132b0 {
   font: 700 24px SimHei, Microsoft JhengHei, Arial, Helvetica, sans-serif !important;
 }
-html .Barrage-listItem div:first-child {
+html .Barrage-listItem > div:first-child {
   padding: 0 10px !important;
 }
 html .Barrage-listItem .Barrage-nickName {
@@ -277,6 +277,13 @@ html .background-image-hide {
   background-image: none !important;
   background-color: transparent !important;
 }
+html .Barrage-list.trim .Barrage-listItem > div[class^="Barrage-notice-"] > * {
+  display: none;
+}
+html .Barrage-list.trim .Barrage-listItem > div[class^="Barrage-notice-"] > .Barrage-nickName,
+html .Barrage-list.trim .Barrage-listItem > div[class^="Barrage-notice-"] .Barrage-content {
+  display: inline;
+}
 .FirePower,
 .focus_box_con-7adc83,
 #js-room-activity,
@@ -332,6 +339,10 @@ html .background-image-hide {
 .RechargeBigRewards,
 .WishingForestDialog,
 .ChargeTask-closeBg,
+.Bottom-ad,
+.Barrage-userEnter,
+.Barrage-list .Barrage-userEnter,
+.Barrage-list .Barrage-message,
 .headpic-dda332 {
   display: none !important;
 }

@@ -99,7 +99,7 @@ html {
     }
 
     .Barrage-listItem {
-        div:first-child {
+        >div:first-child {
             padding: 0 10px !important;
         }
 
@@ -362,6 +362,17 @@ html {
         background-image: none !important;
         background-color: transparent !important;
     }
+
+    .Barrage-list.trim .Barrage-listItem>div[class^="Barrage-notice-"] {
+        >* {
+            display: none;
+        }
+
+        >.Barrage-nickName,
+        .Barrage-content {
+            display: inline;
+        }
+    }
 }
 
 // 火力全开（输入框上方）、
@@ -467,6 +478,11 @@ html {
 // 恭喜获得许愿种子
 .WishingForestDialog,
 .ChargeTask-closeBg,
+// 底部广告
+.Bottom-ad,
+.Barrage-userEnter,
+.Barrage-list .Barrage-userEnter,
+.Barrage-list .Barrage-message,
 // 买东西
 .headpic-dda332 {
     display: none !important;

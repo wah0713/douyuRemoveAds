@@ -40,7 +40,6 @@
   // 只执行一次
   const once = {
     backgroundIsShow: true,
-    removeBottomAd: true,
     InitiaGuessGameHeight: true,
   }
 
@@ -163,10 +162,30 @@
       name: '用户铭牌显示',
       description: '聊天框用户铭牌显示是否显示__本功能由W.ast和BerryBarry11提出',
       value: false,
+      action: (value) => {
+        // 聊天框用户铭牌
+        if (!value) {
+          $('.Barrage-list').addClass('trim')
+        } else {
+          $('.Barrage-list').removeClass('trim')
+        }
+      }
     }
   }
 
-  const config = {}
+  const config = new Proxy({}, {
+    // get: function (target, propKey, receiver) {
+    //   console.log(`getting ${propKey}!`);
+    //   return Reflect.get(target, propKey, receiver);
+    // },
+    set: function (target, propKey, value, receiver) {
+      if (propKey === 'isShowNickName') {
+        defaultConfig.isShowNickName.action(value)
+      }
+      return Reflect.set(target, propKey, value, receiver);
+    }
+  })
+
   for (let key in defaultConfig) {
     const {
       name,
@@ -176,12 +195,6 @@
     config[key] = GM_getValue(key, value)
     // 按钮事件
     btnListFun(key, name, description)
-    // GM_addValueChangeListener(key, function (name, old_value, new_value, remote) {
-    //   console.log(`name`, name)
-    //   console.log(`old_value`, old_value)
-    //   console.log(`new_value`, new_value)
-    //   console.log(`remote`, remote)
-    // })
   }
 
   // 左侧展开默认收起
@@ -227,12 +240,6 @@
     if (once.InitiaGuessGameHeight && $('.Bottom-guessGame-placeholder').length) {
       InitiaGuessGameHeight = $('.Bottom-guessGame-placeholder').height()
       once.InitiaGuessGameHeight = false
-    }
-
-    // 底部广告（特殊dom）
-    if (once.removeBottomAd && $('.Bottom-ad').length) {
-      $('.Bottom-ad').hide()
-      once.removeBottomAd = false
     }
 
     // 自定义按钮显示条件
@@ -402,19 +409,9 @@
     // 输入框上方送礼3000毫米淡出
     $('#js-player-barrage .BarrageBanner').children().delay(1000 * 3).fadeOut('slow')
 
-    // 聊天框用户进入欢迎语
-    $('.Barrage-list .Barrage-userEnter').parent('.Barrage-listItem').hide()
-
-    // 聊天框用户送礼
-    $('.Barrage-list .Barrage-message').parent('.Barrage-listItem').hide()
-
     // 聊天框用户点赞 （parents多个s）
     $('.Barrage-list .roomDianzanIcon').parents('.Barrage-listItem').hide()
 
-    // 聊天框用户铭牌
-    if (!config.isShowNickName) {
-      $('.Barrage-list .Barrage-nickName').prevAll().hide()
-    }
 
     // 聊天框用户相关消息广播
     // 系统提示（例如禁言）Barrage-notice--red
@@ -511,7 +508,7 @@
   html .danmuItem-31f924 .text-b132b0 {
     font: 700 24px SimHei, Microsoft JhengHei, Arial, Helvetica, sans-serif !important;
   }
-  html .Barrage-listItem div:first-child {
+  html .Barrage-listItem > div:first-child {
     padding: 0 10px !important;
   }
   html .Barrage-listItem .Barrage-nickName {
@@ -719,6 +716,13 @@
     background-image: none !important;
     background-color: transparent !important;
   }
+  html .Barrage-list.trim .Barrage-listItem > div[class^="Barrage-notice-"] > * {
+    display: none;
+  }
+  html .Barrage-list.trim .Barrage-listItem > div[class^="Barrage-notice-"] > .Barrage-nickName,
+  html .Barrage-list.trim .Barrage-listItem > div[class^="Barrage-notice-"] .Barrage-content {
+    display: inline;
+  }
   .FirePower,
   .focus_box_con-7adc83,
   #js-room-activity,
@@ -774,6 +778,10 @@
   .RechargeBigRewards,
   .WishingForestDialog,
   .ChargeTask-closeBg,
+  .Bottom-ad,
+  .Barrage-userEnter,
+  .Barrage-list .Barrage-userEnter,
+  .Barrage-list .Barrage-message,
   .headpic-dda332 {
     display: none !important;
   }
@@ -802,6 +810,8 @@
       transform: scale(0.95);
     }
   }
+
+
 
 
   `)
