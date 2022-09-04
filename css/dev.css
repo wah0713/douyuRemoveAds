@@ -342,6 +342,7 @@ html .Barrage-list.trim .Barrage-listItem > div .UserLevel ~ *:not(.Barrage-nick
 .Barrage-list .Barrage-userEnter,
 .Barrage-list .Barrage-message,
 .DiamondsFansBarrage,
+.PeacehandBarrage,
 .headpic-dda332 {
   display: none !important;
 }
