@@ -72,6 +72,9 @@ html .danmuItem-31f924 .text-b132b0 {
 }
 html .Barrage-listItem > div:first-child {
   padding: 0 10px !important;
+  background-color: transparent !important;
+  border-top: none !important;
+  border-bottom: none !important;
 }
 html .Barrage-listItem .Barrage-nickName {
   color: #2b94ff !important;
