@@ -59,7 +59,7 @@ html .Barrage {
 html .danmuMove {
   display: none;
 }
-html .room-Player-Box.mark .danmuItem-31f924 {
+html .room-Player-Box.mark [class^='danmuItem-'] {
   cursor: default;
   pointer-events: none;
 }

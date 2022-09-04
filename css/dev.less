@@ -84,7 +84,7 @@ html {
     }
 
     .room-Player-Box.mark {
-        .danmuItem-31f924 {
+        [class^='danmuItem-'] {
             cursor: default;
             pointer-events: none;
         }
@@ -364,7 +364,9 @@ html {
     }
 
     .Barrage-list.trim .Barrage-listItem>div {
-        .UserLevel,.UserLevel~*:not(.Barrage-nickName, .Barrage-content) {
+
+        .UserLevel,
+        .UserLevel~*:not(.Barrage-nickName, .Barrage-content) {
             display: none;
         }
     }
