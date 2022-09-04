@@ -277,12 +277,9 @@ html .background-image-hide {
   background-image: none !important;
   background-color: transparent !important;
 }
-html .Barrage-list.trim .Barrage-listItem > div[class^="Barrage-notice-"] > * {
+html .Barrage-list.trim .Barrage-listItem > div .UserLevel,
+html .Barrage-list.trim .Barrage-listItem > div .UserLevel ~ *:not(.Barrage-nickName, .Barrage-content) {
   display: none;
-}
-html .Barrage-list.trim .Barrage-listItem > div[class^="Barrage-notice-"] > .Barrage-nickName,
-html .Barrage-list.trim .Barrage-listItem > div[class^="Barrage-notice-"] .Barrage-content {
-  display: inline;
 }
 .FirePower,
 .focus_box_con-7adc83,
@@ -343,6 +340,7 @@ html .Barrage-list.trim .Barrage-listItem > div[class^="Barrage-notice-"] .Barra
 .Barrage-userEnter,
 .Barrage-list .Barrage-userEnter,
 .Barrage-list .Barrage-message,
+.DiamondsFansBarrage,
 .headpic-dda332 {
   display: none !important;
 }

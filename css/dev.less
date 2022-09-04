@@ -363,14 +363,9 @@ html {
         background-color: transparent !important;
     }
 
-    .Barrage-list.trim .Barrage-listItem>div[class^="Barrage-notice-"] {
-        >* {
+    .Barrage-list.trim .Barrage-listItem>div {
+        .UserLevel,.UserLevel~*:not(.Barrage-nickName, .Barrage-content) {
             display: none;
-        }
-
-        >.Barrage-nickName,
-        .Barrage-content {
-            display: inline;
         }
     }
 }
@@ -483,6 +478,8 @@ html {
 .Barrage-userEnter,
 .Barrage-list .Barrage-userEnter,
 .Barrage-list .Barrage-message,
+// 续费会员
+.DiamondsFansBarrage,
 // 买东西
 .headpic-dda332 {
     display: none !important;
