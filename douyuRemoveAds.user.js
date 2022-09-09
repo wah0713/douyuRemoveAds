@@ -519,7 +519,7 @@
       // 活跃人数
       "active.uv": activeUv,
     } = data
-    $('.PlayerToolbar-Wealth').attr('showData', `总礼物价值:${(giftAllPrice/100).toFixed(2)}元;总礼物送礼人数:${giftAllUv};总付费礼物:${(giftPaidPrice/100).toFixed(2)};总付费送礼人数:${giftPaidUv};`)
+    $('.PlayerToolbar-Wealth').attr('showData', `总礼物价值:${(giftAllPrice/100).toFixed(2)}元;总礼物送礼人数:${giftAllUv};总付费礼物:${(giftPaidPrice/100).toFixed(2)}元;总付费送礼人数:${giftPaidUv};`)
     $('.Title-col.is-right.h30').attr('showData', `总弹幕数:${chatPv};总发弹幕人数:${chatUv};直播时间:${onlineMinutes}分;活跃人数:${activeUv};`)
   }
 
