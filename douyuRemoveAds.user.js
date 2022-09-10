@@ -228,12 +228,12 @@
     },
     isShowRoomData: {
       name: '显示房间数据',
-      description: '10秒后显示房间数据（时间范围今天00:00到今晚24:00）,2分钟刷新数据一次__本功能由BerryBarry11提出',
+      description: '10秒后显示房间数据（时间范围今天00:00到今晚24:00）,12分钟刷新数据一次__本功能由BerryBarry11提出',
       value: true,
       action: (value) => {
         if (value) {
           showRoomDataTimeout = setTimeout(ShowRoomData, 10 * 1000)
-          showRoomDataInterval = setInterval(ShowRoomData, 60 * 2 * 1000)
+          showRoomDataInterval = setInterval(ShowRoomData, 60 * 12 * 1000)
         } else {
           hideRoomData()
           clearTimeout(showRoomDataTimeout)
