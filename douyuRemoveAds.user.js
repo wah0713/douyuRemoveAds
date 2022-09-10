@@ -233,7 +233,7 @@
       action: (value) => {
         if (value) {
           showRoomDataTimeout = setTimeout(ShowRoomData, 10 * 1000)
-          showRoomDataInterval = setInterval(ShowRoomData, 60 * 12 * 1000)
+          showRoomDataInterval = setInterval(ShowRoomData, 12 * 60 * 1000)
         } else {
           hideRoomData()
           clearTimeout(showRoomDataTimeout)
