@@ -54,7 +54,7 @@
 
   function getRoomId() {
     try {
-      return $('.Title-anchorLink').attr('href').replace(/,/g, '').match(/\d+$/g)[0]
+      return $('html').html().match(/(?<=\$ROOM\.room_id \= )\d+/)[0]
     } catch (error) {
       return unsafeWindow.rid || unsafeWindow.apm_room_id || null
     }
