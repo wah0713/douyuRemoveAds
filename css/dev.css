@@ -289,7 +289,9 @@ html .background-image-hide {
   background-color: transparent !important;
 }
 html .Barrage-list.trim .Barrage-listItem > div .UserLevel,
-html .Barrage-list.trim .Barrage-listItem > div .UserLevel ~ *:not(.Barrage-nickName, .Barrage-content) {
+html .Barrage-list.trim .Barrage-listItem > div .AnchorLevel,
+html .Barrage-list.trim .Barrage-listItem > div .UserLevel ~ *:not(.Barrage-nickName, .Barrage-content),
+html .Barrage-list.trim .Barrage-listItem > div .AnchorLevel ~ *:not(.Barrage-nickName, .Barrage-content) {
   display: none;
 }
 .FirePower,
@@ -354,6 +356,7 @@ html .Barrage-list.trim .Barrage-listItem > div .UserLevel ~ *:not(.Barrage-nick
 .DiamondsFansBarrage,
 .PeacehandBarrage,
 .RedEnvelopAd-adBox,
+.AnchorInterToolsUser,
 [class^='adsRoot_'],
 .headpic-dda332 {
   display: none !important;
