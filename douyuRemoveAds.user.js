@@ -73,9 +73,12 @@
       setTimeout(() => {
         $('#wah0713-alert').hide()
       }, params.time * 1000)
+
       $('#wah0713-alert').removeClass().addClass('warning').children('i').text('x')
     } else if (params.type === 'info') {
+
       $('#wah0713-alert').removeClass().addClass('info').children('i').text('i')
+
       params.dom.mouseleave(() => {
         $('#wah0713-alert').hide()
       })
@@ -90,7 +93,7 @@
   // 右侧自定义按钮模块
   $('body').append(`
         <div id="wah0713">
-            <div class="gear"><img src="https://img-blog.csdnimg.cn/20210116195614388.jpg?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L2MyODY4OTgyMzI=,size_16,color_FFFFFF,t_70#pic_centerg">
+            <div class="gear" style="display: none;"><img src="https://img-blog.csdnimg.cn/20210116195614388.jpg?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L2MyODY4OTgyMzI=,size_16,color_FFFFFF,t_70#pic_centerg">
                 <div class="redDot"></div>
             </div>
         </div>
@@ -313,6 +316,8 @@
   } else {
     $('#wah0713').addClass('hasUpdate')
   }
+
+  $('#wah0713 .gear').fadeIn("slow")
 
   let body = $('body')[0]
   const MutationObserver = window.MutationObserver || window.WebKitMutationObserver || window.MozMutationObserver
