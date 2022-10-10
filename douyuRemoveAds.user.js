@@ -9,7 +9,7 @@
 // @license      MIT
 // @icon         https://www.douyu.com/favicon.ico
 // @require      https://cdn.bootcss.com/jquery/1.12.4/jquery.min.js
-// @match        http*://www.douyu.com/*
+// @match        *.douyu.com/*
 // @connect      doseeing.com
 // @noframes     true
 // @run-at       document-idle
@@ -550,7 +550,7 @@
       })
     })
   }
-  // 显示房间数据
+  // 显示斗鱼(douyu/dy)的房间数据
   async function showRoomData() {
     const data = await getRoomData(rid)
     if (!data) return false
