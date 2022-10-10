@@ -109,6 +109,10 @@
     $('#wah0713 .gear').fadeIn("slow")
   })
 
+  setTimeout(() => {
+    $('#wah0713 .gear').fadeIn("slow")
+  }, 3 * 1000);
+
   // 版本号和提示语
   $("#wah0713").append(`<p class='tip'>${version}版本（更新内容详情）</p>`)
   /**
@@ -316,8 +320,6 @@
   } else {
     $('#wah0713').addClass('hasUpdate')
   }
-
-  $('#wah0713 .gear').fadeIn("slow")
 
   let body = $('body')[0]
   const MutationObserver = window.MutationObserver || window.WebKitMutationObserver || window.MozMutationObserver
