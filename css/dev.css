@@ -84,7 +84,7 @@ html .Barrage-listItem .Barrage-nickName.is-self {
 }
 html .PlayerToolbar-Wealth::before,
 html .Title-col.is-right.h30::before {
-  content: attr(ShowRoomData);
+  content: attr(showRoomData);
   float: left;
   font-size: 12px;
   color: #888;
