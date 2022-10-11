@@ -93,7 +93,7 @@
   // 右侧自定义按钮模块
   $('body').append(`
         <div id="wah0713">
-            <div class="gear" style="display: none;" 斗鱼(douyu/dy)><img src="https://img-blog.csdnimg.cn/20210116195614388.jpg?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L2MyODY4OTgyMzI=,size_16,color_FFFFFF,t_70#pic_centerg">
+            <div class="gear" style="display: none;"><img src="https://img-blog.csdnimg.cn/20210116195614388.jpg?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L2MyODY4OTgyMzI=,size_16,color_FFFFFF,t_70#pic_centerg">
                 <div class="redDot"></div>
             </div>
         </div>
