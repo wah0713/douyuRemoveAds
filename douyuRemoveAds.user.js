@@ -1,8 +1,8 @@
 // ==UserScript==
 // @name         斗鱼去火箭横幅(贵族弹幕样式&&聊天区域铭牌)
 // @namespace    https://github.com/wah0713/myTampermonkey
-// @version      2.02
-// @description  一个兴趣使然的脚本，本来只是屏蔽火箭横幅的脚本，到后来。。。 【✅功能按钮】 默认最高画质、弹幕悬停、竞猜显示、抽奖显示、背景显示、礼物栏简化、聊天框简化、禁言消息显示、聊天框用户铭牌显示、显示房间数据（人数、消费、时常）。 【✅默认设置】左侧展开默认收起、弹幕简化（贵族弹幕）、聊天框消息简化（大部分系统消息）【✅屏蔽】屏蔽内容过多，这里就不展开了....
+// @version      2.03
+// @description  一个兴趣使然的脚本，本来只是屏蔽火箭横幅的脚本，到后来。。。 【✅功能按钮】 默认最高画质、弹幕悬停、竞猜显示、抽奖显示、背景显示、礼物栏简化、聊天框简化、禁言消息显示、聊天框用户铭牌显示、显示房间数据（人数、消费、时常）、默认网页全屏。 【✅默认设置】左侧展开默认收起、弹幕简化（贵族弹幕）、聊天框消息简化（大部分系统消息）【✅屏蔽】屏蔽内容过多，这里就不展开了....
 // @supportURL   https://github.com/wah0713/myTampermonkey/issues
 // @author       wah0713
 // @compatible   chrome
@@ -25,12 +25,11 @@
   if (!/^\/\d+$/.test(window.location.pathname) && window.location.pathname.indexOf('topic') === -1) return false
 
   // 版本号
-  const version = '2.02'
+  const version = '2.03'
   // 更新说明
   const updateNotes = version + `：<br />
-        1、[显示房间数据]上线。实话实说我本来是抗拒的，因为这个功能需要获取用户更多权限。<br />数据来源doseeing.com(感谢) 由 BerryBarry11 提出<br />
-        2、[默认最高画质]修复且重新上线 <br />
-        3、多弹幕情况下会卡顿（现在有所好转，但还在持续观察） 由 Jesse1uo 提出<br />
+        1、[默认网页全屏]进入页面时选择网页全屏，还挺好用。由 shadow XX 提出 <br />
+        2、屏蔽一些广告 <br />
         `
   // 房间id
   const rid = getRoomId()
@@ -204,30 +203,11 @@
       description: '聊天框用户铭牌显示是否显示__本功能由W.ast和BerryBarry11提出',
       value: false,
       action: async (value) => {
-        // 聊天框用户铭牌
-        const p = () => (new Promise((resolve) => {
-          setTimeout(() => {
-            if ($('.Barrage-list').length === 0) {
-              resolve(false)
-            } else {
-              resolve(true)
-            }
-          }, 200)
-        }))
-
-        const time = async () => {
-          if (!await p()) {
-            return await time()
-          } else {
-            return true
-          }
-        }
-        await time()
-
+        const $barrageList = await walk(() => findDom('.Barrage-list'))
         if (!value) {
-          $('.Barrage-list').addClass('trim')
+          $barrageList.addClass('trim')
         } else {
-          $('.Barrage-list').removeClass('trim')
+          $barrageList.removeClass('trim')
         }
       }
     },
@@ -245,7 +225,19 @@
           hideRoomData()
         }
       }
-    }
+    },
+    isWebFullScreen: {
+      name: '默认网页全屏',
+      description: '进入页面时选择网页全屏__本功能由shadow XX提出',
+      firstDelayTime: 8 * 1000,
+      value: false,
+      action: async (value) => {
+        const $wfs_2a8e83 = await walk(() => findDom('.wfs-2a8e83'))
+        if (value) {
+          $wfs_2a8e83.click()
+        }
+      }
+    },
   }
 
   const config = new Proxy({}, {
@@ -592,6 +584,31 @@
     const decimal = String(str % 100).padStart(2, '0')
     return `${integer}.${decimal}`
   }
+
+  // 寻找DOM
+  function findDom(selectorStr) {
+    return new Promise((resolve) => {
+      setTimeout(() => {
+        const $Dom = $(selectorStr)
+        if ($Dom.length === 0) {
+          resolve(false)
+        } else {
+          resolve($Dom)
+        }
+      }, 200)
+    })
+  }
+
+  // 轮询
+  async function walk(callBack) {
+    const res = await callBack()
+    if (!res) {
+      return await walk(callBack)
+    } else {
+      return res
+    }
+  }
+
 
   GM_addStyle(`
 html ::-webkit-scrollbar{height:14px;width:12px;overflow:visible;position:absolute;bottom:16px}html ::-webkit-scrollbar-button{height:0;width:0}html ::-webkit-scrollbar-thumb,html ::-webkit-scrollbar-track{background-clip:padding-box;border:3px solid transparent;border-radius:100px}html ::-webkit-scrollbar-corner{background-color:transparent}html ::-webkit-scrollbar-thumb{background-color:#ccc}html ::-webkit-scrollbar-track{background-color:hsla(0,0%,100%,0)}html body .broadcastDiv-af5699{display:none!important;opacity:0!important;visibility:hidden!important}html body #js-header{transition:opacity .5s;opacity:1}html body .layout-Main{transition:margin-top .5s;margin-top:0}html body #js-aside{margin-top:-68px;z-index:401}html body.head-hide #js-header{opacity:.1}html body .super-noble-icon-9aacaf,html body .super-tail-bffa58,html body .super-user-icon-574f31{display:none!important}html body .super-text-0281ca{background:none!important}html .Barrage{border-top:none}html .adjustClarity,html .danmuMove{display:none}html .room-Player-Box.mark [class^=danmuItem-]{cursor:default;pointer-events:none}html .danmuItem-31f924{background-color:transparent!important}html .danmuItem-31f924 .text-b132b0{font:700 24px SimHei,Microsoft JhengHei,Arial,Helvetica,sans-serif!important}html .Barrage-listItem>div:first-child{padding:0 10px!important;background-color:transparent!important;border-top:none!important;border-bottom:none!important}html .Barrage-listItem .Barrage-nickName{color:#2b94ff!important}html .Barrage-listItem .Barrage-nickName.is-self{color:#ff5d23!important}html .PlayerToolbar-Wealth:before,html .Title-col.is-right.h30:before{content:attr(showRoomData);float:left;font-size:12px;color:#888}html .layout-Player-asideMainTop.hide .layout-Player-announce{display:none}html .layout-Player-asideMainTop.hide .layout-Player-barrage{top:0}html .layout-Player-asideMainTop.hide .layout-Player-rank{border:none;display:none}html .layout-Player-asideMainTop.hide .ChatRank-rankWraper{display:none}html .noble-bf13ad{background:none!important}html .Barrage-notice--noble{background:none!important;border:none!important}html.no-background .bc-wrapper{background-color:transparent!important;background-image:none!important}html.no-background .Background-holder{padding-top:10px}html.no-background #js-bottom{display:none}html.no-background body{background-image:none;background-color:#ffe}html.no-background body.go-beyound{background-image:url(https://img-blog.csdnimg.cn/20210116195614315.jpg?x-oss-process=image%2Fwatermark%2Ctype_ZmFuZ3poZW5naGVpdGk%2Cshadow_10%2Ctext_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L2MyODY4OTgyMzI%3D%2Csize_16%2Ccolor_FFFFFF%2Ct_70#pic_center);background-color:#f6f6f6;background-position:center 68px;background-repeat:repeat-y}html.no-background body .layout-Container{background-image:none;background-color:#ffe}html .is-fullScreenPage #wah0713{display:none}html #wah0713{position:fixed;top:50%;transform:translateY(-50%);right:-182px;border:1px solid #ccc;border-radius:6px;z-index:20;padding:10px 5px;background:#fef54e url(https://img-blog.csdnimg.cn/20210116195614319.jpg?x-oss-process=image%2Fwatermark%2Ctype_ZmFuZ3poZW5naGVpdGk%2Cshadow_10%2Ctext_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L2MyODY4OTgyMzI%3D%2Csize_16%2Ccolor_FFFFFF%2Ct_70#pic_center) no-repeat 50%/100%;width:160px;transition:all .5s ease-out}html #wah0713.hasUpdate .tip{animation:Bigger 2s linear infinite}html #wah0713.hasUpdate .gear>img{animation-play-state:running}html #wah0713.hasUpdate .gear .redDot{display:block}html #wah0713 .tip{text-align:center;margin-bottom:5px;-webkit-user-select:none;-moz-user-select:none;-ms-user-select:none;user-select:none;cursor:default}html #wah0713 .tip>a{color:red}html #wah0713:hover{right:0}html #wah0713:hover>button{opacity:1}html #wah0713 .gear{width:32px;padding-right:13px;position:absolute;top:50%;left:-45px;transform:translateY(-50%)}html #wah0713 .gear>img{width:100%;animation:rotating 30s linear infinite paused;border-radius:33%}html #wah0713 .gear .redDot{display:none;width:9px;height:9px;background-color:#fd4a4e;border-radius:50%;position:absolute;top:3px;right:13px}html #wah0713>button{margin:0 auto 5px;display:block;line-height:1;white-space:nowrap;cursor:pointer;background:#409eff;border:1px solid #409eff;color:#fff;-webkit-appearance:none;text-align:center;box-sizing:border-box;outline:none;transition:.1s;font-weight:500;-webkit-user-select:none;-moz-user-select:none;-ms-user-select:none;user-select:none;padding:6px 10px;font-size:14px;border-radius:4px;opacity:.75}html #wah0713>button:last-of-type{margin-bottom:0}html #wah0713>button:hover{opacity:.8}html #wah0713>button.close{background-color:#fff;color:#409eff}html #wah0713-alert{display:none;padding:8px 16px;position:fixed;top:30%;left:50%;transform:translateX(-50%);z-index:30;-webkit-user-select:none;-moz-user-select:none;-ms-user-select:none;user-select:none;border:1px solid #ccc;border-radius:8px}html #wah0713-alert>i{width:14px;height:14px;display:inline-block;border-radius:50%;color:#fff;text-align:center;line-height:14px;font-family:Arial,Microsoft YaHei,黑体,宋体,sans-serif;margin-right:8px;position:relative;top:-1px}html #wah0713-alert.warning{background-color:#fff1f0;border-color:#f5222d}html #wah0713-alert.warning>i{background-color:#f5222d}html #wah0713-alert.info{background-color:#f4f4f5;border-color:#909399}html #wah0713-alert.info>i{background-color:#909399}html #wah0713-alert>span{font-family:Chinese Quote,-apple-system,BlinkMacSystemFont,Segoe UI,PingFang SC,Hiragino Sans GB,Microsoft YaHei,Helvetica Neue,Helvetica,Arial,sans-serif,Apple Color Emoji,Segoe UI Emoji,Segoe UI Symbol;font-size:14px;font-variant:tabular-nums;color:rgba(0,0,0,.65)}html .marginTop100{margin-top:100px!important}html .background-image-hide{background-image:none!important;background-color:transparent!important}html .Barrage-list.trim .Barrage-listItem>div .AnchorLevel,html .Barrage-list.trim .Barrage-listItem>div .AnchorLevel~:not(.Barrage-nickName,.Barrage-content),html .Barrage-list.trim .Barrage-listItem>div .UserLevel,html .Barrage-list.trim .Barrage-listItem>div .UserLevel~:not(.Barrage-nickName,.Barrage-content){display:none}#FansFestival2003Tips,#js-room-activity,.ActDayPay-toast,.activity-icon-4b45df,.activity-icon-c717fc,.ad-box-f661ba,.afterpic-8a2e13,.AnchorInterToolsUser,.AnchorPocketTips,.AnchorReturnDialog,.Barrage-chat-ad,.Barrage-list .Barrage-message,.Barrage-list .Barrage-userEnter,.Barrage-topFloater,.Barrage-userEnter,.bc-f66a59,.Bottom-ad,.ChargeTask-closeBg,.closeBg-998534,.code-box-15b952,.code_box-5cdf5a,.DanmuEffectDom-container,.DiamondsFansBarrage,.DiamondsFansPromptPop,.EnterEffect,.FirePower,.FirePowerIcon,.FirePowerRewardModal,.FishShopTip,.focus_box_con-7adc83,.FuDaiActPanel,.FudaiGiftToolBarTips,.guessIconReminding,.Header-download-wrap,.HeaderNav,.headpic-dda332,.LotteryContainer-svgaDes,.LuckyStartEnter,.multiBitRate-da4b60,.noble-icon-88f562,.noble-icon-c10b6a,.normalBg-a5403d,.noSubFloat-3e7a50,.ordinaryBcBox-8220a7,.PaladinWeek-toast,.PcDiversion,.PeacehandBarrage,.PlayerToolbar-signCont,.PrivilegeGiftModalDialog,.RechargeBigRewards,.recommendAD-54569e,.RedEnvelopAd-adBox,.RoomText-wrap,.SignBaseComponent-sign-ad,.SysSign-Ad,.Title-roomOtherBottom,.user-icon-8af1e3,.user-icon-eeabb1,.vivo-ad-743527,.watermark-442a18,.WishingForestDialog,.WXTipsBox,.XinghaiAd,[class^=adsRoot_]{display:none!important}.opacity0{opacity:0}.is-hide{display:none!important}@keyframes rotating{0%{transform:rotate(0)}to{transform:rotate(1turn)}}@keyframes Bigger{0%{transform:scale(.95)}50%{transform:scale(1)}to{transform:scale(.95)}}
