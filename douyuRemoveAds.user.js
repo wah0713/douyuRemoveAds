@@ -229,7 +229,6 @@
     isWebFullScreen: {
       name: '默认网页全屏',
       description: '进入页面时选择网页全屏__本功能由shadow XX提出',
-      firstDelayTime: 8 * 1000,
       value: false,
       action: async (value) => {
         if (value) {
