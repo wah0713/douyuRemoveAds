@@ -232,8 +232,8 @@
       firstDelayTime: 8 * 1000,
       value: false,
       action: async (value) => {
-        const $wfs_2a8e83 = await walk(() => findDom('.wfs-2a8e83'))
         if (value) {
+          const $wfs_2a8e83 = await walk(() => findDom('.wfs-2a8e83'))
           $wfs_2a8e83.click()
         }
       }
