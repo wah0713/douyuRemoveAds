@@ -163,6 +163,17 @@
 
       }
     },
+    isWebFullScreen: {
+      name: '默认网页全屏',
+      description: '进入页面时选择网页全屏__本功能由shadow XX提出',
+      value: false,
+      action: async (value) => {
+        if (value) {
+          // 双击事件
+          $('._1GyzL9trVIbYlAVmuA9KJ1')[0].dispatchEvent(new CustomEvent('dblclick'))
+        }
+      }
+    },
     danmuMove: {
       name: '弹幕悬停',
       description: '播放器内弹幕被选中时悬停__本功能由noob-one提出',
@@ -223,17 +234,6 @@
           showRoomDataInterval = setInterval(showRoomData, 12 * 60 * 1000)
         } else {
           hideRoomData()
-        }
-      }
-    },
-    isWebFullScreen: {
-      name: '默认网页全屏',
-      description: '进入页面时选择网页全屏__本功能由shadow XX提出',
-      value: false,
-      action: async (value) => {
-        if (value) {
-          // 双击事件
-          $('._1GyzL9trVIbYlAVmuA9KJ1')[0].dispatchEvent(new CustomEvent('dblclick'))
         }
       }
     },
