@@ -232,8 +232,8 @@
       value: false,
       action: async (value) => {
         if (value) {
-          const $wfs_2a8e83 = await walk(() => findDom('.wfs-2a8e83'))
-          $wfs_2a8e83.click()
+          // 双击事件
+          $('._1GyzL9trVIbYlAVmuA9KJ1')[0].dispatchEvent(new CustomEvent('dblclick'))
         }
       }
     },
