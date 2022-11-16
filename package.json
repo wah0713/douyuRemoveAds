@@ -1,5 +1,5 @@
 {
-  "name": "myTampermonkey",
+  "name": "douyuRemoveAds",
   "version": "1.0.0",
   "description": "斗鱼插件",
   "private": true,
@@ -8,15 +8,15 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/wah0713/myTampermonkey.git"
+    "url": "git+https://github.com/wah0713/douyuRemoveAds.git"
   },
   "keywords": [],
   "author": "wah0713",
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/wah0713/myTampermonkey/issues"
+    "url": "https://github.com/wah0713/douyuRemoveAds/issues"
   },
-  "homepage": "https://github.com/wah0713/myTampermonkey#readme",
+  "homepage": "https://github.com/wah0713/douyuRemoveAds#readme",
   "devDependencies": {
     "clean-webpack-plugin": "^3.0.0",
     "css-loader": "^2.1.1",

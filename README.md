@@ -6,7 +6,7 @@
 
  2、屏蔽一些广告 <br>
 
-![当前版本2.03](https://wah0713.github.io/myTampermonkey/image/douyu2.03.png)
+![当前版本2.03](https://wah0713.github.io/douyuRemoveAds/image/douyu2.03.png)
 
 ### 上个版本2.02效果图：
 
@@ -16,7 +16,7 @@
 
  3、多弹幕情况下会卡顿（现在有所好转，但还在持续观察） 由 Jesse1uo 提出 <br>
 
-![上个版本2.02](https://wah0713.github.io/myTampermonkey/image/douyu2.02.png)
+![上个版本2.02](https://wah0713.github.io/douyuRemoveAds/image/douyu2.02.png)
 
 ### bug和建议：
 
