@@ -35,7 +35,7 @@
 
 ### ㊙️脚本之外：
 
-这个脚本是工作之余，自己<del>低级程序员</del>练练手，所以也不要有太多期待。
+这个脚本是工作之余，自己<del>低级程序员</del>练练手，所以也不要有太多期待。<br>
 在我写这个脚本那年，dy还是指douyu。时过境迁，沧海桑田。
 <!-- dy/douyu -->
 [2.03]:https://wah0713.github.io/douyuRemoveAds/image/douyu2.03.png
