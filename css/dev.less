@@ -116,12 +116,15 @@ html {
         }
     }
 
-    .PlayerToolbar-Wealth::before,
-    .Title-col.is-right.h30::before {
-        content: attr(showRoomData) ;
+
+    .PlayerToolbar-Wealth::before {
+        content: attr(showRoomData);
+        white-space: pre;
         float: left;
         font-size: 12px;
         color: #888;
+        margin-top: -10px;
+        text-align: left;
     }
 
     // 主播公告、贡献周榜、贵宾和粉丝团

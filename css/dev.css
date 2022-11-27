@@ -82,12 +82,14 @@ html .Barrage-listItem .Barrage-nickName {
 html .Barrage-listItem .Barrage-nickName.is-self {
   color: #ff5d23 !important;
 }
-html .PlayerToolbar-Wealth::before,
-html .Title-col.is-right.h30::before {
+html .PlayerToolbar-Wealth::before {
   content: attr(showRoomData);
+  white-space: pre;
   float: left;
   font-size: 12px;
   color: #888;
+  margin-top: -10px;
+  text-align: left;
 }
 html .layout-Player-asideMainTop.hide .layout-Player-announce {
   display: none;
