@@ -370,6 +370,15 @@ html .Barrage-list.trim .Barrage-listItem > div .AnchorLevel ~ *:not(.Barrage-ni
 .is-hide {
   display: none !important;
 }
+.black {
+  filter: invert(1);
+}
+.black .layout-Player-video,
+.black #wah0713,
+.black #wah0713-alert,
+.black img {
+  filter: invert(1);
+}
 @keyframes rotating {
   0% {
     transform: rotate(0);

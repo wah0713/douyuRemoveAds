@@ -1,8 +1,8 @@
 // ==UserScript==
 // @name         斗鱼去火箭横幅(贵族弹幕样式&&聊天区域铭牌)
 // @namespace    https://github.com/wah0713/douyuRemoveAds
-// @version      2.03
-// @description  一个兴趣使然的脚本，本来只是屏蔽火箭横幅的脚本，到后来。。。 【✅功能按钮】 默认最高画质、弹幕悬停、竞猜显示、抽奖显示、背景显示、礼物栏简化、聊天框简化、禁言消息显示、聊天框用户铭牌显示、显示房间数据（人数、消费、时常）、默认网页全屏。 【✅默认设置】左侧展开默认收起、弹幕简化（贵族弹幕）、聊天框消息简化（大部分系统消息）【✅屏蔽】屏蔽内容过多，这里就不展开了....
+// @version      2.04
+// @description  一个兴趣使然的脚本，本来只是屏蔽火箭横幅的脚本，到后来。。。 【✅功能按钮】 默认最高画质、弹幕悬停、竞猜显示、抽奖显示、背景显示、礼物栏简化、聊天框简化、禁言消息显示、聊天框用户铭牌显示、显示房间数据（人数、消费、时常）、默认网页全屏、夜间模式。 【✅默认设置】左侧展开默认收起、弹幕简化（贵族弹幕）、聊天框消息简化（大部分系统消息）【✅屏蔽】屏蔽内容过多，这里就不展开了....
 // @supportURL   https://github.com/wah0713/douyuRemoveAds/issues
 // @updateURL    https://greasyfork.org/scripts/381934-%E6%96%97%E9%B1%BC%E5%8E%BB%E7%81%AB%E7%AE%AD%E6%A8%AA%E5%B9%85-%E8%B4%B5%E6%97%8F%E5%BC%B9%E5%B9%95%E6%A0%B7%E5%BC%8F-%E8%81%8A%E5%A4%A9%E5%8C%BA%E5%9F%9F%E9%93%AD%E7%89%8C/code/%E6%96%97%E9%B1%BC%E5%8E%BB%E7%81%AB%E7%AE%AD%E6%A8%AA%E5%B9%85(%E8%B4%B5%E6%97%8F%E5%BC%B9%E5%B9%95%E6%A0%B7%E5%BC%8F%E8%81%8A%E5%A4%A9%E5%8C%BA%E5%9F%9F%E9%93%AD%E7%89%8C).user.js
 // @author       wah0713
@@ -26,11 +26,11 @@
   if (!/^\/\d+$/.test(window.location.pathname) && window.location.pathname.indexOf('topic') === -1) return false
 
   // 版本号
-  const version = '2.03'
+  const version = '2.04'
   // 更新说明
-  const updateNotes = version + `：<br />
-        1、[默认网页全屏]进入页面时选择网页全屏，还挺好用。由 shadow XX 提出 <br />
-        2、屏蔽一些广告 <br />
+  const updateNotes = version + `：<br>
+        1、[夜间模式]夜间模式__本功能由【超新星燃烧小行星带】提出<br>
+        2、屏蔽一些广告 <br>
         `
   // 房间id
   const rid = getRoomId()
@@ -146,7 +146,7 @@
   const defaultConfig = {
     adjustClarity: {
       name: '默认最高画质',
-      description: '开启当前房间最高画质，可能会闪一次屏__本功能由noob-one提出',
+      description: '开启当前房间最高画质，可能会闪一次屏__本功能由【noob-one】提出',
       value: false,
       firstDelayTime: 10 * 1000,
       action: (value) => {
@@ -166,7 +166,7 @@
     },
     isWebFullScreen: {
       name: '默认网页全屏',
-      description: '进入页面时选择网页全屏__本功能由shadow XX提出',
+      description: '进入页面时选择网页全屏__本功能由【shadow XX】提出',
       value: false,
       action: async (value) => {
         if (value) {
@@ -177,42 +177,42 @@
     },
     danmuMove: {
       name: '弹幕悬停',
-      description: '播放器内弹幕被选中时悬停__本功能由noob-one提出',
+      description: '播放器内弹幕被选中时悬停__本功能由【noob-one】提出',
       value: false,
     },
     guessIsShow: {
       name: '竞猜显示',
-      description: '竞猜是否显示__本功能由noob-one提出',
+      description: '竞猜是否显示__本功能由【noob-one】提出',
       value: false,
     },
     lotteryIsShow: {
       name: '抽奖显示',
-      description: '抽奖是否显示__本功能由lv88ff提出',
+      description: '抽奖是否显示__本功能由【lv88ff】提出',
       value: false,
     },
     backgroundIsShow: {
       name: '背景显示',
-      description: '背景是否显示__本功能由dongliang zhang提出',
+      description: '背景是否显示__本功能由【dongliang zhang】提出',
       value: false,
     },
     playerBottomSimplification: {
       name: '礼物栏简化',
-      description: '播放器下方礼物栏简化__本功能由evenora提出',
+      description: '播放器下方礼物栏简化__本功能由【evenora】提出',
       value: true,
     },
     chatBoxCleaning: {
       name: '聊天框简化',
-      description: '聊天框头部去除主播公告、贡献周榜、贵宾、粉丝团和主播通知__本功能由dongliang zhang提出',
+      description: '聊天框头部去除主播公告、贡献周榜、贵宾、粉丝团和主播通知__本功能由【dongliang zhang】提出',
       value: true,
     },
     forbiddenMessage: {
       name: '禁言消息显示',
-      description: '聊天框内用户被禁言消息是否显示__本功能由lv88ff提出',
+      description: '聊天框内用户被禁言消息是否显示__本功能由【lv88ff】提出',
       value: false,
     },
     isShowNickName: {
       name: '用户铭牌显示',
-      description: '聊天框用户铭牌显示是否显示__本功能由W.ast和BerryBarry11提出',
+      description: '聊天框用户铭牌显示是否显示__本功能由【W.ast】和【BerryBarry11】提出',
       value: false,
       action: async (value) => {
         const $barrageList = await walk(() => findDom('.Barrage-list'))
@@ -225,7 +225,7 @@
     },
     isShowRoomData: {
       name: '显示房间数据',
-      description: '显示房间数据（时间范围今天00:00到今晚24:00）,12分钟刷新数据一次__本功能由BerryBarry11提出',
+      description: '显示房间数据（时间范围今天00:00到今晚24:00）,12分钟刷新数据一次__本功能由【BerryBarry11】提出',
       value: true,
       firstDelayTime: 10 * 1000,
       action: (value) => {
@@ -235,6 +235,18 @@
           showRoomDataInterval = setInterval(showRoomData, 12 * 60 * 1000)
         } else {
           hideRoomData()
+        }
+      }
+    },
+    isblackMode: {
+      name: '夜间模式',
+      description: '夜间模式__本功能由【超新星燃烧小行星带】提出',
+      value: false,
+      action: (value) => {
+        if (value) {
+          $('html').addClass('black')
+        } else {
+          $('html').removeClass('black')
         }
       }
     },
@@ -564,8 +576,9 @@
       // 活跃人数
       "active.uv": activeUv,
     } = data
-    $('.PlayerToolbar-Wealth').attr('showRoomData', `🎁礼物价值:${(formatPrice(giftAllPrice))}元🎅🏻礼物送礼人数:${formatData(giftAllUv)}💸付费礼物:${formatPrice(giftPaidPrice)}元🤴🏻付费送礼人数:${formatData(giftPaidUv)}
-💬弹幕数:${formatData(chatPv)}🤩发弹幕人数:${formatData(chatUv)}🎤直播时间:${formatData(onlineMinutes)}分🔥活跃人数:${formatData(activeUv)}`)
+    $('.PlayerToolbar-Wealth').attr('showRoomData', `💬弹幕数:${formatData(chatPv)}🤩发弹幕人数:${formatData(chatUv)}🎤直播时间:${formatData(onlineMinutes)}分🔥活跃人数:${formatData(activeUv)}
+🎁礼物价值:${(formatPrice(giftAllPrice))}元🎅🏻礼物送礼人数:${formatData(giftAllUv)}💸付费礼物:${formatPrice(giftPaidPrice)}元🤴🏻付费送礼人数:${formatData(giftPaidUv)}
+`)
   }
 
   // 隐藏显示房间数据
@@ -609,7 +622,7 @@
   }
 
   GM_addStyle(`
-html ::-webkit-scrollbar{height:14px;width:12px;overflow:visible;position:absolute;bottom:16px}html ::-webkit-scrollbar-button{height:0;width:0}html ::-webkit-scrollbar-thumb,html ::-webkit-scrollbar-track{background-clip:padding-box;border:3px solid transparent;border-radius:100px}html ::-webkit-scrollbar-corner{background-color:transparent}html ::-webkit-scrollbar-thumb{background-color:#ccc}html ::-webkit-scrollbar-track{background-color:hsla(0,0%,100%,0)}html body .broadcastDiv-af5699{display:none!important;opacity:0!important;visibility:hidden!important}html body #js-header{transition:opacity .5s;opacity:1}html body .layout-Main{transition:margin-top .5s;margin-top:0}html body #js-aside{margin-top:-68px;z-index:401}html body.head-hide #js-header{opacity:.1}html body .super-noble-icon-9aacaf,html body .super-tail-bffa58,html body .super-user-icon-574f31{display:none!important}html body .super-text-0281ca{background:none!important}html .Barrage{border-top:none}html .adjustClarity,html .danmuMove{display:none}html .room-Player-Box.mark [class^=danmuItem-]{cursor:default;pointer-events:none}html .danmuItem-31f924{background-color:transparent!important}html .danmuItem-31f924 .text-b132b0{font:700 24px SimHei,Microsoft JhengHei,Arial,Helvetica,sans-serif!important}html .Barrage-listItem>div:first-child{padding:0 10px!important;background-color:transparent!important;border-top:none!important;border-bottom:none!important}html .Barrage-listItem .Barrage-nickName{color:#2b94ff!important}html .Barrage-listItem .Barrage-nickName.is-self{color:#ff5d23!important}html .PlayerToolbar-Wealth:before{content:attr(showRoomData);white-space:pre;float:left;font-size:12px;color:#888;margin-top:-10px;text-align:left}html .layout-Player-asideMainTop.hide .layout-Player-announce{display:none}html .layout-Player-asideMainTop.hide .layout-Player-barrage{top:0}html .layout-Player-asideMainTop.hide .layout-Player-rank{border:none;display:none}html .layout-Player-asideMainTop.hide .ChatRank-rankWraper{display:none}html .noble-bf13ad{background:none!important}html .Barrage-notice--noble{background:none!important;border:none!important}html.no-background .bc-wrapper{background-color:transparent!important;background-image:none!important}html.no-background .Background-holder{padding-top:10px}html.no-background #js-bottom{display:none}html.no-background body{background-image:none;background-color:#ffe}html.no-background body.go-beyound{background-image:url(https://img-blog.csdnimg.cn/20210116195614315.jpg?x-oss-process=image%2Fwatermark%2Ctype_ZmFuZ3poZW5naGVpdGk%2Cshadow_10%2Ctext_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L2MyODY4OTgyMzI%3D%2Csize_16%2Ccolor_FFFFFF%2Ct_70#pic_center);background-color:#f6f6f6;background-position:center 68px;background-repeat:repeat-y}html.no-background body .layout-Container{background-image:none;background-color:#ffe}html .is-fullScreenPage #wah0713{display:none}html #wah0713{position:fixed;top:50%;transform:translateY(-50%);right:-182px;border:1px solid #ccc;border-radius:6px;z-index:20;padding:10px 5px;background:#fef54e url(https://img-blog.csdnimg.cn/20210116195614319.jpg?x-oss-process=image%2Fwatermark%2Ctype_ZmFuZ3poZW5naGVpdGk%2Cshadow_10%2Ctext_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L2MyODY4OTgyMzI%3D%2Csize_16%2Ccolor_FFFFFF%2Ct_70#pic_center) no-repeat 50%/100%;width:160px;transition:all .5s ease-out}html #wah0713.hasUpdate .tip{animation:Bigger 2s linear infinite}html #wah0713.hasUpdate .gear>img{animation-play-state:running}html #wah0713.hasUpdate .gear .redDot{display:block}html #wah0713 .tip{text-align:center;margin-bottom:5px;-webkit-user-select:none;-moz-user-select:none;-ms-user-select:none;user-select:none;cursor:default}html #wah0713 .tip>a{color:red}html #wah0713:hover{right:0}html #wah0713:hover>button{opacity:1}html #wah0713 .gear{width:32px;padding-right:13px;position:absolute;top:50%;left:-45px;transform:translateY(-50%)}html #wah0713 .gear>img{width:100%;animation:rotating 30s linear infinite paused;border-radius:33%}html #wah0713 .gear .redDot{display:none;width:9px;height:9px;background-color:#fd4a4e;border-radius:50%;position:absolute;top:3px;right:13px}html #wah0713>button{margin:0 auto 5px;display:block;line-height:1;white-space:nowrap;cursor:pointer;background:#409eff;border:1px solid #409eff;color:#fff;-webkit-appearance:none;text-align:center;box-sizing:border-box;outline:none;transition:.1s;font-weight:500;-webkit-user-select:none;-moz-user-select:none;-ms-user-select:none;user-select:none;padding:6px 10px;font-size:14px;border-radius:4px;opacity:.75}html #wah0713>button:last-of-type{margin-bottom:0}html #wah0713>button:hover{opacity:.8}html #wah0713>button.close{background-color:#fff;color:#409eff}html #wah0713-alert{display:none;padding:8px 16px;position:fixed;top:30%;left:50%;transform:translateX(-50%);z-index:30;-webkit-user-select:none;-moz-user-select:none;-ms-user-select:none;user-select:none;border:1px solid #ccc;border-radius:8px}html #wah0713-alert>i{width:14px;height:14px;display:inline-block;border-radius:50%;color:#fff;text-align:center;line-height:14px;font-family:Arial,Microsoft YaHei,黑体,宋体,sans-serif;margin-right:8px;position:relative;top:-1px}html #wah0713-alert.warning{background-color:#fff1f0;border-color:#f5222d}html #wah0713-alert.warning>i{background-color:#f5222d}html #wah0713-alert.info{background-color:#f4f4f5;border-color:#909399}html #wah0713-alert.info>i{background-color:#909399}html #wah0713-alert>span{font-family:Chinese Quote,-apple-system,BlinkMacSystemFont,Segoe UI,PingFang SC,Hiragino Sans GB,Microsoft YaHei,Helvetica Neue,Helvetica,Arial,sans-serif,Apple Color Emoji,Segoe UI Emoji,Segoe UI Symbol;font-size:14px;font-variant:tabular-nums;color:rgba(0,0,0,.65)}html .marginTop100{margin-top:100px!important}html .background-image-hide{background-image:none!important;background-color:transparent!important}html .Barrage-list.trim .Barrage-listItem>div .AnchorLevel,html .Barrage-list.trim .Barrage-listItem>div .AnchorLevel~:not(.Barrage-nickName,.Barrage-content),html .Barrage-list.trim .Barrage-listItem>div .UserLevel,html .Barrage-list.trim .Barrage-listItem>div .UserLevel~:not(.Barrage-nickName,.Barrage-content){display:none}#FansFestival2003Tips,#js-room-activity,.ActAutumnMilkTea2022Pop,.ActDayPay-toast,.activity-icon-4b45df,.activity-icon-c717fc,.ad-box-f661ba,.afterpic-8a2e13,.AnchorInterToolsUser,.AnchorPocketTips,.AnchorReturnDialog,.Barrage-chat-ad,.Barrage-list .Barrage-message,.Barrage-list .Barrage-userEnter,.Barrage-topFloater,.Barrage-userEnter,.bc-f66a59,.Bottom-ad,.ChargeTask-closeBg,.closeBg-998534,.code-box-15b952,.code_box-5cdf5a,.DanmuEffectDom-container,.DiamondsFansBarrage,.DiamondsFansPromptPop,.EnterEffect,.FirePower,.FirePowerIcon,.FirePowerRewardModal,.FishShopTip,.focus_box_con-7adc83,.FuDaiActPanel,.FudaiGiftToolBarTips,.guessIconReminding,.Header-download-wrap,.HeaderNav,.headpic-dda332,.LotteryContainer-svgaDes,.LuckyStartEnter,.multiBitRate-da4b60,.noble-icon-88f562,.noble-icon-c10b6a,.normalBg-a5403d,.noSubFloat-3e7a50,.ordinaryBcBox-8220a7,.PaladinWeek-toast,.PcDiversion,.PeacehandBarrage,.PlayerToolbar-signCont,.PrivilegeGiftModalDialog,.RechargeBigRewards,.recommendAD-54569e,.RedEnvelopAd-adBox,.RoomText-wrap,.SignBaseComponent-sign-ad,.SysSign-Ad,.Title-roomOtherBottom,.user-icon-8af1e3,.user-icon-eeabb1,.vivo-ad-743527,.watermark-442a18,.WishingForestDialog,.WXTipsBox,.XinghaiAd,[class^=adsRoot_]{display:none!important}.opacity0{opacity:0}.is-hide{display:none!important}@keyframes rotating{0%{transform:rotate(0)}to{transform:rotate(1turn)}}@keyframes Bigger{0%{transform:scale(.95)}50%{transform:scale(1)}to{transform:scale(.95)}}
+html ::-webkit-scrollbar{height:14px;width:12px;overflow:visible;position:absolute;bottom:16px}html ::-webkit-scrollbar-button{height:0;width:0}html ::-webkit-scrollbar-thumb,html ::-webkit-scrollbar-track{background-clip:padding-box;border:3px solid transparent;border-radius:100px}html ::-webkit-scrollbar-corner{background-color:transparent}html ::-webkit-scrollbar-thumb{background-color:#ccc}html ::-webkit-scrollbar-track{background-color:hsla(0,0%,100%,0)}html body .broadcastDiv-af5699{display:none!important;opacity:0!important;visibility:hidden!important}html body #js-header{transition:opacity .5s;opacity:1}html body .layout-Main{transition:margin-top .5s;margin-top:0}html body #js-aside{margin-top:-68px;z-index:401}html body.head-hide #js-header{opacity:.1}html body .super-noble-icon-9aacaf,html body .super-tail-bffa58,html body .super-user-icon-574f31{display:none!important}html body .super-text-0281ca{background:none!important}html .Barrage{border-top:none}html .adjustClarity,html .danmuMove{display:none}html .room-Player-Box.mark [class^=danmuItem-]{cursor:default;pointer-events:none}html .danmuItem-31f924{background-color:transparent!important}html .danmuItem-31f924 .text-b132b0{font:700 24px SimHei,Microsoft JhengHei,Arial,Helvetica,sans-serif!important}html .Barrage-listItem>div:first-child{padding:0 10px!important;background-color:transparent!important;border-top:none!important;border-bottom:none!important}html .Barrage-listItem .Barrage-nickName{color:#2b94ff!important}html .Barrage-listItem .Barrage-nickName.is-self{color:#ff5d23!important}html .PlayerToolbar-Wealth:before{content:attr(showRoomData);white-space:pre;float:left;font-size:12px;color:#888;margin-top:-10px;text-align:left}html .layout-Player-asideMainTop.hide .layout-Player-announce{display:none}html .layout-Player-asideMainTop.hide .layout-Player-barrage{top:0}html .layout-Player-asideMainTop.hide .layout-Player-rank{border:none;display:none}html .layout-Player-asideMainTop.hide .ChatRank-rankWraper{display:none}html .noble-bf13ad{background:none!important}html .Barrage-notice--noble{background:none!important;border:none!important}html.no-background .bc-wrapper{background-color:transparent!important;background-image:none!important}html.no-background .Background-holder{padding-top:10px}html.no-background #js-bottom{display:none}html.no-background body{background-image:none;background-color:#ffe}html.no-background body.go-beyound{background-image:url(https://img-blog.csdnimg.cn/20210116195614315.jpg?x-oss-process=image%2Fwatermark%2Ctype_ZmFuZ3poZW5naGVpdGk%2Cshadow_10%2Ctext_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L2MyODY4OTgyMzI%3D%2Csize_16%2Ccolor_FFFFFF%2Ct_70#pic_center);background-color:#f6f6f6;background-position:center 68px;background-repeat:repeat-y}html.no-background body .layout-Container{background-image:none;background-color:#ffe}html .is-fullScreenPage #wah0713{display:none}html #wah0713{position:fixed;top:50%;transform:translateY(-50%);right:-182px;border:1px solid #ccc;border-radius:6px;z-index:20;padding:10px 5px;background:#fef54e url(https://img-blog.csdnimg.cn/20210116195614319.jpg?x-oss-process=image%2Fwatermark%2Ctype_ZmFuZ3poZW5naGVpdGk%2Cshadow_10%2Ctext_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L2MyODY4OTgyMzI%3D%2Csize_16%2Ccolor_FFFFFF%2Ct_70#pic_center) no-repeat 50%/100%;width:160px;transition:all .5s ease-out}html #wah0713.hasUpdate .tip{animation:Bigger 2s linear infinite}html #wah0713.hasUpdate .gear>img{animation-play-state:running}html #wah0713.hasUpdate .gear .redDot{display:block}html #wah0713 .tip{text-align:center;margin-bottom:5px;-webkit-user-select:none;-moz-user-select:none;-ms-user-select:none;user-select:none;cursor:default}html #wah0713 .tip>a{color:red}html #wah0713:hover{right:0}html #wah0713:hover>button{opacity:1}html #wah0713 .gear{width:32px;padding-right:13px;position:absolute;top:50%;left:-45px;transform:translateY(-50%)}html #wah0713 .gear>img{width:100%;animation:rotating 30s linear infinite paused;border-radius:33%}html #wah0713 .gear .redDot{display:none;width:9px;height:9px;background-color:#fd4a4e;border-radius:50%;position:absolute;top:3px;right:13px}html #wah0713>button{margin:0 auto 5px;display:block;line-height:1;white-space:nowrap;cursor:pointer;background:#409eff;border:1px solid #409eff;color:#fff;-webkit-appearance:none;text-align:center;box-sizing:border-box;outline:none;transition:.1s;font-weight:500;-webkit-user-select:none;-moz-user-select:none;-ms-user-select:none;user-select:none;padding:6px 10px;font-size:14px;border-radius:4px;opacity:.75}html #wah0713>button:last-of-type{margin-bottom:0}html #wah0713>button:hover{opacity:.8}html #wah0713>button.close{background-color:#fff;color:#409eff}html #wah0713-alert{display:none;padding:8px 16px;position:fixed;top:30%;left:50%;transform:translateX(-50%);z-index:30;-webkit-user-select:none;-moz-user-select:none;-ms-user-select:none;user-select:none;border:1px solid #ccc;border-radius:8px}html #wah0713-alert>i{width:14px;height:14px;display:inline-block;border-radius:50%;color:#fff;text-align:center;line-height:14px;font-family:Arial,Microsoft YaHei,黑体,宋体,sans-serif;margin-right:8px;position:relative;top:-1px}html #wah0713-alert.warning{background-color:#fff1f0;border-color:#f5222d}html #wah0713-alert.warning>i{background-color:#f5222d}html #wah0713-alert.info{background-color:#f4f4f5;border-color:#909399}html #wah0713-alert.info>i{background-color:#909399}html #wah0713-alert>span{font-family:Chinese Quote,-apple-system,BlinkMacSystemFont,Segoe UI,PingFang SC,Hiragino Sans GB,Microsoft YaHei,Helvetica Neue,Helvetica,Arial,sans-serif,Apple Color Emoji,Segoe UI Emoji,Segoe UI Symbol;font-size:14px;font-variant:tabular-nums;color:rgba(0,0,0,.65)}html .marginTop100{margin-top:100px!important}html .background-image-hide{background-image:none!important;background-color:transparent!important}html .Barrage-list.trim .Barrage-listItem>div .AnchorLevel,html .Barrage-list.trim .Barrage-listItem>div .AnchorLevel~:not(.Barrage-nickName,.Barrage-content),html .Barrage-list.trim .Barrage-listItem>div .UserLevel,html .Barrage-list.trim .Barrage-listItem>div .UserLevel~:not(.Barrage-nickName,.Barrage-content){display:none}#FansFestival2003Tips,#js-room-activity,.ActAutumnMilkTea2022Pop,.ActDayPay-toast,.activity-icon-4b45df,.activity-icon-c717fc,.ad-box-f661ba,.afterpic-8a2e13,.AnchorInterToolsUser,.AnchorPocketTips,.AnchorReturnDialog,.Barrage-chat-ad,.Barrage-list .Barrage-message,.Barrage-list .Barrage-userEnter,.Barrage-topFloater,.Barrage-userEnter,.bc-f66a59,.Bottom-ad,.ChargeTask-closeBg,.closeBg-998534,.code-box-15b952,.code_box-5cdf5a,.DanmuEffectDom-container,.DiamondsFansBarrage,.DiamondsFansPromptPop,.EnterEffect,.FirePower,.FirePowerIcon,.FirePowerRewardModal,.FishShopTip,.focus_box_con-7adc83,.FuDaiActPanel,.FudaiGiftToolBarTips,.guessIconReminding,.Header-download-wrap,.HeaderNav,.headpic-dda332,.LotteryContainer-svgaDes,.LuckyStartEnter,.multiBitRate-da4b60,.noble-icon-88f562,.noble-icon-c10b6a,.normalBg-a5403d,.noSubFloat-3e7a50,.ordinaryBcBox-8220a7,.PaladinWeek-toast,.PcDiversion,.PeacehandBarrage,.PlayerToolbar-signCont,.PrivilegeGiftModalDialog,.RechargeBigRewards,.recommendAD-54569e,.RedEnvelopAd-adBox,.RoomText-wrap,.SignBaseComponent-sign-ad,.SysSign-Ad,.Title-roomOtherBottom,.user-icon-8af1e3,.user-icon-eeabb1,.vivo-ad-743527,.watermark-442a18,.WishingForestDialog,.WXTipsBox,.XinghaiAd,[class^=adsRoot_]{display:none!important}.opacity0{opacity:0}.is-hide{display:none!important}.black,.black #wah0713,.black #wah0713-alert,.black .layout-Player-video,.black img{filter:invert(1)}@keyframes rotating{0%{transform:rotate(0)}to{transform:rotate(1turn)}}@keyframes Bigger{0%{transform:scale(.95)}50%{transform:scale(1)}to{transform:scale(.95)}}
  `)
   // debugJS
   // unsafeWindow.$ = $
