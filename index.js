@@ -17,7 +17,6 @@
 // @grant        GM_setValue
 // @grant        GM_getValue
 // @grant        GM_addStyle
-// @grant        GM_addValueChangeListener
 // @grant        GM_xmlhttpRequest
 // @grant        unsafeWindow
 // ==/UserScript==
@@ -253,10 +252,6 @@
   }
 
   const config = new Proxy({}, {
-    // get: function (target, propKey, receiver) {
-    //   console.log(`getting ${propKey}!`);
-    //   return Reflect.get(target, propKey, receiver);
-    // },
     set: function (target, propKey, value, receiver) {
       const {
         firstDelayTime,
@@ -347,9 +342,9 @@
 
     // 抽奖显示
     if (config.lotteryIsShow) {
-      // 抽奖中间部提示框、
+      // 抽奖中间部提示框
       $(".LotteryContainer").show()
-      // 抽奖(播放器左下角)、
+      // 抽奖(播放器左下角)
       $(".UPlayerLotteryEnter").removeClass('is-hide')
       // 中奖播放器中显示
       $(".LotteryContainer-svgaWrap").show()
@@ -357,9 +352,9 @@
       $('.LotteryDrawEnter').show()
 
     } else {
-      // 抽奖中间部提示框、
+      // 抽奖中间部提示框
       $(".LotteryContainer").hide()
-      // 抽奖(播放器左下角)、
+      // 抽奖(播放器左下角)
       $(".UPlayerLotteryEnter").addClass('is-hide')
       // 中奖播放器中显示
       $(".LotteryContainer-svgaWrap").hide()
