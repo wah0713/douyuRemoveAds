@@ -126,7 +126,7 @@ html.no-background body {
   background-color: #ffe;
 }
 html.no-background body.go-beyound {
-  background-image: url('https://img-blog.csdnimg.cn/20210116195614315.jpg?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L2MyODY4OTgyMzI=,size_16,color_FFFFFF,t_70#pic_center');
+  background-image: url('https://img-blog.csdnimg.cn/20210116195614315.jpg');
   background-color: #f6f6f6;
   background-position: center 68px;
   background-repeat: repeat-y;
@@ -147,7 +147,7 @@ html #wah0713 {
   border-radius: 6px;
   z-index: 20;
   padding: 10px 5px;
-  background: #fef54e url(https://img-blog.csdnimg.cn/20210116195614319.jpg?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L2MyODY4OTgyMzI=,size_16,color_FFFFFF,t_70#pic_center) no-repeat center / 100%;
+  background: #fef54e url(https://img-blog.csdnimg.cn/20210116195614319.jpg) no-repeat center / 100%;
   width: 160px;
   transition: all 0.5s ease-out;
 }
