@@ -29,10 +29,6 @@ html body .broadcastDiv-af5699 {
   opacity: 0 !important;
   visibility: hidden !important;
 }
-html body #js-header {
-  transition: 0.5s opacity;
-  opacity: 1;
-}
 html body .layout-Main {
   transition: 0.5s margin-top;
   margin-top: 0;
@@ -40,9 +36,6 @@ html body .layout-Main {
 html body #js-aside {
   margin-top: -68px;
   z-index: 401;
-}
-html body.head-hide #js-header {
-  opacity: 0.1;
 }
 html body .super-user-icon-574f31,
 html body .super-tail-bffa58,
