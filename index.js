@@ -521,7 +521,6 @@
         },
         responseType: "json",
         onload: function (res) {
-          console.log(`res`, res)
           // 这里不能格式化res?.response?.result?.result[0]
           resolve(res?.response?.result?.result[0]);
           // resolve(eval('res?.response?.result?.result[0]'));
@@ -531,9 +530,7 @@
   }
   // 显示房间数据
   async function showRoomData() {
-    console.log(`rid`, rid)
     const data = await getRoomData(rid)
-    console.log(`data`, data)
     if (!data) return false
     const {
       // 总礼物价值
