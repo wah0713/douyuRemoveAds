@@ -37,14 +37,19 @@ html body #js-aside {
   margin-top: -68px;
   z-index: 401;
 }
-html body .super-user-icon-574f31,
-html body .super-tail-bffa58,
-html body .super-noble-icon-9aacaf,
-html body .super-user-icon-574f31 {
+html body [class^='super-user-icon'],
+html body [class^='super-tail-'],
+html body [class^='super-noble-icon-'] {
   display: none !important;
 }
-html body .super-text-0281ca {
+html body [class^='super-text-'] {
   background: none !important;
+}
+html body [class^='super-text-'] > img {
+  display: none !important;
+}
+html body [class^='danmuItem-'] > img {
+  display: none !important;
 }
 html .Barrage {
   border-top: none;

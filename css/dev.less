@@ -49,15 +49,22 @@ html {
         }
 
         // 帝王 播放器内弹幕
-        .super-user-icon-574f31,
-        .super-tail-bffa58,
-        .super-noble-icon-9aacaf,
-        .super-user-icon-574f31 {
+        [class^='super-user-icon'],
+        [class^='super-tail-'],
+        [class^='super-noble-icon-'] {
             display: none !important
         }
 
-        .super-text-0281ca {
+        [class^='super-text-'] {
             background: none !important;
+
+            >img {
+                display: none !important
+            }
+        }
+
+        [class^='danmuItem-']>img {
+            display: none !important
         }
 
 
