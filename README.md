@@ -1,4 +1,4 @@
-# [斗鱼去火箭横幅(贵族弹幕样式&&聊天区域铭牌)](https://greasyfork.org/zh-CN/scripts/381934)
+# [简单斗鱼(贵族弹幕样式&&聊天区域铭牌)](https://greasyfork.org/zh-CN/scripts/381934)
 
 <details>
 <summary>📔功能介绍（点击查看）</summary>
