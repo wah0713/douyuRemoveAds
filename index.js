@@ -514,17 +514,18 @@
       //  dt 统计周期 0（今天） 1（昨天） 7（7天内 ） 30（30天）thismonth（本月）
       //  rank_type chat_pv 聊天和点击量
       GM_xmlhttpRequest({
-        url: `https://www.doseeing.com/data/api/rank?rids=${rid}&dt=0&rank_type=chat_pv`,
-        method: 'GET',
-        Headers: {
-          Host: 'www.doseeing.com',
-          Referer: `https://www.doseeing.com/data/room/${rid}?type=overview&dt=0`,
-        },
+        method: "POST",
+        url: `https://www.doseeing.com/xeee/room/aggr`,
+        data: `{"m":"${window.btoa(`rid=${rid}&dt=0`).split("").reverse().join("")}"}`,
         responseType: "json",
+        headers: {
+          "Content-Type": "application/json;charset=UTF-8",
+          "Origin": "https://www.doseeing.com",
+          "Referer": "https://www.doseeing.com/room/" + rid,
+          'user-agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/106.0.0.0 Safari/537.36'
+        },
         onload: function (res) {
-          // 这里不能格式化res?.response?.result?.result[0]
-          resolve(res?.response?.result?.result[0]);
-          // resolve(eval('res?.response?.result?.result[0]'));
+          resolve(res.response.data);
         }
       })
     })
