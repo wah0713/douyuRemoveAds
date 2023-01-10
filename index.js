@@ -510,9 +510,8 @@
   // 获取房间数据
   function getRoomData(rid) {
     return new Promise(resolve => {
-      //  rids房间号
+      //  rid 房间号
       //  dt 统计周期 0（今天） 1（昨天） 7（7天内 ） 30（30天）thismonth（本月）
-      //  rank_type chat_pv 聊天和点击量
       GM_xmlhttpRequest({
         method: "POST",
         url: `https://www.doseeing.com/xeee/room/aggr`,
