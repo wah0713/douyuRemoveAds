@@ -1,7 +1,7 @@
 {
   "name": "douyuRemoveAds",
   "version": "1.0.0",
-  "description": "斗鱼插件",
+  "description": "简单斗鱼",
   "private": true,
   "scripts": {
     "bundle": "SET NODE_OPTIONS=--openssl-legacy-provider && webpack"

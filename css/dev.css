@@ -359,6 +359,8 @@ html .Barrage-list.trim .Barrage-listItem > div .AnchorLevel ~ *:not(.Barrage-ni
 .AnchorInterToolsUser,
 .ActAutumnMilkTea2022Pop,
 .ScreenBannerAd,
+.HeaderGif-left,
+.HeaderGif-right,
 [class^='adsRoot_'],
 .headpic-dda332 {
   display: none !important;
