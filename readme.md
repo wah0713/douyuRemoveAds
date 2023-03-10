@@ -30,5 +30,5 @@
 这个脚本是工作之余，自己<del>低级程序员</del>练练手，所以也不要有太多期待。<br>
 在我写这个脚本那年，dy还是指douyu。时过境迁，沧海桑田。<br>
 <!-- dy/douyu -->
-[2.04]:https://img-blog.csdnimg.cn/86a68dcd2d1c4acdb81de24013d42dd2.png
-[2.03]:https://img-blog.csdnimg.cn/33340538dc584c569845c2d23ac770b9.png
+[2.04]:https://s1.ax1x.com/2023/03/11/ppuTzVg.png
+[2.03]:https://s1.ax1x.com/2023/03/11/ppu7p5j.png
