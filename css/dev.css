@@ -80,8 +80,7 @@ html .Barrage-listItem .Barrage-nickName {
 html .Barrage-listItem .Barrage-nickName.is-self {
   color: #ff5d23 !important;
 }
-html .PlayerToolbar-Wealth::before {
-  content: attr(showRoomData);
+html .PlayerToolbar-Wealth .first {
   white-space: pre;
   float: left;
   font-size: 12px;
@@ -240,7 +239,7 @@ html #wah0713-alert {
   top: 30%;
   left: 50%;
   transform: translateX(-50%);
-  z-index: 30;
+  z-index: 600;
   -webkit-user-select: none;
   -moz-user-select: none;
   -ms-user-select: none;
