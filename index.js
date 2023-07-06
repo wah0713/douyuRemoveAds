@@ -121,7 +121,7 @@
   }, 3 * 1000);
 
   // 版本号和提示语
-  $("#wah0713").append(`<p class='tip'>${version}版本（更新内容详情）</p>`)
+  $("#wah0713").append(`<p class='tip'>${version}版本(更新内容详情)</p>`)
   /**
    *  封装按钮显示事件
    * @param {string} localStorageName 按钮本地存储名
@@ -232,7 +232,7 @@
     },
     isShowRoomData: {
       name: '显示房间数据',
-      description: '显示房间数据（时间范围今天00:00到今晚24:00）,12分钟刷新数据一次__本功能由【BerryBarry11】提出',
+      description: '显示房间数据(时间范围今天00:00到今晚24:00),12分钟刷新数据一次__本功能由【BerryBarry11】提出',
       value: true,
       firstDelayTime: 10 * 1000,
       action: (value) => {
@@ -490,11 +490,11 @@
     // 输入框上方送礼3000毫米淡出
     $('#js-player-barrage .BarrageBanner').children().delay(1000 * 3).fadeOut('slow')
 
-    // 聊天框用户点赞 （parents多个s）
+    // 聊天框用户点赞 (parents多个s)
     $('.Barrage-list .roomDianzanIcon').parents('.Barrage-listItem').hide()
 
     // 聊天框用户相关消息广播
-    // 系统提示（例如禁言）Barrage-notice--red
+    // 系统提示(例如禁言)Barrage-notice--red
     $('.Barrage-list .Barrage-icon--sys').each((idx, dom) => {
       let domParent = $(dom).parent('.Barrage-listItem')
       if (config.forbiddenMessage) {
@@ -521,7 +521,7 @@
   function getRoomData(rid) {
     return new Promise(resolve => {
       //  rid 房间号
-      //  dt 统计周期 0（今天） 1（昨天） 7（7天内 ） 30（30天）thismonth（本月）
+      //  dt 统计周期 0(今天) 1(昨天) 7(7天内 ) 30(30天)thismonth(本月)
       GM_xmlhttpRequest({
         method: "POST",
         url: `https://www.doseeing.com/xeee/room/aggr`,
@@ -556,13 +556,13 @@
       "chat.pv": chatPv,
       // 总发弹幕人数
       "chat.uv": chatUv,
-      // 直播时间（分）
+      // 直播时间(分)
       "online.minutes": onlineMinutes,
       // 活跃人数
       "active.uv": activeUv,
     } = data
-    const firstRow = `💬弹幕数:${formatData(chatPv)}👨‍👩‍👧‍👦发弹幕人数:${formatData(chatUv)}⏱️直播时间:${formatData(onlineMinutes)}分🔥活跃人数:${formatData(activeUv)}`
-    const secondRow = `🎁礼物价值:${(formatPrice(giftAllPrice))}元🎅🏻礼物送礼人数:${formatData(giftAllUv)}💸付费礼物:${formatPrice(giftPaidPrice)}元🤴🏻付费送礼人数:${formatData(giftPaidUv)}
+    const firstRow = `💬弹幕数:${formatData(chatPv)} 👨‍👩‍👧‍👦发弹幕人数:${formatData(chatUv)} ⏱️直播时间:${formatData(onlineMinutes)} 分🔥活跃人数:${formatData(activeUv)} `
+    const secondRow = `🎁礼物价值:${(formatPrice(giftAllPrice))} 元🎅🏻礼物送礼人数:${formatData(giftAllUv)} 💸付费礼物:${formatPrice(giftPaidPrice)} 元🤴🏻付费送礼人数:${formatData(giftPaidUv)}
     `
     if (!$('.PlayerToolbar-Wealth .first').length) {
       $('.PlayerToolbar-Wealth').prepend('<div class="first"></div>')
