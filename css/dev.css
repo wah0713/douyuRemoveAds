@@ -132,6 +132,11 @@ html.no-background body .layout-Container {
   background-image: none;
   background-color: #ffe;
 }
+html.hidePk .PkView-9f6a2c,
+html.hidePk .MorePk,
+html.hidePk .PkView {
+  display: none;
+}
 html .is-fullScreenPage #wah0713 {
   display: none;
 }
@@ -361,6 +366,7 @@ html .Barrage-list.trim .Barrage-listItem > div .AnchorLevel ~ *:not(.Barrage-ni
 .HeaderGif-left,
 .HeaderGif-right,
 .DiamondsFans51PromptPop,
+.BarrageSuspendedBallAd,
 [class^='adsRoot_'],
 .headpic-dda332 {
   display: none !important;
