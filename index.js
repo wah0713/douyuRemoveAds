@@ -418,9 +418,9 @@
 
     // 是否显示【高能弹幕】
     if (config.isShowHighEnergyBarrageContainer) {
-      $(".HighEnergyBarrageContainer").addClass("is-hide")
-    } else {
       $(".HighEnergyBarrageContainer").removeClass("is-hide")
+    } else {
+      $(".HighEnergyBarrageContainer").addClass("is-hide")
     }
 
     // 弹幕悬停关闭
