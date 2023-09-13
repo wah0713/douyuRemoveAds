@@ -95,7 +95,7 @@
   // 右侧自定义按钮模块
   $('body').append(`
         <div id="wah0713">
-            <div class="gear" style="display: none;"><img src="https://s1.ax1x.com/2023/03/11/ppuTXKf.png">
+            <div class="gear" style="display: none;"><img src="https://z1.ax1x.com/2023/03/11/ppuTXKf.png">
                 <div class="redDot"></div>
             </div>
         </div>
@@ -207,6 +207,11 @@
     lotteryIsShow: {
       name: '抽奖显示',
       description: '抽奖是否显示__本功能由【lv88ff】提出',
+      value: false,
+    },
+    isShowHighEnergyBarrageContainer: {
+      name: '高能弹幕显示',
+      description: '高能弹幕是否显示__本功能由【随机的名字】提出',
       value: false,
     },
     backgroundIsShow: {
@@ -409,6 +414,13 @@
       $(".layout-Player-asideMainTop").addClass("hide")
     } else {
       $(".layout-Player-asideMainTop").removeClass("hide")
+    }
+
+    // 是否显示【高能弹幕】
+    if (config.isShowHighEnergyBarrageContainer) {
+      $(".HighEnergyBarrageContainer").addClass("is-hide")
+    } else {
+      $(".HighEnergyBarrageContainer").removeClass("is-hide")
     }
 
     // 弹幕悬停关闭

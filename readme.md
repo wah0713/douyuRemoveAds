@@ -32,5 +32,5 @@
 使用起来感觉还不错，想支持我的。可以给脚本点个赞<del>满足我那个该死的虚荣心</del><br>
 
 <!-- dy/douyu -->
-[2.4.0]:https://s1.ax1x.com/2023/03/11/ppuTzVg.png
-[2.3.0]:https://s1.ax1x.com/2023/03/11/ppu7p5j.png
+[2.4.0]:https://z1.ax1x.com/2023/03/11/ppuTzVg.png
+[2.3.0]:https://z1.ax1x.com/2023/03/11/ppu7p5j.png
