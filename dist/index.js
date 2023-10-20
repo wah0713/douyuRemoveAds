@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         简单斗鱼(贵族弹幕样式&&聊天区域铭牌)
 // @namespace    https://github.com/wah0713/douyuRemoveAds
-// @version      2.4.3
+// @version      2.4.4
 // @description  一个兴趣使然的脚本，本来只是屏蔽火箭横幅的脚本，到后来。。。 【✅功能按钮】 默认最高画质、弹幕悬停、竞猜显示、抽奖显示、背景显示、礼物栏简化、聊天框简化、禁言消息显示、聊天框用户铭牌显示、显示房间数据（👨‍👩‍👧‍👦人数、💸消费、⏱️时长）、默认网页全屏、夜间模式。 【✅默认设置】左侧展开默认收起、弹幕简化（贵族弹幕）、聊天框消息简化（大部分系统消息）【✅屏蔽】屏蔽内容过多，这里就不展开了....
 // @supportURL   https://github.com/wah0713/douyuRemoveAds/issues
 // @updateURL    https://greasyfork.org/scripts/381934/code/download.user.js
@@ -26,7 +26,7 @@
   if (!/^\/\d+$/.test(window.location.pathname) && window.location.pathname.indexOf('topic') === -1) return false
 
   // 版本号
-  const version = '2.4.3'
+  const version = '2.4.4'
   // 更新说明
   const updateNotes = version + `：<br>
         1、PK条是否显示__本功能由【backuponeday】提出<br>
@@ -586,8 +586,7 @@
       "active.uv": activeUv,
     } = data
     const firstRow = `💬弹幕数:${formatData(chatPv)} 👨‍👩‍👧‍👦发弹幕人数:${formatData(chatUv)} ⏱️直播时间:${formatData(onlineMinutes)}分 🔥活跃人数:${formatData(activeUv)}`
-    const secondRow = `🎁礼物价值:${(formatPrice(giftAllPrice))}元 🎅🏻礼物送礼人数:${formatData(giftAllUv)} 💸付费礼物:${formatPrice(giftPaidPrice)}元 🤴🏻付费送礼人数:${formatData(giftPaidUv)}
-    `
+    const secondRow = `🎁礼物价值:${(formatPrice(giftAllPrice))}元 🎅🏻礼物送礼人数:${formatData(giftAllUv)} 💸付费礼物:${formatPrice(giftPaidPrice)}元 🤴🏻付费送礼人数:${formatData(giftPaidUv)}`
     if (!$('.PlayerToolbar-Wealth .first').length) {
       $('.PlayerToolbar-Wealth').prepend('<div class="first"></div>')
     }
