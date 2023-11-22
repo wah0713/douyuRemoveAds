@@ -370,6 +370,8 @@ html .Barrage-list.trim .Barrage-listItem > div .AnchorLevel ~ *:not(.Barrage-ni
 .HeaderGif-right,
 .DiamondsFans51PromptPop,
 .BarrageSuspendedBallAd,
+.IconCardAdCard,
+#webmActKefuWeidget,
 [class^='adsRoot_'],
 .headpic-dda332 {
   display: none !important;
