@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         简单斗鱼(贵族弹幕样式&&聊天区域铭牌)
 // @namespace    https://github.com/wah0713/douyuRemoveAds
-// @version      2.4.5
+// @version      2.4.6
 // @description  一个兴趣使然的脚本，本来只是屏蔽火箭横幅的脚本，到后来。。。 【✅功能按钮】 默认最高画质、弹幕悬停、竞猜显示、抽奖显示、背景显示、礼物栏简化、聊天框简化、禁言消息显示、聊天框用户铭牌显示、显示房间数据（👨‍👩‍👧‍👦人数、💸消费、⏱️时长）、默认网页全屏、夜间模式。 【✅默认设置】左侧展开默认收起、弹幕简化（贵族弹幕）、聊天框消息简化（大部分系统消息）【✅屏蔽】屏蔽内容过多，这里就不展开了....
 // @supportURL   https://github.com/wah0713/douyuRemoveAds/issues
 // @updateURL    https://greasyfork.org/scripts/381934/code/download.user.js
@@ -412,9 +412,9 @@
     // 主播公告、贡献周榜、贵宾和粉丝团
     if (config.chatBoxCleaning) {
       $(".layout-Player-asideMainTop").addClass("hide")
-    } else {
+          } else {
       $(".layout-Player-asideMainTop").removeClass("hide")
-    }
+          }
 
     // 是否显示【高能弹幕】
     if (config.isShowHighEnergyBarrageContainer) {
@@ -635,7 +635,7 @@ ${secondRow}<br/>
 
   // 轮询
   async function walk(callBack) {
-          const res = await callBack()
+    const res = await callBack()
     if (!res) {
       return await walk(callBack)
     } else {
