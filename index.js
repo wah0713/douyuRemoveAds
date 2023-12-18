@@ -95,7 +95,7 @@
   // 右侧自定义按钮模块
   $('body').append(`
         <div id="wah0713">
-            <div class="gear" style="display: none;"><img src="https://z1.ax1x.com/2023/03/11/ppuTXKf.png">
+            <div class="gear" style="display: none;"><img src="https://s11.ax1x.com/2023/03/11/ppuTXKf.png">
                 <div class="redDot"></div>
             </div>
         </div>
