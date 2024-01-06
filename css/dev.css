@@ -136,6 +136,8 @@ html.no-background body .layout-Container {
   background-image: none;
   background-color: #ffe;
 }
+html.hidePk .RandomPKBar,
+html.hidePk .RandomPKBarrate,
 html.hidePk .PkView-9f6a2c,
 html.hidePk .MorePk,
 html.hidePk .PkView {
