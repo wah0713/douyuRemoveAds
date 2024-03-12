@@ -274,6 +274,18 @@
         }
       }
     },
+    hiddenTopBannerAdv: {
+      name: '显示头部广告',
+      description: '显示头部广告__本功能由【Greedy】提出',
+      value: false,
+      action: (value) => {
+        if (value) {
+          $('#js-room-top-banner').hide()
+        } else {
+          $('#js-room-top-banner').show()
+        }
+      }
+    },
   }
 
   const config = new Proxy({}, {
