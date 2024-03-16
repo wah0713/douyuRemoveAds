@@ -289,8 +289,9 @@ html #wah0713-alert > span {
   font-variant: tabular-nums;
   color: rgba(0, 0, 0, 0.65);
 }
-html .marginTop100 {
-  margin-top: 100px !important;
+html .top100 {
+  top: 100px !important;
+  height: 100% !important;
 }
 html .background-image-hide {
   background-image: none !important;
@@ -373,6 +374,7 @@ html .Barrage-list.trim .Barrage-listItem > div .AnchorLevel ~ *:not(.Barrage-ni
 .BarrageSuspendedBallAd,
 .IconCardAdCard,
 #webmActKefuWeidget,
+#js-room-top-banner,
 [class^='adsRoot_'],
 .headpic-dda332 {
   display: none !important;
