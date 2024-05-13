@@ -375,9 +375,13 @@ html .Barrage-list.trim .Barrage-listItem > div .AnchorLevel ~ *:not(.Barrage-ni
 .IconCardAdCard,
 #webmActKefuWeidget,
 #js-room-top-banner,
+.aside-top-uspension-box,
 [class^='adsRoot_'],
 .headpic-dda332 {
   display: none !important;
+}
+.layout-Player-asideMain {
+  top: 0 !important;
 }
 .opacity0 {
   opacity: 0;
