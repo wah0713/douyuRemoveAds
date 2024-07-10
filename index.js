@@ -9,7 +9,7 @@
 // @compatible   chrome
 // @license      MIT
 // @icon         https://www.douyu.com/favicon.ico
-// @require      https://cdn.bootcss.com/jquery/1.12.4/jquery.min.js
+// @require      https://code.jquery.com/jquery-1.12.4.min.js
 // @match        *://*.douyu.com/*
 // @match        *://douyu.com/*
 // @connect      doseeing.com
