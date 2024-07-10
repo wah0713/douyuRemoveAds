@@ -182,6 +182,23 @@
         }
       }
     },
+    ishideDanmu: {
+      name: '默认关闭弹幕',
+      description: '进入页面时选择关闭弹幕__本功能由【elexenon】提出',
+      value: false,
+      firstDelayTime: 10 * 1000,
+      action: async (value) => {
+        const isShow = $('.hidedanmu-5d54e2').hasClass('removed-9d4c42')
+        $('.shidedanmu-5d54e2').hasClass('.removed-9d4c42')
+        if (value && isShow) {
+          // 隐藏
+          $('.showdanmu-42b0ac').click()
+        } else if (!value && !isShow) {
+          // 显示
+          $('.hidedanmu-5d54e2').click()
+        }
+      }
+    },
     danmuMove: {
       name: '弹幕悬停',
       description: '播放器内弹幕被选中时悬停__本功能由【noob-one】提出',
@@ -274,29 +291,29 @@
         }
       }
     },
-    isAutoSendBarrage: {
-      name: '自动发弹幕',
-      description: '自动发弹幕__本功能由【wulawaya】提出',
-      value: false,
-      action: (value) => {
-        if (value) {
-          autoSendBarrageTimer = autoSendBarrage({
-            sendStr: '1',
-            checkStr: '你',
-            repetitions: 1,
-            time: 5, // min
-            checkNum: 30
-          })
-        } else {
-          clearTimeout(autoSendBarrageTimer)
-        }
-      }
-    },
+    // isAutoSendBarrage: {
+    //   name: '自动发弹幕',
+    //   description: '自动发弹幕__本功能由【wulawaya】提出',
+    //   value: false,
+    //   action: (value) => {
+    //     if (value) {
+    //       autoSendBarrageTimer = autoSendBarrage({
+    //         sendStr: '1',
+    //         checkStr: '你',
+    //         repetitions: 1,
+    //         time: 5, // min
+    //         checkNum: 30
+    //       })
+    //     } else {
+    //       clearTimeout(autoSendBarrageTimer)
+    //     }
+    //   }
+    // },
   }
 
   let autoSendBarrageTimer
   let autoSendBarrageTime
-// [{}]
+  // [{}]
   var autoSendBarrage = ({
     sendStr,
     checkStr = '',
